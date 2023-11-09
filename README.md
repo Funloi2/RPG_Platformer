@@ -41,13 +41,14 @@ This Java-based platformer RPG invites players to navigate through a dynamic and
    * Right-Click: Special ability
 2. **Objective:**
    * Navigate through the levels, avoiding obstacles and defeating enemies.
-   * Reach the end goal to progress to the next level.
+   * Kill the boss to finish the game.
 
 ## Game Mechanics
 
 * **Health and Lives:** Manage your character's health and limited lives wisely.
 * **Experience Points:** Earn XP by overcoming challenges and defeating enemies to level up.
 * **Abilities:** Unlock and upgrade special abilities to enhance your gameplay.
+* **Equipment:** Loot and equip equipment to boost your stats.
 
 ## Contributing
 

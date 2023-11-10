@@ -4,12 +4,14 @@ import entities.Player;
 import level.LevelManager;
 import main.Game;
 import utilz.LoadSave;
+import ui.overlay.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import static main.Game.GAME_HEIGHT;
+import static main.Game.GAME_WIDTH;
 
 public class Playing extends State implements StateMethods {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
@@ -17,6 +19,9 @@ public class Playing extends State implements StateMethods {
     // Class to use in playing state
     private Player player;
     private LevelManager levelManager;
+    private InventoryOverlay inventoryOverlay;
+    private PauseOverlay pauseOverlay;
+    private AtlasOverlay atlasOverlay;
 
     // Game border and level Offset var
     private int xLvlOffset;
@@ -24,7 +29,7 @@ public class Playing extends State implements StateMethods {
     private int leftBorder = (int) (0.50 * Game.GAME_WIDTH);
     private int rightBorder = (int) (0.50 * Game.GAME_WIDTH);
     private int topBorder = (int) (0.50 * GAME_HEIGHT);
-    private int downBorder = (int) (0.50 * GAME_HEIGHT);
+    private int downBorder = (int) (0.65 * GAME_HEIGHT);
 
     private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
     private int lvlTilesHeight = LoadSave.GetLevelData().length;
@@ -34,6 +39,11 @@ public class Playing extends State implements StateMethods {
 
     private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
     private int maxLvlOffsetY = maxTilesOffsetY * Game.TILES_SIZE;
+
+    // Overlay boolean
+    private boolean inventory = false;
+    private boolean paused = false;
+    private boolean useAtlas = false;
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -47,8 +57,11 @@ public class Playing extends State implements StateMethods {
 
     private void initClass() {
         levelManager = new LevelManager(game);
-        player = new Player(13 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39);
+        player = new Player(13 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39, this);
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
+        inventoryOverlay = new InventoryOverlay(this);
+        pauseOverlay = new PauseOverlay(this);
+        atlasOverlay = new AtlasOverlay(this);
     }
 
     private void checkCloseBorder() {
@@ -107,14 +120,27 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void update() {
-        player.update();
-        checkCloseBorder();
+        if (!inventory && !paused) {
+            player.update();
+            checkCloseBorder();
+        }
     }
 
     @Override
     public void draw(Graphics g) {
         levelManager.draw(g, xLvlOffset, yLvlOffset);
         player.render(g, xLvlOffset, yLvlOffset);
+
+        if (inventory || paused || useAtlas) {
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+            if (inventory)
+                inventoryOverlay.draw(g);
+            else if (paused)
+                pauseOverlay.draw(g);
+            else if (useAtlas)
+                atlasOverlay.draw(g);
+        }
     }
 
     @Override
@@ -142,6 +168,15 @@ public class Playing extends State implements StateMethods {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_Q -> player.setLeft(true);
             case KeyEvent.VK_D -> player.setRight(true);
+            case KeyEvent.VK_F -> player.setAction(true);
+            case KeyEvent.VK_I -> {
+                if (!paused)
+                    inventory = !inventory;
+            }
+            case KeyEvent.VK_ESCAPE -> {
+                if (!inventory)
+                    paused = !paused;
+            }
             case KeyEvent.VK_SPACE -> player.setJump(true);
         }
     }
@@ -151,6 +186,7 @@ public class Playing extends State implements StateMethods {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_Q -> player.setLeft(false);
             case KeyEvent.VK_D -> player.setRight(false);
+            case KeyEvent.VK_F -> player.setAction(false);
             case KeyEvent.VK_SPACE -> player.setJump(false);
         }
     }
@@ -164,4 +200,9 @@ public class Playing extends State implements StateMethods {
         return levelManager;
     }
 
+//    public void checkSpeakToAtlas() {
+//        if (player.getHitBox().intersects(atlas.getHitbox())) {
+//            useAtlas = true;
+//        }
+//    }
 }

@@ -1,5 +1,6 @@
 package entities;
 
+import gameStates.Playing;
 import main.Game;
 
 import static utilz.HelpMethod.*;
@@ -23,7 +24,7 @@ public class Player extends Entity {
     private boolean up;
     private boolean down;
     private boolean jump;
-    // private boolean action;
+    private boolean action;
 
     // Lvl gestion
     private int[][] lvlData;
@@ -33,7 +34,7 @@ public class Player extends Entity {
     // JUMPING AND GRAVITY
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
-//
+    //
 //    // Status bar UI
 //    private BufferedImage statusBarImg;
 //
@@ -55,11 +56,12 @@ public class Player extends Entity {
 //
 //    // TODO: Sort this
 //    private boolean attackChecked;
-//    private Playing playing;
+    private Playing playing;
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    public Player(float x, float y, int width, int height) {
+    public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
+        this.playing = playing;
 
         initHitBox(width, height);
     }
@@ -68,7 +70,15 @@ public class Player extends Entity {
 
     public void update() {
         updatePos();
+
+//        if (action) {
+//            checkSpeakToAtlas();
+//        }
     }
+
+//    private void checkSpeakToAtlas() {
+//        playing.checkSpeakToAtlas();
+//    }
 
     public void render(Graphics g, int xLvlOffset, int yLvlOffset) {
         drawHitBox(g, xLvlOffset, yLvlOffset);
@@ -201,5 +211,9 @@ public class Player extends Entity {
 
     public void setJump(boolean jump) {
         this.jump = jump;
+    }
+
+    public void setAction(boolean action) {
+        this.action = action;
     }
 }

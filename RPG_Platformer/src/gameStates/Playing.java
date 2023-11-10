@@ -9,6 +9,7 @@ import ui.overlay.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
@@ -29,7 +30,7 @@ public class Playing extends State implements StateMethods {
     private int leftBorder = (int) (0.50 * Game.GAME_WIDTH);
     private int rightBorder = (int) (0.50 * Game.GAME_WIDTH);
     private int topBorder = (int) (0.50 * GAME_HEIGHT);
-    private int downBorder = (int) (0.65 * GAME_HEIGHT);
+    private int downBorder = (int) (0.70 * GAME_HEIGHT);
 
     private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
     private int lvlTilesHeight = LoadSave.GetLevelData().length;
@@ -45,15 +46,26 @@ public class Playing extends State implements StateMethods {
     private boolean paused = false;
     private boolean useAtlas = false;
 
+    // Background
+    private BufferedImage backgroundImage, spawnBgImage;
+
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
 
     public Playing(Game game) {
         super(game);
         initClass();
+
+        loadBackground();
     }
 
+
     /// ------------------------------- METHOD ------------------------------- ///
+
+    private void loadBackground() {
+        backgroundImage = LoadSave.GetSpriteAtlas(LoadSave.BG_LEVEL);
+        spawnBgImage = LoadSave.GetSpriteAtlas(LoadSave.SPAWN_BG);
+    }
 
     private void initClass() {
         levelManager = new LevelManager(game);
@@ -128,6 +140,10 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void draw(Graphics g) {
+//        g.drawImage(backgroundImage, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
+        g.drawImage(spawnBgImage,(int)(0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE -yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT- 4 * Game.TILES_SIZE, null);
+
+
         levelManager.draw(g, xLvlOffset, yLvlOffset);
         player.render(g, xLvlOffset, yLvlOffset);
 

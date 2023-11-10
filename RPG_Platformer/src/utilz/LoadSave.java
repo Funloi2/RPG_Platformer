@@ -8,8 +8,8 @@ import java.io.InputStream;
 
 public class LoadSave {
 
-    public static final String LEVEL_MAP = "/lvl_data.png";
-    public static final String BLOCK_SPRITE = "/outside_sprites.png";
+    public static final String LEVEL_MAP = "/level/lvl_data.png";
+    public static final String BLOCK_SPRITE = "/level/outside_sprites.png";
 
 
     public static BufferedImage GetSpriteAtlas(String path) {

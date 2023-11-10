@@ -22,12 +22,22 @@ public class GamePanel extends JPanel {
     private Game game;
     private Player player;
     private LevelManager levelManager;
+
     private int xLvlOffset;
-    private int leftBorder = (int) (0.40 * Game.GAME_WIDTH);
-    private int rightBorder = (int) (0.60 * Game.GAME_WIDTH);
+    private int yLvlOffset;
+    private int leftBorder = (int) (0.50 * Game.GAME_WIDTH);
+    private int rightBorder = (int) (0.50 * Game.GAME_WIDTH);
+    private int topBorder = (int) (0.50 * GAME_HEIGHT);
+    private int downBorder = (int) (0.50 * GAME_HEIGHT);
+
     private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
+    private int lvlTilesHeight = LoadSave.GetLevelData().length;
+
     private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+    private int maxTilesOffsetY = lvlTilesHeight - Game.TILES_IN_HEIGHT;
+
     private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
+    private int maxLvlOffsetY = maxTilesOffsetY * Game.TILES_SIZE;
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -53,17 +63,19 @@ public class GamePanel extends JPanel {
     }
 
     private void initClass() {
-        this.player = new Player(100, 100, 100, 50);
         levelManager = new LevelManager(game);
+        player = new Player(13 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39);
+        player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
     }
 
     public void update() {
         player.update();
+        checkCloseBorder();
     }
 
     public void render(Graphics g) {
-        levelManager.draw(g, xLvlOffset);
-        player.render(g, xLvlOffset);
+        levelManager.draw(g, xLvlOffset, yLvlOffset);
+        player.render(g, xLvlOffset, yLvlOffset);
     }
 
     public void paintComponent(Graphics g) {
@@ -74,18 +86,36 @@ public class GamePanel extends JPanel {
 
     private void checkCloseBorder() {
         int playerX = (int) player.getHitBox().x;
-        int diff = playerX - xLvlOffset;
+        int playerY = (int) player.getHitBox().y;
 
-        if (diff > rightBorder) {
-            xLvlOffset += diff - rightBorder;
-        } else if (diff < leftBorder) {
-            xLvlOffset += diff - leftBorder;
+        int diffX = playerX - xLvlOffset;
+        int diffY = playerY - yLvlOffset;
+
+
+        // X Level Offset
+        if (diffX > rightBorder) {
+            xLvlOffset += diffX - rightBorder;
+        } else if (diffX < leftBorder) {
+            xLvlOffset += diffX - leftBorder;
         }
 
         if (xLvlOffset > maxLvlOffsetX) {
             xLvlOffset = maxLvlOffsetX;
         } else if (xLvlOffset < 0) {
             xLvlOffset = 0;
+        }
+
+        // Y Level Offset
+        if (diffY > downBorder) {
+            yLvlOffset += diffY - downBorder;
+        } else if (diffY < topBorder) {
+            yLvlOffset += diffY - topBorder;
+        }
+
+        if (yLvlOffset > maxLvlOffsetY) {
+            yLvlOffset = maxLvlOffsetY;
+        } else if (yLvlOffset < 0) {
+            yLvlOffset = 0;
         }
     }
 

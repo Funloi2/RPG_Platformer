@@ -2,6 +2,7 @@ package entities;
 
 import main.Game;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class Entity {
@@ -37,6 +38,21 @@ public class Entity {
         this.width = width;
         this.height = height;
     }
+
+    /// ------------------------------- METHOD ------------------------------- ///
+
+    protected void initHitBox(int width, int height) {
+        hitBox = new Rectangle2D.Float(x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE));
+    }
+
+    protected void drawHitBox(Graphics g, int xLVlOffset, int yLvlOffset) {
+        // for debugging the hitbox
+        g.setColor(Color.RED);
+        g.drawRect((int) hitBox.x - xLVlOffset, (int) hitBox.y - yLvlOffset, (int) hitBox.width, (int) hitBox.height);
+    }
+
+    /// ------------------------------- GETTER AND SETTER ------------------------------- ///
+
 
     public float getX() {
         return x;

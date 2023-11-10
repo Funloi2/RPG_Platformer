@@ -57,6 +57,8 @@ public class Player extends Entity {
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
+
+        initHitBox(width, height);
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -68,21 +70,21 @@ public class Player extends Entity {
     private void updatePos() {
 
         if (up) {
-            y -= 5;
+            hitBox.y -= 5;
         }
         if (down) {
-            y += 5;
+            hitBox.y += 5;
         }
         if (left) {
-            x -= 5;
+            hitBox.x -= 5;
         }
         if (right) {
-            x += 5;
+            hitBox.x += 5;
         }
     }
 
-    public void render(Graphics g, int xLvlOffset) {
-        g.fillRect((int) (x - xLvlOffset), (int) (y), width, height);
+    public void render(Graphics g, int xLvlOffset,int yLvlOffset) {
+        drawHitBox(g, xLvlOffset, yLvlOffset);
     }
 
     public void resetDirBooleans() {

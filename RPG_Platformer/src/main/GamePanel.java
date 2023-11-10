@@ -1,5 +1,6 @@
 package main;
 
+import entities.Player;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
@@ -12,6 +13,7 @@ public class GamePanel extends JPanel {
     public int xDelta = 100;
     public int yDelta = 100;
     private Game game;
+    private Player player;
 
     public GamePanel(Game game) {
         addKeyListener(new KeyboardInputs(this));
@@ -19,6 +21,7 @@ public class GamePanel extends JPanel {
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
         this.game = game;
+        this.player = new Player(100, 100, 100, 50);
 
     }
 
@@ -40,5 +43,9 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
 
         game.render(g);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

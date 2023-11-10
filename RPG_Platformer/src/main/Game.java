@@ -31,11 +31,11 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        
+        panel.getPlayer().update();
     }
 
     public void render(Graphics g) {
-        g.fillRect(100 + panel.xDelta, 100 + panel.yDelta, 200, 50);
+        panel.getPlayer().render(g);
     }
 
 

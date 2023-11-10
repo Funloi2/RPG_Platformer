@@ -1,17 +1,27 @@
 package main;
 
+import gameStates.GameState;
+import gameStates.Menu;
+import gameStates.Playing;
+
 import java.awt.*;
 import java.lang.management.PlatformLoggingMXBean;
 
 public class Game implements Runnable {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
-    private GameWindow window;
+
+    // Game panel and window
     private GamePanel panel;
+    private Window window;
 
     // Game Loop and FPS settings
     private Thread gameThread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
+
+    // STATES
+    private Playing playing;
+    private Menu menu;
 
     // Game size
     public static final int TILES_DEFAULT_SIZE = 32;
@@ -25,6 +35,7 @@ public class Game implements Runnable {
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Game() {
+        initClasses();
 
         panel = new GamePanel(this);
         window = new GameWindow(panel);
@@ -34,17 +45,36 @@ public class Game implements Runnable {
         startGameLoop();
     }
 
+    /// ------------------------------- METHOD ------------------------------- ///
+
+    private void initClasses() {
+        menu = new Menu(this);
+        playing = new Playing(this);
+    }
+
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
     public void update() {
-        panel.update();
+        switch (GameState.state) {
+            case PLAYING -> playing.update();
+            case MENU -> menu.update();
+            case QUIT -> System.exit(0);
+            case OPTION -> System.exit(1);
+        }
     }
 
     public void render(Graphics g) {
-        panel.render(g);
+        switch (GameState.state) {
+            case PLAYING -> {
+                playing.draw(g);
+            }
+            case MENU -> {
+                menu.draw(g);
+            }
+        }
     }
 
 
@@ -94,8 +124,18 @@ public class Game implements Runnable {
     }
 
     public void windowFocusLost() {
-
-        panel.getPlayer().resetDirBooleans();
-
+        if (GameState.state == GameState.PLAYING)
+            playing.getPlayer().resetDirBooleans();
     }
+
+    /// ------------------------------- CONSTRUCTOR ------------------------------- ///
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Playing getPlaying() {
+        return playing;
+    }
+
 }

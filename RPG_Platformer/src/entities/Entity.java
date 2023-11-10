@@ -19,10 +19,10 @@ public class Entity {
 //    protected int aniTick;
 //    protected int state;
 //
-//    // In air and movement
-//    protected float airSpeed;
-//    protected boolean inAir = false;
-    protected float walkSpeed = 1.0f;
+    // In air and movement
+    protected float airSpeed;
+    protected boolean inAir = false;
+    protected float walkSpeed = 1.5f;
 //
 //    //Health
 //    protected int maxHealth;

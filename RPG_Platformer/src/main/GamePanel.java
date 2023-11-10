@@ -25,10 +25,10 @@ public class GamePanel extends JPanel {
 
     private int xLvlOffset;
     private int yLvlOffset;
-    private int leftBorder = (int) (0.40 * Game.GAME_WIDTH);
-    private int rightBorder = (int) (0.60 * Game.GAME_WIDTH);
+    private int leftBorder = (int) (0.50 * Game.GAME_WIDTH);
+    private int rightBorder = (int) (0.50 * Game.GAME_WIDTH);
     private int topBorder = (int) (0.50 * GAME_HEIGHT);
-    private int downBorder = (int) (0.80 * GAME_HEIGHT);
+    private int downBorder = (int) (0.50 * GAME_HEIGHT);
 
     private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
     private int lvlTilesHeight = LoadSave.GetLevelData().length;
@@ -63,8 +63,9 @@ public class GamePanel extends JPanel {
     }
 
     private void initClass() {
-        this.player = new Player(13 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 100, 50);
         levelManager = new LevelManager(game);
+        player = new Player(13 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39);
+        player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
     }
 
     public void update() {

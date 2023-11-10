@@ -3,6 +3,7 @@ package entities;
 import main.Game;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -80,8 +81,8 @@ public class Player extends Entity {
         }
     }
 
-    public void render(Graphics g) {
-        g.fillRect((int) x, (int) y, width, height);
+    public void render(Graphics g, int xLvlOffset) {
+        g.fillRect((int) (x - xLvlOffset), (int) (y), width, height);
     }
 
     public void resetDirBooleans() {

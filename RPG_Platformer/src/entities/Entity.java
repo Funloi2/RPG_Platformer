@@ -10,6 +10,8 @@ public class Entity {
     // Size and position
     protected float x, y;
     protected int width, height;
+    protected Rectangle2D.Float hitBox;
+
 
     //    // Animation
 //    protected int aniIndex;
@@ -50,5 +52,9 @@ public class Entity {
 
     public int getWidth() {
         return width;
+    }
+
+    public Rectangle2D.Float getHitBox() {
+        return hitBox;
     }
 }

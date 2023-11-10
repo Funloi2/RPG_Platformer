@@ -13,6 +13,15 @@ public class Game implements Runnable {
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
 
+    // Game size
+    public static final int TILES_DEFAULT_SIZE = 32;
+    public static final float SCALE = 1.5f;
+    public static final int TILES_IN_WIDTH = 26;
+    public static final int TILES_IN_HEIGHT = 14;
+    public static final int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
+    public static final int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+    public static final int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
+
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Game() {
@@ -31,11 +40,11 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        panel.getPlayer().update();
+        panel.update();
     }
 
     public void render(Graphics g) {
-        panel.getPlayer().render(g);
+        panel.render(g);
     }
 
 
@@ -82,5 +91,11 @@ public class Game implements Runnable {
                 update = 0;
             }
         }
+    }
+
+    public void windowFocusLost() {
+
+        panel.getPlayer().resetDirBooleans();
+
     }
 }

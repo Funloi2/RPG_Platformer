@@ -3,6 +3,7 @@ package gameStates;
 import entities.Player;
 import level.LevelManager;
 import main.Game;
+import objects.Altar;
 import utilz.LoadSave;
 import ui.overlay.*;
 
@@ -23,6 +24,7 @@ public class Playing extends State implements StateMethods {
     private InventoryOverlay inventoryOverlay;
     private PauseOverlay pauseOverlay;
     private AtlasOverlay atlasOverlay;
+    private Altar altar;
 
     // Game border and level Offset var
     private int xLvlOffset;
@@ -69,11 +71,12 @@ public class Playing extends State implements StateMethods {
 
     private void initClass() {
         levelManager = new LevelManager(game);
-        player = new Player(13 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39, this);
+        player = new Player(8 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39, this);
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         inventoryOverlay = new InventoryOverlay(this);
         pauseOverlay = new PauseOverlay(this);
         atlasOverlay = new AtlasOverlay(this);
+        altar = new Altar(13 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
     }
 
     private void checkCloseBorder() {
@@ -115,6 +118,12 @@ public class Playing extends State implements StateMethods {
 
     }
 
+    public void checkSpeakToAtlas() {
+        if (player.getHitBox().intersects(altar.getHitBox())) {
+            useAtlas = true;
+        }
+    }
+
     private int handleLvlOffset(int diff, int startBorder, int endBorder, int offset, int maxOffset) {
         if (diff > endBorder) {
             return offset + diff - endBorder;
@@ -132,7 +141,7 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void update() {
-        if (!inventory && !paused) {
+        if (!inventory && !paused && !useAtlas) {
             player.update();
             checkCloseBorder();
         }
@@ -141,11 +150,12 @@ public class Playing extends State implements StateMethods {
     @Override
     public void draw(Graphics g) {
 //        g.drawImage(backgroundImage, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
-        g.drawImage(spawnBgImage,(int)(0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE -yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT- 4 * Game.TILES_SIZE, null);
+        g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
 
 
         levelManager.draw(g, xLvlOffset, yLvlOffset);
         player.render(g, xLvlOffset, yLvlOffset);
+        altar.draw(g, xLvlOffset, yLvlOffset);
 
         if (inventory || paused || useAtlas) {
             g.setColor(new Color(0, 0, 0, 150));
@@ -186,15 +196,18 @@ public class Playing extends State implements StateMethods {
             case KeyEvent.VK_D -> player.setRight(true);
             case KeyEvent.VK_F -> player.setAction(true);
             case KeyEvent.VK_I -> {
-                if (!paused)
+                if (!paused && !useAtlas)
                     inventory = !inventory;
             }
             case KeyEvent.VK_ESCAPE -> {
-                if (!inventory)
+                if (!inventory && !useAtlas)
                     paused = !paused;
+                if (useAtlas)
+                    useAtlas = false;
             }
             case KeyEvent.VK_SPACE -> player.setJump(true);
         }
+
     }
 
     @Override
@@ -216,9 +229,5 @@ public class Playing extends State implements StateMethods {
         return levelManager;
     }
 
-//    public void checkSpeakToAtlas() {
-//        if (player.getHitBox().intersects(atlas.getHitbox())) {
-//            useAtlas = true;
-//        }
-//    }
+
 }

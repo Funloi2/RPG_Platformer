@@ -5,6 +5,8 @@ import main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static utilz.Constants.PlayerConstants.*;
+
 public class Entity {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
 
@@ -14,16 +16,16 @@ public class Entity {
     protected Rectangle2D.Float hitBox;
 
 
-    //    // Animation
-//    protected int aniIndex;
-//    protected int aniTick;
-//    protected int state;
-//
+    // Animation
+    protected int aniIndex;
+    protected int aniTick;
+    protected int state;
+
     // In air and movement
     protected float airSpeed;
     protected boolean inAir = false;
     protected float walkSpeed = 1.5f;
-//
+
 //    //Health
 //    protected int maxHealth;
 //    protected int currentHealth;

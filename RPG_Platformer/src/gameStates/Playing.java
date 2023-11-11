@@ -149,7 +149,7 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void draw(Graphics g) {
-//        g.drawImage(backgroundImage, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
+        g.drawImage(backgroundImage, 0 - xLvlOffset, 0 - yLvlOffset, (int) (GAME_WIDTH * 2.4), (int) (GAME_HEIGHT * 1.8), null);
         g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
 
 

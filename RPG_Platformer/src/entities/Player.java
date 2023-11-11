@@ -71,14 +71,14 @@ public class Player extends Entity {
     public void update() {
         updatePos();
 
-//        if (action) {
-//            checkSpeakToAtlas();
-//        }
+        if (action) {
+            checkSpeakToAtlas();
+        }
     }
 
-//    private void checkSpeakToAtlas() {
-//        playing.checkSpeakToAtlas();
-//    }
+    private void checkSpeakToAtlas() {
+        playing.checkSpeakToAtlas();
+    }
 
     public void render(Graphics g, int xLvlOffset, int yLvlOffset) {
         drawHitBox(g, xLvlOffset, yLvlOffset);

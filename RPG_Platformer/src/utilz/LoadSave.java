@@ -10,6 +10,8 @@ public class LoadSave {
 
     public static final String LEVEL_MAP = "/level/lvl_data.png";
     public static final String BLOCK_SPRITE = "/level/outside_sprites.png";
+    public static final String BG_LEVEL = "/level/test_fond.png";
+    public static final String SPAWN_BG = "/level/spawn_bg_not_final.jpeg";
 
 
     public static BufferedImage GetSpriteAtlas(String path) {

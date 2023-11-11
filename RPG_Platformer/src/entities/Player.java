@@ -2,9 +2,11 @@ package entities;
 
 import gameStates.Playing;
 import main.Game;
+import utilz.LoadSave;
 
+import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethod.*;
-import static utilz.Constants.GRAVITY;
+import static utilz.Constants.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -12,13 +14,13 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
-//    // Sprites
-//    private BufferedImage[][] animation;
-//    private BufferedImage image;
+    // Sprites
+    private BufferedImage[][] animation;
+    private BufferedImage image;
 
     // Action boolean
-    // private boolean moving = false;
-    // private boolean attacking = false;
+    private boolean moving = false;
+    private boolean attacking = false;
     private boolean left;
     private boolean right;
     private boolean up;
@@ -28,14 +30,16 @@ public class Player extends Entity {
 
     // Lvl gestion
     private int[][] lvlData;
-    //    private float xDrawOffset = 24 * Game.SCALE;
-//    private float yDrawOffset = 25 * Game.SCALE;
-//
+
+    // Draw offset
+    private float xDrawOffset = 45 * Game.SCALE;
+    private float yDrawOffset = 40 * Game.SCALE;
+
     // JUMPING AND GRAVITY
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
-    //
-//    // Status bar UI
+
+    //    // Status bar UI
 //    private BufferedImage statusBarImg;
 //
 //    private int statusBarWidth = (int) (192 * Game.SCALE);
@@ -49,12 +53,12 @@ public class Player extends Entity {
 //    private int healthBarYStart = (int) (14 * Game.SCALE);
 //
 //    private int healthWidth = healthBarWidth;
-//
-//    // Flip sprite
-//    private int flipX = 0;
-//    private int flipY = 1;
-//
-//    // TODO: Sort this
+
+    // Flip sprite
+    private int flipX = 0;
+    private int flipY = 1;
+
+    // TODO: Sort this
 //    private boolean attackChecked;
     private Playing playing;
 
@@ -62,17 +66,94 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
         this.playing = playing;
+        this.state = IDLE;
 
+        loadAnimation();
         initHitBox(width, height);
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
+
+    private void loadAnimation() {
+        animation = new BufferedImage[11][12];
+
+        String[] listPath = new String[11];
+        listPath[0] = "/player/_Attack.png";
+        listPath[1] = "/player/_Attack2.png";
+        listPath[2] = "/player/_AttackCombo.png";
+        listPath[3] = "/player/_Death.png";
+        listPath[4] = "/player/_Fall.png";
+        listPath[5] = "/player/_Hit.png";
+        listPath[6] = "/player/_Idle.png";
+        listPath[7] = "/player/_Jump.png";
+        listPath[8] = "/player/_Roll.png";
+        listPath[9] = "/player/_Run.png";
+        listPath[10] = "/player/_TurnAround.png";
+
+        for (int j = 0; j < animation.length; j++) {
+            image = LoadSave.GetSpriteAtlas(listPath[j]);
+            for (int i = 0; i < animation[j].length; i++) {
+                if (i < GetSpriteAmount(j))
+                    animation[j][i] = image.getSubimage(i * 120, 0, 120, 80);
+            }
+        }
+    }
 
     public void update() {
         updatePos();
 
         if (action) {
             checkSpeakToAtlas();
+        }
+
+        updateAnimationTick();
+        setAnimation();
+    }
+
+    private void setAnimation() {
+        int startAni = state;
+
+        if (moving) {
+            state = RUN;
+        } else {
+            state = IDLE;
+        }
+
+        if (inAir) {
+            if (airSpeed < 0) {
+                state = JUMP;
+            }
+        }
+
+        if (attacking) {
+            state = ATTACK;
+            if (startAni != ATTACK) {
+                aniIndex = 2;
+                aniTick = 0;
+                return;
+            }
+        }
+
+        if (startAni != state) {
+            resetAniTick();
+        }
+    }
+
+    private void resetAniTick() {
+        aniTick = 0;
+        aniIndex = 0;
+    }
+
+    private void updateAnimationTick() {
+        aniTick++;
+        if (aniTick >= PLAYER_ANI_SPEED) {
+            aniTick = 0;
+            aniIndex++;
+            if (aniIndex >= GetSpriteAmount(state)) {
+                aniIndex = 0;
+//                attacking = false;
+//                attackChecked = false;
+            }
         }
     }
 
@@ -81,10 +162,18 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g, int xLvlOffset, int yLvlOffset) {
+
         drawHitBox(g, xLvlOffset, yLvlOffset);
+        
+        g.drawImage(animation[state][aniIndex],
+                (int) (hitBox.x - xLvlOffset - xDrawOffset+ flipX ),
+                (int) (hitBox.y - yLvlOffset - yDrawOffset),
+                (int) (120 * flipY * Game.SCALE), (int) (80 * Game.SCALE), null);
+
     }
 
     private void updatePos() {
+        moving = false;
 
         if (jump) {
             jump();
@@ -106,9 +195,13 @@ public class Player extends Entity {
 //        }
         if (left) {
             xSpeed -= walkSpeed;
+            flipX = (int) (xDrawOffset * 2 + (120 * Game.SCALE - 2*xDrawOffset - 18));
+            flipY = -1;
         }
         if (right) {
             xSpeed += walkSpeed;
+            flipX = 0;
+            flipY = 1;
         }
 
 
@@ -133,6 +226,8 @@ public class Player extends Entity {
         } else {
             updateXPos(xSpeed);
         }
+
+        moving = true;
 
     }
 

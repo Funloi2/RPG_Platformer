@@ -1,5 +1,6 @@
 package inputs;
 
+import gameStates.GameState;
 import main.Game;
 import main.GamePanel;
 
@@ -17,7 +18,11 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse clicked!");
+        switch (GameState.state) {
+            case PLAYING -> {
+                gamePanel.getGame().getPlaying().mouseClicked(e);
+            }
+        }
     }
 
     @Override

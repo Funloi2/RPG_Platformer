@@ -26,12 +26,12 @@ public abstract class Entity {
     protected boolean inAir = false;
     protected float walkSpeed = 1.5f;
 
-//    //Health
-//    protected int maxHealth;
-//    protected int currentHealth;
-//
-//    // AttackBox
-//    protected Rectangle2D.Float attackBox;
+    //Health
+    protected int maxHealth;
+    protected int currentHealth;
+
+    // AttackBox
+    protected Rectangle2D.Float attackBox;
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Entity(float x, float y, int width, int height) {
@@ -47,10 +47,19 @@ public abstract class Entity {
         hitBox = new Rectangle2D.Float(x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE));
     }
 
+    protected void initAttackBox(int width, int height) {
+        attackBox = new Rectangle2D.Float(x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE));
+    }
+
     protected void drawHitBox(Graphics g, int xLVlOffset, int yLvlOffset) {
         // for debugging the hitbox
         g.setColor(Color.RED);
         g.drawRect((int) hitBox.x - xLVlOffset, (int) hitBox.y - yLvlOffset, (int) hitBox.width, (int) hitBox.height);
+    }
+
+    protected void drawAttackBox(Graphics g, int xLvlOffset, int yLvlOffset) {
+        g.setColor(Color.RED);
+        g.drawRect((int) attackBox.x - xLvlOffset, (int) attackBox.y - yLvlOffset, (int) attackBox.width, (int) attackBox.height);
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///

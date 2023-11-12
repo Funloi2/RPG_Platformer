@@ -1,5 +1,6 @@
 package utilz;
 
+import entities.Enemy;
 import entities.Goblin;
 import main.Game;
 

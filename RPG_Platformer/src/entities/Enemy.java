@@ -2,6 +2,8 @@ package entities;
 
 import main.Game;
 
+import java.awt.geom.Rectangle2D;
+
 import static utilz.Constants.*;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Direction.*;
@@ -12,7 +14,7 @@ public class Enemy extends Entity {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
     protected int enemyType;
     protected boolean firstUpdate = true;
-    protected int walkDir = LEFT;
+    protected int walkDir = RIGHT;
     protected int tileY;
     protected float attackDistance = Game.TILES_SIZE;
     protected boolean active = true;
@@ -127,18 +129,24 @@ public class Enemy extends Entity {
         }
     }
 
-//    public void hurt(int amount) {
-//        currentHealth -= amount;
-//        if (currentHealth <= 0) {
-//            newState(DEAD);
-//        } else {
-//            newState(HURT);
-//        }
-//    }
+    protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
+        if (attackBox.intersects(player.getHitBox())) {
+            player.changeHealth(-GetEnemyDmg(enemyType));
+        }
+        attackChecked = true;
+    }
+
+    public void hurt(int amount) {
+        currentHealth -= amount;
+        if (currentHealth <= 0) {
+            newState(DEATH);
+        } else {
+            newState(HURT);
+        }
+    }
 
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
-
 
     public boolean isActive() {
         return active;

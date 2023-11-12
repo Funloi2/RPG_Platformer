@@ -11,6 +11,7 @@ import ui.overlay.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static main.Game.GAME_HEIGHT;
@@ -127,6 +128,10 @@ public class Playing extends State implements StateMethods {
         }
     }
 
+    public void checkEnemyHit(Rectangle2D.Float attackBox) {
+        enemyManager.checkEnemyHit(attackBox);
+    }
+
     private int handleLvlOffset(int diff, int startBorder, int endBorder, int offset, int maxOffset) {
         if (diff > endBorder) {
             return offset + diff - endBorder;
@@ -176,7 +181,10 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+//        if (!gameOver)
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                player.setAttacking(true);
+            }
     }
 
     @Override

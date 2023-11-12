@@ -5,6 +5,7 @@ import utilz.HelpMethod;
 import utilz.LoadSave;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class EnemyManager {
                         (int) (gob.getHitBox().y - yLvlOffset - GOBLIN_DRAWOFFSET_Y)
                         , GOBLIN_WIDTH * gob.flipY(), GOBLIN_HEIGHT, null);
                 gob.drawHitBox(g, xLvlOffset, yLvlOffset);
-//                gob.drawAttackBox(g, xLvlOffset, yLvlOffset);
+                gob.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
         }
     }
@@ -83,15 +84,15 @@ public class EnemyManager {
 
     }
 
-//    public void checkEnemyHit(Rectangle2D.Float attackBox) {
-//        for (Goblin gob : goblins) {
-//            if (gob.isActive())
-//                if (attackBox.intersects(gob.getHitBox())) {
-//                    gob.hurt(10);
-//                    return;
-//                }
-//        }
-//    }
+    public void checkEnemyHit(Rectangle2D.Float attackBox) {
+        for (Goblin gob : goblins) {
+            if (gob.isActive())
+                if (attackBox.intersects(gob.getHitBox())) {
+                    gob.hurt(10);
+                    return;
+                }
+        }
+    }
 
 
 //    public void resetAllEnemies() {

@@ -1,5 +1,6 @@
 package gameStates;
 
+import entities.EnemyManager;
 import entities.Player;
 import level.LevelManager;
 import main.Game;
@@ -21,6 +22,7 @@ public class Playing extends State implements StateMethods {
     // Class to use in playing state
     private Player player;
     private LevelManager levelManager;
+    private EnemyManager enemyManager;
     private InventoryOverlay inventoryOverlay;
     private PauseOverlay pauseOverlay;
     private AtlasOverlay atlasOverlay;
@@ -71,6 +73,7 @@ public class Playing extends State implements StateMethods {
 
     private void initClass() {
         levelManager = new LevelManager(game);
+        enemyManager = new EnemyManager(this);
         player = new Player(8 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39, this);
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         inventoryOverlay = new InventoryOverlay(this);
@@ -142,6 +145,7 @@ public class Playing extends State implements StateMethods {
     @Override
     public void update() {
         if (!inventory && !paused && !useAtlas) {
+            enemyManager.update(levelManager.getCurrentLevel().getLvlData(), player);
             player.update();
             checkCloseBorder();
         }
@@ -155,6 +159,7 @@ public class Playing extends State implements StateMethods {
 
         levelManager.draw(g, xLvlOffset, yLvlOffset);
         player.render(g, xLvlOffset, yLvlOffset);
+        enemyManager.draw(g, xLvlOffset, yLvlOffset);
         altar.draw(g, xLvlOffset, yLvlOffset);
 
         if (inventory || paused || useAtlas) {

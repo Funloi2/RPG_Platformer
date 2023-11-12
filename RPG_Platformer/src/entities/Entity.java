@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
 
 import static utilz.Constants.PlayerConstants.*;
 
-public class Entity {
+public abstract class Entity {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
 
     // Size and position
@@ -74,5 +74,17 @@ public class Entity {
 
     public Rectangle2D.Float getHitBox() {
         return hitBox;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public int getAniIndex() {
+        return aniIndex;
+    }
+
+    public int getAniTick() {
+        return aniTick;
     }
 }

@@ -2,16 +2,17 @@ package entities;
 
 import main.Game;
 
+import static utilz.Constants.Direction.LEFT;
+import static utilz.Constants.Direction.RIGHT;
 import static utilz.Constants.EnemyConstants.*;
-import static utilz.Constants.Direction.*;
 
-public class Goblin extends Enemy {
+public class Mushroom extends Enemy {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
 
-    public Goblin(float x, float y) {
-        super(x, y, GOBLIN_WIDTH, GOBLIN_HEIGHT, GOBLIN);
+    public Mushroom(float x, float y) {
+        super(x, y, MUSHROOM_WIDTH, MUSHROOM_HEIGHT, MUSHROOM);
         initHitBox(20, 39);
         initAttackBox(90, 35);
 
@@ -29,7 +30,7 @@ public class Goblin extends Enemy {
         if (walkDir == RIGHT) {
             attackBox.x = hitBox.x - (int) (Game.SCALE * 35);
         } else if (walkDir == LEFT) {
-            attackBox.x = hitBox.x - (int) (attackBox.width - (Game.SCALE * 35) - hitBox.width);
+            attackBox.x = hitBox.x - attackBox.width + (int) (Game.SCALE * 20);
         }
         attackBox.y = hitBox.y + (Game.SCALE * 4);
     }
@@ -71,25 +72,7 @@ public class Goblin extends Enemy {
         }
     }
 
-    public int flipX() {
-        if (walkDir == RIGHT) {
-
-            return 0;
-        } else {
-
-            return width;
-        }
-    }
-
-    public int flipY() {
-        if (walkDir == RIGHT) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
 
 
-    /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
 }

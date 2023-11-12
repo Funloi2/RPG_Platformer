@@ -39,37 +39,40 @@ public class Player extends Entity {
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 
-    //    // Status bar UI
-//    private BufferedImage statusBarImg;
-//
-//    private int statusBarWidth = (int) (192 * Game.SCALE);
-//    private int statusBarHeight = (int) (58 * Game.SCALE);
-//    private int statusBarX = (int) (10 * Game.SCALE);
-//    private int statusBarY = (int) (10 * Game.SCALE);
-//
-//    private int healthBarWidth = (int) (150 * Game.SCALE);
-//    private int healthBarHeight = (int) (4 * Game.SCALE);
-//    private int healthBarXStart = (int) (34 * Game.SCALE);
-//    private int healthBarYStart = (int) (14 * Game.SCALE);
-//
-//    private int healthWidth = healthBarWidth;
+    // Status bar UI
+    private BufferedImage statusBarImg;
+
+    private int statusBarWidth = (int) (192 * Game.SCALE);
+    private int statusBarHeight = (int) (58 * Game.SCALE);
+    private int statusBarX = (int) (10 * Game.SCALE);
+    private int statusBarY = (int) (10 * Game.SCALE);
+
+    private int healthBarWidth = (int) (150 * Game.SCALE);
+    private int healthBarHeight = (int) (4 * Game.SCALE);
+    private int healthBarXStart = (int) (34 * Game.SCALE);
+    private int healthBarYStart = (int) (14 * Game.SCALE);
+
+    private int healthWidth = healthBarWidth;
 
     // Flip sprite
     private int flipX = 0;
     private int flipY = 1;
 
     // TODO: Sort this
-//    private boolean attackChecked;
+    private boolean attackChecked;
     private Playing playing;
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
         this.playing = playing;
-        this.state = IDLE;
+        state = IDLE;
+        maxHealth = 100;
+        currentHealth = maxHealth;
 
         loadAnimation();
         initHitBox(width, height);
+        initAttackBox(51, 42);
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -100,15 +103,50 @@ public class Player extends Entity {
     }
 
     public void update() {
+        updateHealthBar();
+
+        if (currentHealth <= 0) {
+//            playing.setGameOver(true);
+            return;
+        }
+        updateAttackBox();
+
         updatePos();
 
         if (action) {
             checkSpeakToAtlas();
         }
+        if (attacking) {
+            checkAttack();
+        }
 
         updateAnimationTick();
         setAnimation();
     }
+
+    private void checkAttack() {
+        if (attackChecked || aniIndex != 2) {
+            return;
+        }
+        attackChecked = true;
+        playing.checkEnemyHit(attackBox);
+//        playing.checkObjectHit(attackBox);
+
+    }
+
+    private void updateAttackBox() {
+        if (right) {
+            attackBox.x = hitBox.x + hitBox.width /*+ (int) (Game.SCALE * 20)*/;
+        } else if (left) {
+            attackBox.x = hitBox.x - attackBox.width /*- (int) (Game.SCALE * 20)*/;
+        }
+        attackBox.y = hitBox.y - (Game.SCALE * 5);
+    }
+
+    private void updateHealthBar() {
+        healthWidth = (int) ((currentHealth / (float) (maxHealth)) * healthBarWidth);
+    }
+
 
     private void setAnimation() {
         int startAni = state;
@@ -128,7 +166,7 @@ public class Player extends Entity {
         if (attacking) {
             state = ATTACK;
             if (startAni != ATTACK) {
-                aniIndex = 2;
+                aniIndex = 0;
                 aniTick = 0;
                 return;
             }
@@ -151,8 +189,8 @@ public class Player extends Entity {
             aniIndex++;
             if (aniIndex >= GetSpriteAmount(state)) {
                 aniIndex = 0;
-//                attacking = false;
-//                attackChecked = false;
+                attacking = false;
+                attackChecked = false;
             }
         }
     }
@@ -164,12 +202,19 @@ public class Player extends Entity {
     public void render(Graphics g, int xLvlOffset, int yLvlOffset) {
 
         drawHitBox(g, xLvlOffset, yLvlOffset);
-        
+        drawAttackBox(g, xLvlOffset, yLvlOffset);
+
         g.drawImage(animation[state][aniIndex],
-                (int) (hitBox.x - xLvlOffset - xDrawOffset+ flipX ),
+                (int) (hitBox.x - xLvlOffset - xDrawOffset + flipX),
                 (int) (hitBox.y - yLvlOffset - yDrawOffset),
                 (int) (120 * flipY * Game.SCALE), (int) (80 * Game.SCALE), null);
+        drawUI(g);
+    }
 
+    private void drawUI(Graphics g) {
+//        g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.RED);
+        g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
     }
 
     private void updatePos() {
@@ -195,7 +240,7 @@ public class Player extends Entity {
 //        }
         if (left) {
             xSpeed -= walkSpeed;
-            flipX = (int) (xDrawOffset * 2 + (120 * Game.SCALE - 2*xDrawOffset - 18));
+            flipX = (int) (xDrawOffset * 2 + (120 * Game.SCALE - 2 * xDrawOffset - 18));
             flipY = -1;
         }
         if (right) {
@@ -261,6 +306,16 @@ public class Player extends Entity {
         }
     }
 
+    public void changeHealth(int value) {
+        currentHealth += value;
+
+        if (currentHealth <= 0) {
+            currentHealth = 0;
+            // gameOver();
+        } else if (currentHealth >= maxHealth) {
+            currentHealth = maxHealth;
+        }
+    }
 
     public void resetDirBooleans() {
         left = false;
@@ -310,5 +365,9 @@ public class Player extends Entity {
 
     public void setAction(boolean action) {
         this.action = action;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
     }
 }

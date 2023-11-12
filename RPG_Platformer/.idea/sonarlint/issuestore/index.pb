@@ -7,8 +7,6 @@ H
 src/main/GameWindow.java,3\3\333b3886769183cddacf16136b8b0f5d6913ac5f
 P
  src/gameStates/StateMethods.java,a\7\a7eca76fe849e1343a01ae1332a9e944109f271f
-K
-src/inputs/MouseInputs.java,6\0\608e3f15975d4142c6a84eae908e9f44d3841202
 D
 src/level/Level.java,d\2\d2b67a89e0cd5de8776718dd6eab38cc37db79de
 M

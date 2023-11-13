@@ -43,7 +43,7 @@ public class Goblin extends Enemy {
         } else {
             switch (state) {
                 case IDLE -> {
-                    newState(RUN);
+//                    newState(RUN);
                 }
                 case RUN -> {
                     if (canSeePlayer(lvlData, player)) {
@@ -59,7 +59,7 @@ public class Goblin extends Enemy {
                     if (aniIndex == 0) {
                         attackChecked = false;
                     }
-
+                    // Frame où on check les dmg
                     if (aniIndex == 6 && !attackChecked) {
                         checkEnemyHit(attackBox, player);
                     }

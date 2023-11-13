@@ -1,13 +1,13 @@
 package utilz;
 
-import entities.Enemy;
-import entities.Goblin;
+import entities.*;
 import main.Game;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 import static utilz.Constants.Direction.*;
 import static utilz.Constants.EnemyConstants.*;
@@ -118,7 +118,23 @@ public class HelpMethod {
         return true;
     }
 
-    public static ArrayList<Goblin> GetGoblins() {
+    public static List<FlyingEye> GetFlyingEyes() {
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
+        ArrayList<FlyingEye> list = new ArrayList<>();
+
+        for (int j = 0; j < image.getHeight(); j++) {
+            for (int i = 0; i < image.getWidth(); i++) {
+                Color color = new Color(image.getRGB(i, j));
+                int value = color.getGreen();
+                if (value == FLYING_EYE) {
+                    list.add(new FlyingEye(i * Game.TILES_SIZE - (FLYING_EYE_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static List<Goblin> GetGoblins() {
         BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
         ArrayList<Goblin> list = new ArrayList<>();
 
@@ -133,5 +149,39 @@ public class HelpMethod {
         }
         return list;
     }
+
+    public static List<Mushroom> GetMushrooms() {
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
+        ArrayList<Mushroom> list = new ArrayList<>();
+
+        for (int j = 0; j < image.getHeight(); j++) {
+            for (int i = 0; i < image.getWidth(); i++) {
+                Color color = new Color(image.getRGB(i, j));
+                int value = color.getGreen();
+                if (value == MUSHROOM) {
+                    list.add(new Mushroom(i * Game.TILES_SIZE - (MUSHROOM - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static List<Skeleton> GetSkeletons() {
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
+        ArrayList<Skeleton> list = new ArrayList<>();
+
+        for (int j = 0; j < image.getHeight(); j++) {
+            for (int i = 0; i < image.getWidth(); i++) {
+                Color color = new Color(image.getRGB(i, j));
+                int value = color.getGreen();
+                if (value == SKELETON) {
+                    list.add(new Skeleton(i * Game.TILES_SIZE - (SKELETON_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2));
+                }
+            }
+        }
+        return list;
+    }
+
+
 
 }

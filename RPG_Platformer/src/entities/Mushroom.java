@@ -13,8 +13,8 @@ public class Mushroom extends Enemy {
 
     public Mushroom(float x, float y) {
         super(x, y, MUSHROOM_WIDTH, MUSHROOM_HEIGHT, MUSHROOM);
-        initHitBox(20, 39);
-        initAttackBox(90, 35);
+        initHitBox(18, 39);
+        initAttackBox(15, 17);
 
     }
 
@@ -28,11 +28,11 @@ public class Mushroom extends Enemy {
 
     private void updateAttackBox() {
         if (walkDir == RIGHT) {
-            attackBox.x = hitBox.x - (int) (Game.SCALE * 35);
+            attackBox.x = hitBox.x + hitBox.width;
         } else if (walkDir == LEFT) {
-            attackBox.x = hitBox.x - attackBox.width + (int) (Game.SCALE * 20);
+            attackBox.x = hitBox.x - attackBox.width;
         }
-        attackBox.y = hitBox.y + (Game.SCALE * 4);
+        attackBox.y = hitBox.y + (Game.SCALE * 12);
     }
 
     private void updateBehavior(int[][] lvlData, Player player) {
@@ -44,23 +44,23 @@ public class Mushroom extends Enemy {
         } else {
             switch (state) {
                 case IDLE -> {
-                    newState(RUN);
+//                    newState(RUN);
                 }
                 case RUN -> {
                     if (canSeePlayer(lvlData, player)) {
                         turnTowardsPlayer(player);
 
                         if (isPlayerCloseForAttack(player)) {
-                            newState(ATTACK);
+                            newState(ATTACK_2);
                         }
                     }
                     move(lvlData);
                 }
-                case ATTACK -> {
+                case ATTACK_2 -> {
                     if (aniIndex == 0) {
                         attackChecked = false;
                     }
-
+                    // Frame où on check les dmg
                     if (aniIndex == 6 && !attackChecked) {
                         checkEnemyHit(attackBox, player);
                     }
@@ -72,7 +72,23 @@ public class Mushroom extends Enemy {
         }
     }
 
+    public int flipX() {
+        if (walkDir == RIGHT) {
 
+            return 0;
+        } else {
+
+            return width + (int) (Game.SCALE * 2);
+        }
+    }
+
+    public int flipY() {
+        if (walkDir == RIGHT) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 
 
 }

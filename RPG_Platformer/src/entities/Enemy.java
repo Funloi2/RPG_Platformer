@@ -14,7 +14,7 @@ public class Enemy extends Entity {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
     protected int enemyType;
     protected boolean firstUpdate = true;
-    protected int walkDir = RIGHT;
+    protected int walkDir = LEFT;
     protected int tileY;
     protected float attackDistance = Game.TILES_SIZE;
     protected boolean active = true;
@@ -26,14 +26,18 @@ public class Enemy extends Entity {
         super(x, y, width, height);
         this.enemyType = enemyType;
         this.walkSpeed = 0.35f * Game.SCALE;
+        maxHealth = 15;
+        currentHealth = maxHealth;
 
         initHitBox(width, height);
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
 
+
     protected void firstUpdateCheck(int[][] lvlData) {
         firstUpdate = false;
+        newState(IDLE);
         if (!IsEntityOnFloor(hitBox, lvlData)) {
             inAir = true;
         }
@@ -142,6 +146,7 @@ public class Enemy extends Entity {
             newState(DEATH);
         } else {
             newState(HURT);
+            aniIndex = 1;
         }
     }
 

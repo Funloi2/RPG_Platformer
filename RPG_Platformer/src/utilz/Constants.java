@@ -6,7 +6,7 @@ public class Constants {
     public static final float GRAVITY = 0.04f * Game.SCALE;
     public static final int PLAYER_ANI_SPEED = 15;
     public static final int ENEMY_ANI_SPEED = 25;
-    public static final int OBJECT_ANI_SPEED = 25;
+    public static final int OBJECT_ANI_SPEED = 30;
 
     public static class Direction {
         public static final int LEFT = 0;
@@ -20,6 +20,8 @@ public class Constants {
 
         public static final int CHEST_DEFAULT_WIDTH = 48;
         public static final int CHEST_DEFAULT_HEIGHT = 32;
+        public static final int CHEST_WIDTH = (int) (Game.SCALE * CHEST_DEFAULT_WIDTH);
+        public static final int CHEST_HEIGHT = (int) (Game.SCALE * CHEST_DEFAULT_HEIGHT);
 
         public static int GetSpriteAmount(int object_type) {
             switch (object_type) {

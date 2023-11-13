@@ -2,6 +2,7 @@ package utilz;
 
 import entities.*;
 import main.Game;
+import objects.Chest;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static utilz.Constants.Direction.*;
 import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.ObjectConstants.*;
 
 public class HelpMethod {
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
@@ -182,6 +184,19 @@ public class HelpMethod {
         return list;
     }
 
+    public static ArrayList<Chest> GetChests(BufferedImage img) {
+        ArrayList<Chest> list = new ArrayList<>();
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getBlue();
+                if (value == CHEST) {
+                    list.add(new Chest(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
+                }
+            }
+        }
+        return list;
+    }
 
 
 }

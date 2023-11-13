@@ -13,6 +13,7 @@ public class GameObject {
     protected int x;
     protected int y;
     protected int objType;
+    protected int objState = 0;
     protected Rectangle2D.Float hitbox;
     protected boolean doAnimation;
     protected boolean active = true;
@@ -45,10 +46,11 @@ public class GameObject {
         if (aniTick >= OBJECT_ANI_SPEED) {
             aniTick = 0;
             aniIndex++;
-            if (aniIndex >= GetSpriteAmount(objType)) {
+            if (objState == 0)
                 aniIndex = 0;
-                if (objType == CHEST) {
-                    doAnimation = false;
+            else if (aniIndex >= GetSpriteAmount(objType)) {
+                aniIndex = 0;
+                if (objType == CHEST && objState == 1) {
                     active = false;
                 }
             }
@@ -59,8 +61,6 @@ public class GameObject {
         aniIndex = 0;
         aniTick = 0;
         active = true;
-
-        doAnimation = objType != CHEST;
     }
 
 

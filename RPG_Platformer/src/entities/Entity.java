@@ -5,8 +5,6 @@ import main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-import static utilz.Constants.PlayerConstants.*;
-
 public abstract class Entity {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
 
@@ -29,6 +27,9 @@ public abstract class Entity {
     //Health
     protected int maxHealth;
     protected int currentHealth;
+    protected int attack;
+    protected int defense;
+
 
     // AttackBox
     protected Rectangle2D.Float attackBox;
@@ -60,6 +61,25 @@ public abstract class Entity {
     protected void drawAttackBox(Graphics g, int xLvlOffset, int yLvlOffset) {
         g.setColor(Color.RED);
         g.drawRect((int) attackBox.x - xLvlOffset, (int) attackBox.y - yLvlOffset, (int) attackBox.width, (int) attackBox.height);
+    }
+
+    public void changeHealth(int value) {
+        currentHealth += value;
+
+        if (currentHealth <= 0) {
+            currentHealth = 0;
+            // gameOver();
+        } else if (currentHealth >= maxHealth) {
+            currentHealth = maxHealth;
+        }
+    }
+
+    public void changeDefense(int defense) {
+        this.defense += defense;
+    }
+
+    public void changeAttack(int attack) {
+        this.attack += attack;
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
@@ -96,4 +116,14 @@ public abstract class Entity {
     public int getAniTick() {
         return aniTick;
     }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+
 }

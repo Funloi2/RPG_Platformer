@@ -148,10 +148,19 @@ public class Constants {
             }
         }
 
-        public static int GetEnemyDmg(int enemyType) {
+        public static int getEnemyDmg(int enemyType) {
             switch (enemyType) {
-                case FLYING_EYE, GOBLIN, MUSHROOM, SKELETON -> {
+                case GOBLIN -> {
+                    return 30;
+                }
+                case FLYING_EYE -> {
+                    return 20;
+                }
+                case MUSHROOM -> {
                     return 15;
+                }
+                case SKELETON -> {
+                    return 25;
                 }
                 default -> {
                     return 0;

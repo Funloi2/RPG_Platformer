@@ -86,9 +86,8 @@ public class EnemyManager {
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         for (Goblin gob : goblins) {
-            if (gob.isActive())
-                if (attackBox.intersects(gob.getHitBox())) {
-                    gob.hurt(10);
+            if (gob.isActive() && (attackBox.intersects(gob.getHitBox()))) {
+                    gob.hurt(playing.getPlayer().getAttack());
                     return;
                 }
         }

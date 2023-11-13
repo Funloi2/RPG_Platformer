@@ -58,6 +58,14 @@ public class Player extends Entity {
     private int flipX = 0;
     private int flipY = 1;
 
+    // Stats
+
+    private int argent = 0;
+    private int xp = 0;
+    private int level = 1;
+    private int maxXp = 100;
+    private int attackDamage;
+
     // TODO: Sort this
     private boolean attackChecked;
     private Playing playing;
@@ -69,6 +77,8 @@ public class Player extends Entity {
         state = IDLE;
         maxHealth = 100;
         currentHealth = maxHealth;
+        attack = 10;
+        defense = 2;
 
         loadAnimation();
         initHitBox(width, height);
@@ -306,16 +316,7 @@ public class Player extends Entity {
         }
     }
 
-    public void changeHealth(int value) {
-        currentHealth += value;
 
-        if (currentHealth <= 0) {
-            currentHealth = 0;
-            // gameOver();
-        } else if (currentHealth >= maxHealth) {
-            currentHealth = maxHealth;
-        }
-    }
 
     public void resetDirBooleans() {
         left = false;
@@ -370,4 +371,37 @@ public class Player extends Entity {
     public void setAttacking(boolean attacking) {
         this.attacking = attacking;
     }
+
+    public int getArgent() {
+        return argent;
+    }
+
+    public void setArgent(int argent) {
+        this.argent += argent;}
+
+    public void setXp(int xp) {
+        this.xp += xp;
+    }
+    public void getLevel() {
+        if (xp >= maxXp) {
+            level++;
+            xp = 0;
+            maxXp *= 1.05;
+        }
+    }
+
+    public int getLevelInt() {
+        return level;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getMaxXp() {
+        return maxXp;
+    }
+
+
+
 }

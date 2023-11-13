@@ -131,13 +131,13 @@ public class Enemy extends Entity {
 
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.getHitBox())) {
-            player.changeHealth(-GetEnemyDmg(enemyType));
+            player.changeHealth(-(getEnemyDmg(enemyType))/player.getDefense());
         }
         attackChecked = true;
     }
 
     public void hurt(int amount) {
-        currentHealth -= amount;
+        currentHealth -= (amount/defense);
         if (currentHealth <= 0) {
             newState(DEATH);
         } else {

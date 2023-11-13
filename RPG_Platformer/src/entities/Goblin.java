@@ -14,7 +14,10 @@ public class Goblin extends Enemy {
         super(x, y, GOBLIN_WIDTH, GOBLIN_HEIGHT, GOBLIN);
         initHitBox(20, 39);
         initAttackBox(90, 35);
-
+        attack = 5;
+        defense = 2;
+        maxHealth = 20;
+        currentHealth = maxHealth;
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -65,6 +68,7 @@ public class Goblin extends Enemy {
                     }
                 }
                 case HURT -> {
+
 
                 }
             }

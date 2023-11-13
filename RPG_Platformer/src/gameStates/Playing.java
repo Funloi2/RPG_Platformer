@@ -5,6 +5,8 @@ import entities.Player;
 import level.LevelManager;
 import main.Game;
 import objects.Altar;
+import objects.ObjectManager;
+import utilz.Constants;
 import utilz.LoadSave;
 import ui.overlay.*;
 
@@ -24,6 +26,7 @@ public class Playing extends State implements StateMethods {
     private Player player;
     private LevelManager levelManager;
     private EnemyManager enemyManager;
+    private ObjectManager objectManager;
     private InventoryOverlay inventoryOverlay;
     private PauseOverlay pauseOverlay;
     private AtlasOverlay atlasOverlay;
@@ -62,10 +65,15 @@ public class Playing extends State implements StateMethods {
         initClass();
 
         loadBackground();
+        loadObject();
     }
 
 
     /// ------------------------------- METHOD ------------------------------- ///
+
+    private void loadObject() {
+        objectManager.loadObjects(levelManager.getCurrentLevel());
+    }
 
     private void loadBackground() {
         backgroundImage = LoadSave.GetSpriteAtlas(LoadSave.BG_LEVEL);
@@ -75,6 +83,7 @@ public class Playing extends State implements StateMethods {
     private void initClass() {
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
+        objectManager = new ObjectManager(this);
         player = new Player(8 * Game.TILES_SIZE, 34 * Game.TILES_SIZE, 18, 39, this);
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         inventoryOverlay = new InventoryOverlay(this);
@@ -132,6 +141,10 @@ public class Playing extends State implements StateMethods {
         enemyManager.checkEnemyHit(attackBox);
     }
 
+    public void checkObjectHit(Rectangle2D.Float attackBox) {
+        objectManager.checkObjectHit(attackBox);
+    }
+
     private int handleLvlOffset(int diff, int startBorder, int endBorder, int offset, int maxOffset) {
         if (diff > endBorder) {
             return offset + diff - endBorder;
@@ -151,6 +164,7 @@ public class Playing extends State implements StateMethods {
     public void update() {
         if (!inventory && !paused && !useAtlas) {
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(), player);
+            objectManager.update();
             player.update();
             checkCloseBorder();
         }
@@ -165,6 +179,7 @@ public class Playing extends State implements StateMethods {
         levelManager.draw(g, xLvlOffset, yLvlOffset);
         player.render(g, xLvlOffset, yLvlOffset);
         enemyManager.draw(g, xLvlOffset, yLvlOffset);
+        objectManager.draw(g, xLvlOffset, yLvlOffset);
         altar.draw(g, xLvlOffset, yLvlOffset);
 
         if (inventory || paused || useAtlas) {
@@ -182,9 +197,9 @@ public class Playing extends State implements StateMethods {
     @Override
     public void mouseClicked(MouseEvent e) {
 //        if (!gameOver)
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                player.setAttacking(true);
-            }
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            player.setAttacking(true);
+        }
     }
 
     @Override

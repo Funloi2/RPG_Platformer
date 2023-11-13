@@ -5,8 +5,6 @@ B
 RPG_Platformer.iml,e\9\e9dfce3f0bc0670014b4ab093cc63483797fef8c
 P
  src/gameStates/StateMethods.java,a\7\a7eca76fe849e1343a01ae1332a9e944109f271f
-D
-src/level/Level.java,d\2\d2b67a89e0cd5de8776718dd6eab38cc37db79de
 I
 src/gameStates/State.java,7\9\79dfbe04647154e0fcb1dfc959cd15367388dc44
 H

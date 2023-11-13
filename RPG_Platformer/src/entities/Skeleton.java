@@ -44,7 +44,7 @@ public class Skeleton extends Enemy {
         } else {
             switch (state) {
                 case IDLE -> {
-                    newState(ATTACK);
+//                    newState(RUN);
                 }
                 case RUN -> {
                     if (canSeePlayer(lvlData, player)) {

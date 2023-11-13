@@ -15,6 +15,9 @@ public class Skeleton extends Enemy {
         super(x, y, SKELETON_WIDTH, SKELETON_HEIGHT, SKELETON);
         initHitBox(20, 39);
         initAttackBox(47, 35);
+        defense = 5;
+        maxHealth = 20;
+        currentHealth = maxHealth;
 
     }
 

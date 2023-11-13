@@ -182,7 +182,7 @@ public class EnemyManager {
         for (FlyingEye fe : flyingEyes) {
             if (fe.isActive())
                 if (attackBox.intersects(fe.getHitBox())) {
-                    fe.hurt(1);
+                    fe.hurt(playing.);
                     return;
                 }
         }

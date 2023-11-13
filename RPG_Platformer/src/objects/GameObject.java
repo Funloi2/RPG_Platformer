@@ -31,7 +31,7 @@ public class GameObject {
 
     /// ------------------------------- METHOD ------------------------------- ///
     public void initHitBox(int width, int height) {
-        hitbox = new Rectangle2D.Float(x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE))
+        hitbox = new Rectangle2D.Float(x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE));
     }
 
     public void drawHitBox(Graphics g, int xLvlOffset, int yLvlOffset) {

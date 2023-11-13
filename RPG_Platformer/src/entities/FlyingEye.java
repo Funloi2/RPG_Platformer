@@ -15,6 +15,9 @@ public class FlyingEye extends Enemy {
         super(x, y, FLYING_EYE_WIDTH, FLYING_EYE_HEIGHT, FLYING_EYE);
         initHitBox(33, 39);
         initAttackBox(15, 20);
+        defense = 2;
+        maxHealth = 15;
+        currentHealth = maxHealth;
 
     }
 

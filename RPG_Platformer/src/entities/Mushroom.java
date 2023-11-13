@@ -15,6 +15,9 @@ public class Mushroom extends Enemy {
         super(x, y, MUSHROOM_WIDTH, MUSHROOM_HEIGHT, MUSHROOM);
         initHitBox(18, 39);
         initAttackBox(15, 17);
+        defense = 2;
+        maxHealth = 25;
+        currentHealth = maxHealth;
 
     }
 

@@ -76,8 +76,8 @@ public class EnemyManager {
                         (int) (fe.getHitBox().x - xLvlOffset - FLYING_EYE_DRAWOFFSET_X) + fe.flipX(),
                         (int) (fe.getHitBox().y - yLvlOffset - FLYING_EYE_DRAWOFFSET_Y)
                         , FLYING_EYE_WIDTH * fe.flipY(), FLYING_EYE_HEIGHT, null);
-                fe.drawHitBox(g, xLvlOffset, yLvlOffset);
-                fe.drawAttackBox(g, xLvlOffset, yLvlOffset);
+//                fe.drawHitBox(g, xLvlOffset, yLvlOffset);
+//                fe.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
         }
         for (Goblin gob : goblins) {
@@ -86,7 +86,7 @@ public class EnemyManager {
                         (int) (gob.getHitBox().x - xLvlOffset - GOBLIN_DRAWOFFSET_X) + gob.flipX(),
                         (int) (gob.getHitBox().y - yLvlOffset - GOBLIN_DRAWOFFSET_Y)
                         , GOBLIN_WIDTH * gob.flipY(), GOBLIN_HEIGHT, null);
-                gob.drawHitBox(g, xLvlOffset, yLvlOffset);
+//                gob.drawHitBox(g, xLvlOffset, yLvlOffset);
 //                gob.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
         }
@@ -96,8 +96,8 @@ public class EnemyManager {
                         (int) (mush.getHitBox().x - xLvlOffset - MUSHROOM_DRAWOFFSET_X) + mush.flipX(),
                         (int) (mush.getHitBox().y - yLvlOffset - MUSHROOM_DRAWOFFSET_Y)
                         , MUSHROOM_WIDTH * mush.flipY(), MUSHROOM_HEIGHT, null);
-                mush.drawHitBox(g, xLvlOffset, yLvlOffset);
-                mush.drawAttackBox(g, xLvlOffset, yLvlOffset);
+//                mush.drawHitBox(g, xLvlOffset, yLvlOffset);
+//                mush.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
         }
         for (Skeleton sk : skeletons) {
@@ -106,8 +106,8 @@ public class EnemyManager {
                         (int) (sk.getHitBox().x - xLvlOffset - SKELETON_DRAWOFFSET_X) + sk.flipX(),
                         (int) (sk.getHitBox().y - yLvlOffset - SKELETON_DRAWOFFSET_Y)
                         , SKELETON_WIDTH * sk.flipY(), SKELETON_HEIGHT, null);
-                sk.drawHitBox(g, xLvlOffset, yLvlOffset);
-                sk.drawAttackBox(g, xLvlOffset, yLvlOffset);
+//                sk.drawHitBox(g, xLvlOffset, yLvlOffset);
+//                sk.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
         }
     }

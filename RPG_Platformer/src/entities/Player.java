@@ -95,6 +95,8 @@ public class Player extends Entity {
         loadAnimation();
         initHitBox(width, height);
         initAttackBox(51, 42);
+        updateArmor();
+        updateAttackDamage();
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -329,7 +331,6 @@ public class Player extends Entity {
     }
 
 
-
     public void resetDirBooleans() {
         left = false;
         right = false;
@@ -337,7 +338,7 @@ public class Player extends Entity {
         down = false;
     }
 
-    public void updateXp(int amount){
+    public void updateXp(int amount) {
         xp += amount;
         if (xp >= maxXp) {
             level++;
@@ -351,28 +352,54 @@ public class Player extends Entity {
         }
     }
 
-    public void updateArmor(){
-        if(helmet.getSetNumber() == chestplate.getSetNumber() && pants.getSetNumber() == boots.getSetNumber() && chestplate.getSetNumber() == pants.getSetNumber()){
-            switch (helmet.getSetNumber()){
-                case 1:
-                    defense += 5;
-                    break;
-                case 2:
-                   attack += 5;
-                    break;
-                case 3:
-                   stamina += 5;
-                    break;
-                case 4:
-                   maxHealth += 5;
-                    break;
+    public void updateArmor() {
+        try {
+            if (helmet.getSetNumber() == chestplate.getSetNumber() && pants.getSetNumber() == boots.getSetNumber() && chestplate.getSetNumber() == pants.getSetNumber()) {
+                switch (helmet.getSetNumber()) {
+                    case 1:
+                        defense += 5;
+                        break;
+                    case 2:
+                        attack += 5;
+                        break;
+                    case 3:
+                        stamina += 5;
+                        break;
+                    case 4:
+                        maxHealth += 5;
+                        break;
+                }
             }
+        } catch (Exception e) {
         }
-        selfDefense = defense +helmet.getArmor() + chestplate.getArmor() + pants.getArmor() + boots.getArmor();
+        selfDefense = defense;
+
+        try {
+            selfDefense += helmet.getArmor();
+        } catch (Exception e) {
+        }
+        try {
+            selfDefense += chestplate.getArmor();
+        } catch (Exception e) {
+        }
+        try {
+            selfDefense += pants.getArmor();
+        } catch (Exception e) {
+        }
+        try {
+            selfDefense += boots.getArmor();
+        } catch (Exception e) {
+        }
+
     }
 
-    public void updateAttackDamage(){
-        attackDamage = attack + sword.getDamage();
+    public void updateAttackDamage() {
+        attackDamage = attack;
+
+        try {
+            attackDamage += sword.getDamage();
+        } catch (Exception e) {
+        }
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
@@ -427,7 +454,8 @@ public class Player extends Entity {
     }
 
     public void setArgent(int argent) {
-        this.argent += argent;}
+        this.argent += argent;
+    }
 
 
     public int getLevelInt() {
@@ -486,4 +514,15 @@ public class Player extends Entity {
         updateAttackDamage();
         this.sword = sword;
     }
+
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public void setAttackDamage(int attackDamage) {
+        updateAttackDamage();
+        this.attackDamage = attackDamage;
+    }
+
+
 }

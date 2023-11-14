@@ -2,6 +2,7 @@ package entities;
 
 import gameStates.Playing;
 import main.Game;
+import objects.*;
 import utilz.LoadSave;
 
 import static java.lang.Math.round;
@@ -66,10 +67,19 @@ public class Player extends Entity {
     private int level = 1;
     private int maxXp = 100;
     private int attackDamage;
+    private int selfDefense;
+    private int stamina;
 
     // TODO: Sort this
     private boolean attackChecked;
     private Playing playing;
+
+    // Stuff
+    private Helmet helmet;
+    private Chestplate chestplate;
+    private Pants pants;
+    private Boots boots;
+    private Sword sword;
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Player(float x, float y, int width, int height, Playing playing) {
@@ -80,6 +90,7 @@ public class Player extends Entity {
         currentHealth = maxHealth;
         attack = 100;
         defense = 2;
+        stamina = 100;
 
         loadAnimation();
         initHitBox(width, height);
@@ -336,11 +347,32 @@ public class Player extends Entity {
             defense += 2;
             maxHealth += 10;
             currentHealth = maxHealth;
-            System.out.println( "Level up! You are now level " + level + "!");
-            System.out.println("You have " + xp + " xp and need " + (maxXp - xp) + " xp to level up again!");
-            System.out.println("You have " + attack + " attack damage and " + defense + " defense!");
-            System.out.println("You have " + maxHealth + " health!");
+
         }
+    }
+
+    public void updateArmor(){
+        if(helmet.getSetNumber() == chestplate.getSetNumber() && pants.getSetNumber() == boots.getSetNumber() && chestplate.getSetNumber() == pants.getSetNumber()){
+            switch (helmet.getSetNumber()){
+                case 1:
+                    defense += 5;
+                    break;
+                case 2:
+                   attack += 5;
+                    break;
+                case 3:
+                   stamina += 5;
+                    break;
+                case 4:
+                   maxHealth += 5;
+                    break;
+            }
+        }
+        selfDefense = defense +helmet.getArmor() + chestplate.getArmor() + pants.getArmor() + boots.getArmor();
+    }
+
+    public void updateAttackDamage(){
+        attackDamage = attack + sword.getDamage();
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
@@ -410,6 +442,48 @@ public class Player extends Entity {
         return maxXp;
     }
 
+    public Helmet getHelmet() {
+        return helmet;
+    }
 
+    public void setHelmet(Helmet helmet) {
+        updateArmor();
+        this.helmet = helmet;
+    }
 
+    public Chestplate getChestplate() {
+        return chestplate;
+    }
+
+    public void setChestplate(Chestplate chestplate) {
+        updateArmor();
+        this.chestplate = chestplate;
+    }
+
+    public Pants getPants() {
+        return pants;
+    }
+
+    public void setPants(Pants pants) {
+        updateArmor();
+        this.pants = pants;
+    }
+
+    public Boots getBoots() {
+        return boots;
+    }
+
+    public void setBoots(Boots boots) {
+        updateArmor();
+        this.boots = boots;
+    }
+
+    public Sword getSword() {
+        return sword;
+    }
+
+    public void setSword(Sword sword) {
+        updateAttackDamage();
+        this.sword = sword;
+    }
 }

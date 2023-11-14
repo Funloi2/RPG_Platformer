@@ -24,4 +24,8 @@ public abstract class Armor extends Equipment {
     public int getArmorType() {
         return armorType;
     }
+
+    public int getSetNumber() {
+        return setNumber;
+    }
 }

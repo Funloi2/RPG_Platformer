@@ -1,5 +1,6 @@
 package entities;
 
+import gameStates.Playing;
 import main.Game;
 
 import java.awt.geom.Rectangle2D;
@@ -19,6 +20,7 @@ public class Enemy extends Entity {
     protected float attackDistance = Game.TILES_SIZE;
     protected boolean active = true;
     protected boolean attackChecked;
+    private Playing playing;
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -143,17 +145,26 @@ public class Enemy extends Entity {
     public void hurt(int amount) {
         currentHealth -= (amount/defense);
         if (currentHealth <= 0) {
-            newState(DEATH);
+            enemyDeath();
         } else {
             newState(HURT);
             aniIndex = 1;
         }
     }
 
+    public void enemyDeath() {
+        newState(DEATH);
+        playing.getPlayer().updateXp(20);
+
+    }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
     public boolean isActive() {
         return active;
+    }
+
+    public void setPlaying(Playing playing){
+        this.playing = playing;
     }
 }

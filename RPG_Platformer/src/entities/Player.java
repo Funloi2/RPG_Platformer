@@ -4,6 +4,7 @@ import gameStates.Playing;
 import main.Game;
 import utilz.LoadSave;
 
+import static java.lang.Math.round;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethod.*;
 import static utilz.Constants.*;
@@ -77,7 +78,7 @@ public class Player extends Entity {
         state = IDLE;
         maxHealth = 100;
         currentHealth = maxHealth;
-        attack = 10;
+        attack = 100;
         defense = 2;
 
         loadAnimation();
@@ -325,6 +326,23 @@ public class Player extends Entity {
         down = false;
     }
 
+    public void updateXp(int amount){
+        xp += amount;
+        if (xp >= maxXp) {
+            level++;
+            xp = 0;
+            maxXp = round(maxXp * 1.5f);
+            attack += 5;
+            defense += 2;
+            maxHealth += 10;
+            currentHealth = maxHealth;
+            System.out.println( "Level up! You are now level " + level + "!");
+            System.out.println("You have " + xp + " xp and need " + (maxXp - xp) + " xp to level up again!");
+            System.out.println("You have " + attack + " attack damage and " + defense + " defense!");
+            System.out.println("You have " + maxHealth + " health!");
+        }
+    }
+
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
 
@@ -379,16 +397,6 @@ public class Player extends Entity {
     public void setArgent(int argent) {
         this.argent += argent;}
 
-    public void setXp(int xp) {
-        this.xp += xp;
-    }
-    public void getLevel() {
-        if (xp >= maxXp) {
-            level++;
-            xp = 0;
-            maxXp *= 1.05;
-        }
-    }
 
     public int getLevelInt() {
         return level;

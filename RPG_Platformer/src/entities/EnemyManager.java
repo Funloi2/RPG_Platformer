@@ -29,12 +29,27 @@ public class EnemyManager {
         this.playing = playing;
         loadEnemyImgs();
         addEnemies();
+        setPlayingEnemy();
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
     /// ------------------------------- METHOD ------------------------------- ///
 
+    public void setPlayingEnemy(){
+        for (FlyingEye fe : flyingEyes) {
+            fe.setPlaying(playing);
+        }
+        for (Goblin gob : goblins) {
+            gob.setPlaying(playing);
+        }
+        for (Mushroom mush : mushrooms) {
+            mush.setPlaying(playing);
+        }
+        for (Skeleton sk : skeletons) {
+            sk.setPlaying(playing);
+        }
+    }
     private void addEnemies() {
         flyingEyes = HelpMethod.GetFlyingEyes();
         goblins = HelpMethod.GetGoblins();

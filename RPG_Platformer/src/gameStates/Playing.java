@@ -90,6 +90,7 @@ public class Playing extends State implements StateMethods {
         pauseOverlay = new PauseOverlay(this);
         atlasOverlay = new AtlasOverlay(this);
         altar = new Altar(13 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
+
     }
 
     private void checkCloseBorder() {

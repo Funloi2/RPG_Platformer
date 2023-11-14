@@ -1,18 +1,20 @@
 package objects;
 
- public abstract class Equipment {
+public class Pants extends Armor{
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
-    protected String name;
-    protected int level;
+
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    protected Equipment(String name) {
-        this.name = name;
+    public Pants() {
+        super("Pants", 10 , 2, -1);
+        armor = armor + level * 2;
     }
     /// ------------------------------- METHOD ------------------------------- ///
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
+    public int getArmor() {
+        return armor;
+    }
 
-
-     public int getLevel() {
-         return level;
-     }
- }
+    public int getArmorType() {
+        return armorType;
+    }
+}

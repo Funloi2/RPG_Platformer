@@ -46,8 +46,8 @@ public class Altar {
     }
 
     public void draw(Graphics g, int xLvlOffset, int yLvlOffset) {
-        g.setColor(Color.RED);
-        drawHitbox(g, xLvlOffset, yLvlOffset);
+//        g.setColor(Color.RED);
+//        drawHitbox(g, xLvlOffset, yLvlOffset);
     }
 
     private void drawHitbox(Graphics g, int xLvlOffset, int yLvlOffset) {

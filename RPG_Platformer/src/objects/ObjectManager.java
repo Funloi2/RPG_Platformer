@@ -16,8 +16,14 @@ import java.util.ArrayList;
 public class ObjectManager {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
     private Playing playing;
+
+    // Spites
     private BufferedImage[][] chestImages;
+    private BufferedImage[][] potionImages;
+
+    // List of items
     private ArrayList<Chest> chests = new ArrayList<>();
+    private ArrayList<Potion> potions = new ArrayList<>();
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -60,20 +66,20 @@ public class ObjectManager {
     }
 
     public void loadObjects(Level level) {
-//        potions = new ArrayList<>(level.getPotions());
+        potions = new ArrayList<>(level.getPotions());
         chests = new ArrayList<>(level.getChests());
     }
 
 
     private void loadImages() {
-//        BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.POTION_ATLAS);
-//        potionImages = new BufferedImage[2][7];
-//
-//        for (int j = 0; j < potionImages.length; j++) {
-//            for (int i = 0; i < potionImages[j].length; i++) {
-//                potionImages[j][i] = potionSprite.getSubimage(i * POTION_WIDTH_DEFAULT, j * POTION_HEIGHT_DEFAULT, POTION_WIDTH_DEFAULT, POTION_HEIGHT_DEFAULT);
-//            }
-//        }
+        BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.POTION_ATLAS);
+        potionImages = new BufferedImage[2][7];
+
+        for (int j = 0; j < potionImages.length; j++) {
+            for (int i = 0; i < potionImages[j].length; i++) {
+                potionImages[j][i] = potionSprite.getSubimage(i * POTION_WIDTH_DEFAULT, j * POTION_HEIGHT_DEFAULT, POTION_WIDTH_DEFAULT, POTION_HEIGHT_DEFAULT);
+            }
+        }
 
         BufferedImage chestSprite = LoadSave.GetSpriteAtlas(LoadSave.CHEST);
         chestImages = new BufferedImage[8][5];
@@ -87,11 +93,11 @@ public class ObjectManager {
     }
 
     public void update() {
-//        for (Potion p : potions) {
-//            if (p.isActive()) {
-//                p.update();
-//            }
-//        }
+        for (Potion p : potions) {
+            if (p.isActive()) {
+                p.update();
+            }
+        }
         for (Chest ch : chests) {
             if (ch.isActive()) {
                 ch.update();
@@ -100,7 +106,7 @@ public class ObjectManager {
     }
 
     public void draw(Graphics g, int xLvlOffset, int yLvlOffset) {
-//        drawPotions(g, xLvlOffset);
+        drawPotions(g, xLvlOffset, yLvlOffset);
         drawChests(g, xLvlOffset, yLvlOffset);
     }
 
@@ -113,46 +119,43 @@ public class ObjectManager {
                         CHEST_WIDTH,
                         CHEST_HEIGHT,
                         null);
-                c.drawHitBox(g, xLvlOffset, yLvlOffset);
+//                c.drawHitBox(g, xLvlOffset, yLvlOffset);
             }
         }
 
 
     }
 
-//    private void drawPotions(Graphics g, int xLvlOffset) {
-//        for (Potion p : potions) {
-//            if (p.isActive()) {
-//                int type = 0;
-//                if (p.getObjType() == RED_POTION) {
-//                    type = 1;
-//                }
-//
-//                g.drawImage(potionImages[type][p.getAniIndex()],
-//                        (int) (p.getHitbox().x - p.getxDrawOffset() - xLvlOffset),
-//                        (int) (p.getHitbox().y - p.getyDrawOffset()),
-//                        POTION_WIDTH,
-//                        POTION_HEIGHT,
-//                        null);
-//
-////                g.setColor(Color.RED);
-////                g.drawRect((int) (p.getHitbox().x - xLvlOffset), (int) p.getHitbox().y, (int) p.getHitbox().width, (int) p.getHitbox().height);
-//            }
-//        }
-//
-//    }
+    private void drawPotions(Graphics g, int xLvlOffset, int yLvlOffset) {
+        for (Potion p : potions) {
+            if (p.isActive()) {
+                int type = 0;
+                if (p.getObjType() == LIFE_POTION) {
+                    type = 1;
+                }
+
+                g.drawImage(potionImages[type][p.getAniIndex()],
+                        (int) (p.getHitbox().x - p.getxDrawOffset() - xLvlOffset),
+                        (int) (p.getHitbox().y - p.getyDrawOffset() - yLvlOffset),
+                        POTION_WIDTH,
+                        POTION_HEIGHT,
+                        null);
+                p.drawHitBox(g, xLvlOffset, yLvlOffset);
+            }
+        }
+    }
 
 
-//    public void resetObjects() {
-//        loadObjects(playing.getLevelManager().getCurrentLevel());
-//
-//        for (Potion p : potions) {
-//            p.reset();
-//        }
-//        for (GameContainer c : containers) {
-//            c.reset();
-//        }
-//    }
+    public void resetObjects() {
+        loadObjects(playing.getLevelManager().getCurrentLevel());
+
+        for (Potion p : potions) {
+            p.reset();
+        }
+        for (Chest c : chests) {
+            c.reset();
+        }
+    }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 

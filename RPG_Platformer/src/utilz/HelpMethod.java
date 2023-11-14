@@ -3,6 +3,7 @@ package utilz;
 import entities.*;
 import main.Game;
 import objects.Chest;
+import objects.Potion;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -192,6 +193,20 @@ public class HelpMethod {
                 int value = color.getBlue();
                 if (value == CHEST) {
                     list.add(new Chest(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static ArrayList<Potion> GetPotions(BufferedImage img) {
+        ArrayList<Potion> list = new ArrayList<>();
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getBlue();
+                if (value == LIFE_POTION) {
+                    list.add(new Potion(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
                 }
             }
         }

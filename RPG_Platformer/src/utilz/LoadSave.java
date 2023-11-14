@@ -13,6 +13,8 @@ public class LoadSave {
     public static final String BG_LEVEL = "/level/test_fond2.jpg";
     public static final String SPAWN_BG = "/level/spawn_bg_not_final.jpeg";
     public static final String CHEST = "/objects/chest/Chests.png";
+    public static final String POTION_ATLAS = "/objects/potion/potions_sprites.png";
+    public static final String INVENTORY = "/ui/Inventory_sprite.png";
 
 
     public static BufferedImage GetSpriteAtlas(String path) {

@@ -1,6 +1,7 @@
 package level;
 
 import objects.Chest;
+import objects.Potion;
 import utilz.HelpMethod;
 import utilz.LoadSave;
 
@@ -17,18 +18,26 @@ public class Level {
 
     // Chest
     private ArrayList<Chest> chests;
+    private ArrayList<Potion> potions;
+
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
 
     public Level(int[][] lvlData) {
         this.lvlData = lvlData;
         createChests();
+        createPotions();
+
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
 
     private void createChests() {
         chests = HelpMethod.GetChests(img);
+    }
+
+    private void createPotions() {
+        potions = HelpMethod.GetPotions(img);
     }
 
 
@@ -44,5 +53,9 @@ public class Level {
 
     public ArrayList<Chest> getChests() {
         return chests;
+    }
+
+    public ArrayList<Potion> getPotions() {
+        return potions;
     }
 }

@@ -107,12 +107,39 @@ public class InventoryOverlay {
 
         // Currency and potions amount
         g.setColor(Color.BLACK);
-        g.drawString(String.valueOf(nbCurrency), 540, 225);
-        g.drawString(String.valueOf(nbSTMPotions), 923, 225);
-        g.drawString(String.valueOf(nbLifePotions), 1005, 225);
+        g.drawString(String.valueOf(playing.getPlayer().getArgent()), 540, 225);
+        g.drawString(String.valueOf(playing.getPlayer().getNbLifePotions()), 923, 225);
+        g.drawString(String.valueOf(playing.getPlayer().getNbSTMPotions()), 1005, 225);
 
         // Stats
-        g.drawString(String.valueOf(playing.getPlayer().getAttackDamage()), 352, 458);
+        if (playing.getPlayer().getMaxHealth() / 10 < 1)
+            g.drawString(String.valueOf(playing.getPlayer().getMaxHealth()), 294, 458);
+        else if (playing.getPlayer().getMaxHealth() / 10 < 10)
+            g.drawString(String.valueOf(playing.getPlayer().getMaxHealth()), 291, 458);
+        else
+            g.drawString(String.valueOf(playing.getPlayer().getMaxHealth()), 288, 458);
+
+        if (playing.getPlayer().getStamina() / 10 < 1)
+            g.drawString(String.valueOf(playing.getPlayer().getStamina()), 324, 458);
+        else if (playing.getPlayer().getStamina() / 10 < 10)
+            g.drawString(String.valueOf(playing.getPlayer().getStamina()), 321, 458);
+        else
+            g.drawString(String.valueOf(playing.getPlayer().getStamina()), 318, 458);
+
+        if (playing.getPlayer().getAttackDamage() / 10 < 1)
+            g.drawString(String.valueOf(playing.getPlayer().getAttackDamage()), 358, 458);
+        else if (playing.getPlayer().getAttackDamage() / 10 < 10)
+            g.drawString(String.valueOf(playing.getPlayer().getAttackDamage()), 355, 458);
+        else
+            g.drawString(String.valueOf(playing.getPlayer().getAttackDamage()), 352, 458);
+
+        if (playing.getPlayer().getSelfDefense() / 10 < 1)
+            g.drawString(String.valueOf(playing.getPlayer().getSelfDefense()), 390, 458);
+        else if (playing.getPlayer().getSelfDefense() / 10 < 10)
+            g.drawString(String.valueOf(playing.getPlayer().getSelfDefense()), 388, 458);
+        else
+            g.drawString(String.valueOf(playing.getPlayer().getSelfDefense()), 385, 458);
+
     }
 
 

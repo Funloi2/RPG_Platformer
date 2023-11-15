@@ -1,6 +1,5 @@
 package objects;
 
-import entities.Player;
 import gameStates.Playing;
 import level.Level;
 import utilz.LoadSave;

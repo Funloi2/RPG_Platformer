@@ -2,7 +2,7 @@ package entities;
 
 import gameStates.Playing;
 import main.Game;
-import objects.*;
+import objects.equipment.*;
 import utilz.LoadSave;
 
 import static java.lang.Math.round;
@@ -11,7 +11,6 @@ import static utilz.HelpMethod.*;
 import static utilz.Constants.*;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {

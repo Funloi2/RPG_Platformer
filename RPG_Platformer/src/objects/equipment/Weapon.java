@@ -1,4 +1,6 @@
-package objects;
+package objects.equipment;
+
+import objects.equipment.Equipment;
 
 public abstract class Weapon extends Equipment {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///

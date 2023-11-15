@@ -1,6 +1,6 @@
-package objects;
+package objects.equipment;
 
-public class Chestplate extends Armor{
+public class Chestplate extends Armor {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///

@@ -1,6 +1,8 @@
-package objects;
+package objects.equipment;
 
-public class Helmet extends Armor{
+import objects.equipment.Armor;
+
+public class Helmet extends Armor {
 
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 

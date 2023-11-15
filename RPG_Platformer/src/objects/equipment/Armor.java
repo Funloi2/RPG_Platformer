@@ -1,4 +1,4 @@
-package objects;
+package objects.equipment;
 
 public abstract class Armor extends Equipment {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///

@@ -1,11 +1,8 @@
 package ui.overlay;
 
-import gameStates.GameState;
-import objects.Equipment;
+import objects.equipment.Equipment;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.time.Year;
 
 public class InventorySlot extends Slot {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///

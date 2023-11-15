@@ -1,6 +1,6 @@
-package objects;
+package objects.equipment;
 
-public class Boots extends Armor{
+public class Boots extends Armor {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///

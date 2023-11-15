@@ -1,6 +1,8 @@
-package objects;
+package objects.equipment;
 
-public class Pants extends Armor{
+import objects.equipment.Armor;
+
+public class Pants extends Armor {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///

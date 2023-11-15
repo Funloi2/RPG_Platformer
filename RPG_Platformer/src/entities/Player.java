@@ -351,7 +351,9 @@ public class Player extends Entity {
             xp = 0;
             maxXp = round(maxXp * 1.5f);
             attack += 5;
+            updateAttackDamage();
             defense += 2;
+            updateArmor();
             maxHealth += 10;
             currentHealth = maxHealth;
 

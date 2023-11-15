@@ -15,6 +15,7 @@ public class LoadSave {
     public static final String CHEST = "/objects/chest/Chests.png";
     public static final String POTION_ATLAS = "/objects/potion/potions_sprites.png";
     public static final String INVENTORY = "/ui/Inventory_sprite.png";
+    public static final String PLAYER_SPLASH_ART = "/player/splash_art.png";
 
 
     public static BufferedImage GetSpriteAtlas(String path) {

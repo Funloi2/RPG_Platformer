@@ -258,5 +258,11 @@ public class Playing extends State implements StateMethods {
         return levelManager;
     }
 
+    public boolean isInventory() {
+        return inventory;
+    }
 
+    public InventoryOverlay getInventoryOverlay() {
+        return inventoryOverlay;
+    }
 }

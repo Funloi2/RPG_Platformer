@@ -70,6 +70,9 @@ public class Player extends Entity {
     private int selfDefense;
     private int stamina;
 
+    // Effet de sets
+    private boolean S1, S2, S3, S4;
+
     // TODO: Sort this
     private boolean attackChecked;
     private Playing playing;
@@ -95,6 +98,8 @@ public class Player extends Entity {
         loadAnimation();
         initHitBox(width, height);
         initAttackBox(51, 42);
+        updateArmor();
+        updateAttackDamage();
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -329,7 +334,6 @@ public class Player extends Entity {
     }
 
 
-
     public void resetDirBooleans() {
         left = false;
         right = false;
@@ -337,7 +341,7 @@ public class Player extends Entity {
         down = false;
     }
 
-    public void updateXp(int amount){
+    public void updateXp(int amount) {
         xp += amount;
         if (xp >= maxXp) {
             level++;
@@ -351,28 +355,86 @@ public class Player extends Entity {
         }
     }
 
-    public void updateArmor(){
-        if(helmet.getSetNumber() == chestplate.getSetNumber() && pants.getSetNumber() == boots.getSetNumber() && chestplate.getSetNumber() == pants.getSetNumber()){
-            switch (helmet.getSetNumber()){
-                case 1:
-                    defense += 5;
-                    break;
-                case 2:
-                   attack += 5;
-                    break;
-                case 3:
-                   stamina += 5;
-                    break;
-                case 4:
-                   maxHealth += 5;
-                    break;
+    public void updateArmor() {
+        desequipSet();
+        try {
+            if (helmet.getSetNumber() == chestplate.getSetNumber() && pants.getSetNumber() == boots.getSetNumber() && chestplate.getSetNumber() == pants.getSetNumber()) {
+                switch (helmet.getSetNumber()) {
+                    case 1:
+                        S1 = true;
+                        break;
+                    case 2:
+                        S2 = true;
+                        break;
+                    case 3:
+                        S3 = true;
+                        break;
+                    case 4:
+                        S4 = true;
+                        break;
+                }
             }
+        } catch (Exception e) {
         }
-        selfDefense = defense +helmet.getArmor() + chestplate.getArmor() + pants.getArmor() + boots.getArmor();
+
+        checkSet();
+
+        selfDefense = defense;
+
+        try {
+            selfDefense += helmet.getArmor();
+        } catch (Exception e) {
+        }
+        try {
+            selfDefense += chestplate.getArmor();
+        } catch (Exception e) {
+        }
+        try {
+            selfDefense += pants.getArmor();
+        } catch (Exception e) {
+        }
+        try {
+            selfDefense += boots.getArmor();
+        } catch (Exception e) {
+        }
+
     }
 
-    public void updateAttackDamage(){
-        attackDamage = attack + sword.getDamage();
+    private void desequipSet() {
+        if (S1) {
+            maxHealth -= 5;
+            S1 = false;
+        } else if (S2) {
+            stamina -= 5;
+            S2 = false;
+        } else if (S3) {
+            attackDamage -= 5;
+            S3 = false;
+        } else if (S4) {
+            selfDefense -= 5;
+            S4 = false;
+        }
+    }
+
+    private void checkSet() {
+        if (S1) {
+            maxHealth += 5;
+        } else if (S2) {
+            stamina += 5;
+        } else if (S3) {
+            attackDamage += 5;
+        } else if (S4) {
+            selfDefense += 5;
+        }
+    }
+
+    public void updateAttackDamage() {
+        attackDamage = attack;
+
+        try {
+            attackDamage += sword.getDamage();
+        } catch (Exception e) {
+        }
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
@@ -427,7 +489,8 @@ public class Player extends Entity {
     }
 
     public void setArgent(int argent) {
-        this.argent += argent;}
+        this.argent += argent;
+    }
 
 
     public int getLevelInt() {
@@ -486,4 +549,15 @@ public class Player extends Entity {
         updateAttackDamage();
         this.sword = sword;
     }
+
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public void setAttackDamage(int attackDamage) {
+        updateAttackDamage();
+        this.attackDamage = attackDamage;
+    }
+
+
 }

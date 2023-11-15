@@ -31,6 +31,11 @@ public class InventoryOverlay {
     private Rectangle2D.Float weaponSlot;
     private Rectangle2D.Float[] inventorySlots;
 
+    // potion and currency counter
+    private int nbLifePotions = 0;
+    private int nbSTMPotions = 0;
+    private int nbCurrency = 0;
+
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public InventoryOverlay(Playing playing) {
@@ -42,6 +47,18 @@ public class InventoryOverlay {
 
 
     /// ------------------------------- METHOD ------------------------------- ///
+
+    public void addLifePotion() {
+        nbLifePotions++;
+    }
+
+    public void addSTMPotion() {
+        nbSTMPotions++;
+    }
+
+    public void addCurrency(int currencyAdded) {
+        nbCurrency += currencyAdded;
+    }
 
     private void initHitBoxes() {
         armorSlots = new Rectangle2D.Float[4];
@@ -76,6 +93,8 @@ public class InventoryOverlay {
         // Background
         g.drawImage(background, bgX, bgY, bgWidth, bgHeight, null);
 
+
+        // Hit boxes
         g.setColor(Color.RED);
         for (Rectangle2D.Float armor : armorSlots) {
             g.drawRect((int) armor.x, (int) armor.y, (int) armor.width, (int) armor.height);
@@ -86,6 +105,14 @@ public class InventoryOverlay {
             g.drawRect((int) item.x, (int) item.y, (int) item.width, (int) item.height);
         }
 
+        // Currency and potions amount
+        g.setColor(Color.BLACK);
+        g.drawString(String.valueOf(nbCurrency), 540, 225);
+        g.drawString(String.valueOf(nbSTMPotions), 923, 225);
+        g.drawString(String.valueOf(nbLifePotions), 1005, 225);
+
+        // Stats
+        g.drawString(String.valueOf(playing.getPlayer().getAttackDamage()), 352, 458);
     }
 
 

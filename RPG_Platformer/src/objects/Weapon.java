@@ -1,8 +1,8 @@
 package objects;
 
 public abstract class Weapon extends Equipment {
-/// ------------------------------- ATTRIBUTE ------------------------------- ///
-protected int damage;
+    /// ------------------------------- ATTRIBUTE ------------------------------- ///
+    protected int damage;
     protected int attackSpeed;
     protected int range;
     protected int attackType;
@@ -11,15 +11,15 @@ protected int damage;
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     protected Weapon(String name, int damage, int attackSpeed, int range, int attackType) {
-        super(name);
+        super(name, 0, 0, 0);
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.range = range;
         this.attackType = attackType;
     }
 
-    protected Weapon(String name, int damage){
-        super(name);
+    protected Weapon(String name, int damage) {
+        super(name, 0, 0, 0);
         this.damage = damage;
     }
 

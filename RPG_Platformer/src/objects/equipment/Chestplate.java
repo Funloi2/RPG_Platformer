@@ -14,7 +14,5 @@ public class Chestplate extends Armor {
         return armor;
     }
 
-    public int getArmorType() {
-        return armorType;
-    }
+
 }

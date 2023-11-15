@@ -144,6 +144,7 @@ public class Player extends Entity {
 
         if (action) {
             checkSpeakToAtlas();
+            playing.checkPickUpItem(hitBox);
         }
         if (attacking) {
             checkAttack();
@@ -514,8 +515,9 @@ public class Player extends Entity {
     }
 
     public void setHelmet(Helmet helmet) {
-        updateArmor();
         this.helmet = helmet;
+        System.out.println("helmet equiped");
+        updateArmor();
     }
 
     public Chestplate getChestplate() {
@@ -523,8 +525,8 @@ public class Player extends Entity {
     }
 
     public void setChestplate(Chestplate chestplate) {
-        updateArmor();
         this.chestplate = chestplate;
+        updateArmor();
     }
 
     public Pants getPants() {
@@ -532,8 +534,8 @@ public class Player extends Entity {
     }
 
     public void setPants(Pants pants) {
-        updateArmor();
         this.pants = pants;
+        updateArmor();
     }
 
     public Boots getBoots() {
@@ -541,8 +543,8 @@ public class Player extends Entity {
     }
 
     public void setBoots(Boots boots) {
-        updateArmor();
         this.boots = boots;
+        updateArmor();
     }
 
     public Sword getSword() {
@@ -550,8 +552,8 @@ public class Player extends Entity {
     }
 
     public void setSword(Sword sword) {
-        updateAttackDamage();
         this.sword = sword;
+        updateAttackDamage();
     }
 
     public int getAttackDamage() {
@@ -559,8 +561,8 @@ public class Player extends Entity {
     }
 
     public void setAttackDamage(int attackDamage) {
-        updateAttackDamage();
         this.attackDamage = attackDamage;
+        updateAttackDamage();
     }
 
     public int getStamina() {

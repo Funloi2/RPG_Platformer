@@ -3,6 +3,7 @@ package ui.overlay;
 import gameStates.Playing;
 import main.Game;
 import objects.GameObject;
+import objects.equipment.Equipment;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -149,6 +150,19 @@ public class InventoryOverlay {
 
     }
 
+    public boolean pickUpItem(Equipment equipment) {
+        boolean pickedUp = false;
+        for (int i = 5; i < slots.length; i++) {
+            if (slots[i].itemType == -1) {
+                slots[i].setEquipment(equipment);
+                pickedUp = true;
+                break;
+            }
+        }
+        return pickedUp;
+    }
+
+
     public boolean isIn(MouseEvent e, Slot slot) {
         return slot.getBounds().contains(e.getX(), e.getY());
     }
@@ -262,5 +276,9 @@ public class InventoryOverlay {
 
     public Slot[] getSlots() {
         return slots;
+    }
+
+    public Playing getPlaying() {
+        return playing;
     }
 }

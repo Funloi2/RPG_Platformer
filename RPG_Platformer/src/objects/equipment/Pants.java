@@ -16,7 +16,4 @@ public class Pants extends Armor {
         return armor;
     }
 
-    public int getArmorType() {
-        return armorType;
-    }
 }

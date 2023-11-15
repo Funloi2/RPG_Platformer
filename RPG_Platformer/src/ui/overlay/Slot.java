@@ -1,5 +1,7 @@
 package ui.overlay;
 
+import objects.equipment.Equipment;
+import objects.equipment.Helmet;
 import org.w3c.dom.events.Event;
 
 import java.awt.*;
@@ -17,7 +19,10 @@ public class Slot {
     // Size and position
     protected int xPos, yPos, size;
 
+    // Item
     protected int itemType;
+    protected Equipment equipment;
+
 
     // Hit box
     protected Rectangle bounds;
@@ -80,8 +85,10 @@ public class Slot {
         g.setColor(new Color(0, 0, 0, 100));
         g.fillRect(xPos, yPos, size, size);
         g.setColor(Color.WHITE);
-        g.drawString(display, xPos + 5, yPos + 25);
+        g.drawString(String.valueOf(itemType), xPos + 5, yPos + 25);
         drawBounds(g);
+
+        g.drawImage(image, xPos, yPos, ARMOR_WIDTH, ARMOR_HEIGHT, null);
     }
 
     protected void drawBounds(Graphics g) {
@@ -126,19 +133,21 @@ public class Slot {
                     if (itemType == item.itemType || item.id >= 5) {
                         switchPos(item);
                         setSwitched(true);
-                    } else if (itemType == HELMET && item.id == 0){
+                    } else if (itemType == HELMET && item.id == 0) {
+                        System.out.println("change helmet");
+                        inventoryOverlay.getPlaying().getPlayer().setHelmet((Helmet) equipment);
                         switchPos(item);
                         setSwitched(true);
-                    }else if (itemType == CHEST_PLATE && item.id == 1){
+                    } else if (itemType == CHEST_PLATE && item.id == 1) {
                         switchPos(item);
                         setSwitched(true);
-                    }else if (itemType == LEGS && item.id == 2){
+                    } else if (itemType == LEGS && item.id == 2) {
                         switchPos(item);
                         setSwitched(true);
-                    }else if (itemType == SHOES && item.id == 3){
+                    } else if (itemType == SHOES && item.id == 3) {
                         switchPos(item);
                         setSwitched(true);
-                    }else if (itemType == WEAPON && item.id == 4){
+                    } else if (itemType == WEAPON && item.id == 4) {
                         switchPos(item);
                         setSwitched(true);
                     }
@@ -208,4 +217,9 @@ public class Slot {
     }
 
 
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+        itemType = equipment.getObjType();
+        image = equipment.getImage();
+    }
 }

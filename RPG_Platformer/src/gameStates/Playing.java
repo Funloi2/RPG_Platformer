@@ -130,11 +130,30 @@ public class Playing extends State implements StateMethods {
         }
 
     }
+//    private int handleLvlOffset(int diff, int startBorder, int endBorder, int offset, int maxOffset) {
+//        if (diff > endBorder) {
+//            return offset + diff - endBorder;
+//        } else if (diff < startBorder) {
+//            return offset + diff - startBorder;
+//        }
+//
+//        if (offset > maxOffset) {
+//            return maxOffset;
+//        } else if (offset < 0) {
+//            return 0;
+//        }
+//        return offset;
+//    }
+
 
     public void checkSpeakToAtlas() {
         if (player.getHitBox().intersects(altar.getHitBox())) {
             useAtlas = true;
         }
+    }
+
+    public void checkPickUpItem(Rectangle2D.Float hitBox) {
+        objectManager.checkPickUpItem(hitBox);
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
@@ -145,20 +164,6 @@ public class Playing extends State implements StateMethods {
         objectManager.checkObjectHit(attackBox);
     }
 
-    private int handleLvlOffset(int diff, int startBorder, int endBorder, int offset, int maxOffset) {
-        if (diff > endBorder) {
-            return offset + diff - endBorder;
-        } else if (diff < startBorder) {
-            return offset + diff - startBorder;
-        }
-
-        if (offset > maxOffset) {
-            return maxOffset;
-        } else if (offset < 0) {
-            return 0;
-        }
-        return offset;
-    }
 
     @Override
     public void update() {

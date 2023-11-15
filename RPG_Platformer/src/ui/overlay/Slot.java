@@ -1,7 +1,6 @@
 package ui.overlay;
 
-import objects.equipment.Equipment;
-import objects.equipment.Helmet;
+import objects.equipment.*;
 import org.w3c.dom.events.Event;
 
 import java.awt.*;
@@ -85,7 +84,10 @@ public class Slot {
         g.setColor(new Color(0, 0, 0, 100));
         g.fillRect(xPos, yPos, size, size);
         g.setColor(Color.WHITE);
-        g.drawString(String.valueOf(itemType), xPos + 5, yPos + 25);
+        if (equipment instanceof Equipment)
+            g.drawString(String.valueOf(equipment.getLevel()), xPos + 5, yPos + 25);
+        else
+            g.drawString(String.valueOf(itemType), xPos + 5, yPos + 25);
         drawBounds(g);
 
         g.drawImage(image, xPos, yPos, ARMOR_WIDTH, ARMOR_HEIGHT, null);
@@ -130,11 +132,8 @@ public class Slot {
 
             for (Slot item : inventoryOverlay.getSlots()) {
                 if (inventoryOverlay.isIn(e, item)) {
-                    if (itemType == item.itemType || item.id >= 5) {
-                        switchPos(item);
-                        setSwitched(true);
-                    } else if (itemType == HELMET && item.id == 0) {
-                        System.out.println("change helmet");
+                    if (itemType == HELMET && item.id == 0) {
+                        System.out.println("branch 2");
                         inventoryOverlay.getPlaying().getPlayer().setHelmet((Helmet) equipment);
                         switchPos(item);
                         setSwitched(true);
@@ -150,6 +149,20 @@ public class Slot {
                     } else if (itemType == WEAPON && item.id == 4) {
                         switchPos(item);
                         setSwitched(true);
+                    } else if (itemType == item.itemType || item.id >= 5) {
+                        System.out.println("switch");
+                        switch (id) {
+
+                            case 0 -> inventoryOverlay.getPlaying().getPlayer().setHelmet((Helmet) item.equipment);
+                            case 1 ->
+                                    inventoryOverlay.getPlaying().getPlayer().setChestplate((Chestplate) item.equipment);
+                            case 2 -> inventoryOverlay.getPlaying().getPlayer().setPants((Pants) item.equipment);
+                            case 3 -> inventoryOverlay.getPlaying().getPlayer().setBoots((Boots) item.equipment);
+                            case 4 -> inventoryOverlay.getPlaying().getPlayer().setSword((Sword) item.equipment);
+                        }
+                        switchPos(item);
+                        setSwitched(true);
+
                     }
                 }
             }
@@ -183,7 +196,9 @@ public class Slot {
                 resetPos();
             switched = false;
         }
+
         setMousePressed(false);
+
     }
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 

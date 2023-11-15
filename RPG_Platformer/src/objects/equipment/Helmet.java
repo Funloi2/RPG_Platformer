@@ -19,7 +19,9 @@ public class Helmet extends Armor {
         super("Helmet", 10, HELMET, -1);
         this.x = x;
         this.y = y;
+        level = x/10;
         armor += level * 2;
+
 
         loadImage();
         initHitBox(ARMOR_WIDTH, ARMOR_HEIGHT);

@@ -52,11 +52,11 @@ public class InventoryOverlay {
     private void initHitBoxes() {
         slots = new Slot[26];
 
-        for (int i = 0; i < 5; i++) {
-            slots[i] = new Slot(195, 200 + i * 56, 44, i + 3, this);
-        }
-        for (int i = 0; i < slots.length - 5; i++) {
-            slots[i + 5] = new Slot((int) (534 + (i % 7) * 73.8), 279 + (i / 7) * 61, 44, -1, this);
+        for (int i = 0; i < slots.length; i++) {
+            if (i < 5)
+                slots[i] = new Slot(195, 200 + i * 56, 44, -1, this);
+            else
+                slots[i] = new Slot((int) (534 + ((i - 5) % 7) * 73.8), 279 + ((i - 5) / 7) * 61, 44, -1, this);
         }
 
 

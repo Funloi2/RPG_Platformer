@@ -77,8 +77,8 @@ public class ObjectManager {
             if (ch.isActive() && !ch.doAnimation) {
                 if (ch.getHitbox().intersects(attackbox)) {
                     ch.objState = 1;
-
-                    equipments.add(new Helmet(ch.x, (int) (ch.getHitbox().y + ch.getHitbox().height - ARMOR_HEIGHT)));
+                    for (int i = 0; i < 20; i++)
+                        equipments.add(new Helmet(ch.x, (int) (ch.getHitbox().y + ch.getHitbox().height - ARMOR_HEIGHT)));
 
 //                    potions.add(new Potion((int) (ch.getHitbox().x + ch.getHitbox().width / 2), type == 0 ? (int) (ch.getHitbox().y - ch.getHitbox().height / 2) : (int) (ch.getHitbox().y), type));
                     return;

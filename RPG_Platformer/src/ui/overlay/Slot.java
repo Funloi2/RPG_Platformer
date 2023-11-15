@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static utilz.Constants.ObjectConstants.*;
+
 public class Slot {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
@@ -27,6 +29,12 @@ public class Slot {
     protected boolean mouseOver, mousePressed;
     protected boolean switched = false;
 
+    // debug
+    private String display;
+    private static int cpt = 0;
+    private int id;
+
+
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     protected Slot(int xPos, int yPos, int size, int itemType, InventoryOverlay inventoryOverlay) {
         this.xPos = xPos;
@@ -34,7 +42,14 @@ public class Slot {
         this.size = size;
         this.itemType = itemType;
         this.inventoryOverlay = inventoryOverlay;
+        id = cpt;
+        cpt++;
+
+        initBounds();
+        initDisplay();
+
     }
+
 
     /// ------------------------------- METHOD ------------------------------- ///
     protected void initBounds() {
@@ -48,6 +63,25 @@ public class Slot {
 //        for (int i = 0; i < image.length; i++) {
 //            image[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
 //        }
+    }
+
+    private void initDisplay() {
+        switch (itemType) {
+            case 3 -> display = "helmet";
+            case 4 -> display = "chest";
+            case 5 -> display = "pants";
+            case 6 -> display = "boots";
+            case 7 -> display = "weapon";
+            default -> display = "bag_item " + id;
+        }
+    }
+
+    public void draw(Graphics g) {
+        g.setColor(new Color(0, 0, 0, 100));
+        g.fillRect(xPos, yPos, size, size);
+        g.setColor(Color.WHITE);
+        g.drawString(display, xPos + 5, yPos + 25);
+        drawBounds(g);
     }
 
     protected void drawBounds(Graphics g) {
@@ -75,11 +109,73 @@ public class Slot {
         item.bounds.x = xTemp;
         item.bounds.y = yTemp;
 
+        int idTemp = id;
+        id = item.id;
+        item.id = idTemp;
+
         resetPos();
         item.resetPos();
 
     }
 
+    public void handleMouseReleased(MouseEvent e) {
+        if (isMousePressed()) {
+
+            for (Slot item : inventoryOverlay.getSlots()) {
+                if (inventoryOverlay.isIn(e, item)) {
+                    if (itemType == item.itemType || item.id >= 5) {
+                        switchPos(item);
+                        setSwitched(true);
+                    } else if (itemType == HELMET && item.id == 0){
+                        switchPos(item);
+                        setSwitched(true);
+                    }else if (itemType == CHEST_PLATE && item.id == 1){
+                        switchPos(item);
+                        setSwitched(true);
+                    }else if (itemType == LEGS && item.id == 2){
+                        switchPos(item);
+                        setSwitched(true);
+                    }else if (itemType == SHOES && item.id == 3){
+                        switchPos(item);
+                        setSwitched(true);
+                    }else if (itemType == WEAPON && item.id == 4){
+                        switchPos(item);
+                        setSwitched(true);
+                    }
+                }
+            }
+
+
+//            for (InventorySlot inventoryItem : inventoryOverlay.getInventorySlots()) {
+//                if (inventoryOverlay.isIn(e, inventoryItem)) {
+//                    if (itemType == inventoryItem.itemType || inventoryItem.itemType == -1) {
+//                        switchPos(inventoryItem);
+//                        setSwitched(true);
+//                    }
+//                }
+//            }
+//            for (ArmorSlot armor : inventoryOverlay.getArmorSlots()) {
+//                if (inventoryOverlay.isIn(e, armor)) {
+//                    if (itemType == armor.itemType) {
+//                        switchPos(armor);
+//                        setSwitched(true);
+//                    }
+//                }
+//            }
+//
+//            if (inventoryOverlay.isIn(e, inventoryOverlay.getWeaponSlot())) {
+//                if (itemType == inventoryOverlay.getWeaponSlot().itemType) {
+//                    switchPos(inventoryOverlay.getWeaponSlot());
+//                    setSwitched(true);
+//                }
+//            }
+
+            if (!isSwitched())
+                resetPos();
+            switched = false;
+        }
+        setMousePressed(false);
+    }
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
 
@@ -112,30 +208,4 @@ public class Slot {
     }
 
 
-    public void handleMouseReleased(MouseEvent e) {
-        if (isMousePressed()) {
-            for (InventorySlot inventoryItem : inventoryOverlay.getInventorySlots()) {
-                if (inventoryOverlay.isIn(e, inventoryItem)) {
-                    switchPos(inventoryItem);
-                    setSwitched(true);
-                }
-            }
-            for (ArmorSlot armor : inventoryOverlay.getArmorSlots()) {
-                if (inventoryOverlay.isIn(e, armor)) {
-                    switchPos(armor);
-                    setSwitched(true);
-                }
-            }
-
-            if (inventoryOverlay.isIn(e, inventoryOverlay.getWeaponSlot())) {
-                switchPos(inventoryOverlay.getWeaponSlot());
-                setSwitched(true);
-            }
-
-            if (!isSwitched())
-                resetPos();
-            switched = false;
-        }
-        setMousePressed(false);
-    }
 }

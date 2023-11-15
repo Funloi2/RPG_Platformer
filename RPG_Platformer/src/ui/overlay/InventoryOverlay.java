@@ -28,6 +28,7 @@ public class InventoryOverlay {
     private BufferedImage playerArt;
 
     // Hit boxes list
+    private Slot[] slots;
     private ArmorSlot[] armorSlots;
     private WeaponSlot weaponSlot;
     private InventorySlot[] inventorySlots;
@@ -48,19 +49,29 @@ public class InventoryOverlay {
     /// ------------------------------- METHOD ------------------------------- ///
 
     private void initHitBoxes() {
-        armorSlots = new ArmorSlot[4];
+        slots = new Slot[26];
 
-        for (int i = 0; i < armorSlots.length; i++) {
-            armorSlots[i] = new ArmorSlot(195, 200 + i * 56, 44, i + 4, this);
+        for (int i = 0; i < 5; i++) {
+            slots[i] = new Slot(195, 200 + i * 56, 44, i + 3, this);
+        }
+        for (int i = 0; i < slots.length - 5; i++) {
+            slots[i + 5] = new Slot((int) (534 + (i % 7) * 73.8), 279 + (i / 7) * 61, 44, -1, this);
         }
 
-        weaponSlot = new WeaponSlot(195, 200 + armorSlots.length * 56, 44, this);
 
-        inventorySlots = new InventorySlot[21];
-
-        for (int i = 0; i < inventorySlots.length; i++) {
-            inventorySlots[i] = new InventorySlot((int) (534 + (i % 7) * 73.8), 279 + (i / 7) * 61, 44, -1, this);
-        }
+//        armorSlots = new ArmorSlot[4];
+//
+//        for (int i = 0; i < armorSlots.length; i++) {
+//            armorSlots[i] = new ArmorSlot(195, 200 + i * 56, 44, i + 4, this);
+//        }
+//
+//        weaponSlot = new WeaponSlot(195, 200 + armorSlots.length * 56, 44, this);
+//
+//        inventorySlots = new InventorySlot[21];
+//
+//        for (int i = 0; i < inventorySlots.length; i++) {
+//            inventorySlots[i] = new InventorySlot((int) (534 + (i % 7) * 73.8), 279 + (i / 7) * 61, 44, -1, this);
+//        }
     }
 
     private void loadBackground() {
@@ -86,16 +97,20 @@ public class InventoryOverlay {
         g.drawImage(playerArt, 265, 187, (int) (playerArt.getWidth() / 2.8), (int) (playerArt.getHeight() / 2.8), null);
 
         // Hit boxes
-        g.setColor(Color.RED);
-        for (ArmorSlot armor : armorSlots) {
-            armor.draw(g);
+
+        for (Slot slot : slots) {
+            slot.draw(g);
         }
 
-        weaponSlot.draw(g);
-
-        for (InventorySlot item : inventorySlots) {
-            item.draw(g);
-        }
+//        for (ArmorSlot armor : armorSlots) {
+//            armor.draw(g);
+//        }
+//
+//        weaponSlot.draw(g);
+//
+//        for (InventorySlot item : inventorySlots) {
+//            item.draw(g);
+//        }
 
         // Currency and potions amount
         g.setColor(Color.BLACK);
@@ -141,19 +156,26 @@ public class InventoryOverlay {
 
     //////////// Event handlers ////////////
     public void mouseDragged(MouseEvent e) {
-        for (InventorySlot item : inventorySlots) {
+
+        for (Slot item : slots) {
             if (item.isMousePressed()) {
                 item.dragItem(e.getX(), e.getY());
             }
         }
-        for (ArmorSlot armor : armorSlots) {
-            if (armor.isMousePressed()) {
-                armor.dragItem(e.getX(), e.getY());
-            }
-        }
-        if (weaponSlot.isMousePressed()) {
-            weaponSlot.dragItem(e.getX(), e.getY());
-        }
+
+//        for (InventorySlot item : inventorySlots) {
+//            if (item.isMousePressed()) {
+//                item.dragItem(e.getX(), e.getY());
+//            }
+//        }
+//        for (ArmorSlot armor : armorSlots) {
+//            if (armor.isMousePressed()) {
+//                armor.dragItem(e.getX(), e.getY());
+//            }
+//        }
+//        if (weaponSlot.isMousePressed()) {
+//            weaponSlot.dragItem(e.getX(), e.getY());
+//        }
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -161,30 +183,42 @@ public class InventoryOverlay {
     }
 
     public void mousePressed(MouseEvent e) {
-        for (InventorySlot item : inventorySlots) {
+
+        for (Slot item : slots) {
             if (isIn(e, item)) {
                 item.setMousePressed(true);
             }
         }
-        for (ArmorSlot armor : armorSlots) {
-            if (isIn(e, armor)) {
-                armor.setMousePressed(true);
-            }
-        }
-        if (isIn(e, weaponSlot)) {
-            weaponSlot.setMousePressed(true);
-        }
+
+//        for (InventorySlot item : inventorySlots) {
+//            if (isIn(e, item)) {
+//                item.setMousePressed(true);
+//            }
+//        }
+//        for (ArmorSlot armor : armorSlots) {
+//            if (isIn(e, armor)) {
+//                armor.setMousePressed(true);
+//            }
+//        }
+//        if (isIn(e, weaponSlot)) {
+//            weaponSlot.setMousePressed(true);
+//        }
     }
 
     public void mouseReleased(MouseEvent e) {
-        for (InventorySlot item : inventorySlots) {
+
+        for (Slot item : slots) {
             item.handleMouseReleased(e);
         }
 
-        for (ArmorSlot armor : armorSlots) {
-            armor.handleMouseReleased(e);
-        }
-        weaponSlot.handleMouseReleased(e);
+//        for (InventorySlot item : inventorySlots) {
+//            item.handleMouseReleased(e);
+//        }
+//
+//        for (ArmorSlot armor : armorSlots) {
+//            armor.handleMouseReleased(e);
+//        }
+//        weaponSlot.handleMouseReleased(e);
 
     }
 
@@ -224,5 +258,9 @@ public class InventoryOverlay {
 
     public WeaponSlot getWeaponSlot() {
         return weaponSlot;
+    }
+
+    public Slot[] getSlots() {
+        return slots;
     }
 }

@@ -6,7 +6,6 @@ import level.LevelManager;
 import main.Game;
 import objects.Altar;
 import objects.ObjectManager;
-import utilz.Constants;
 import utilz.LoadSave;
 import ui.overlay.*;
 
@@ -29,7 +28,7 @@ public class Playing extends State implements StateMethods {
     private ObjectManager objectManager;
     private InventoryOverlay inventoryOverlay;
     private PauseOverlay pauseOverlay;
-    private AtlasOverlay atlasOverlay;
+    private AltarOverlay atlasOverlay;
     private Altar altar;
 
     // Game border and level Offset var
@@ -88,7 +87,7 @@ public class Playing extends State implements StateMethods {
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         inventoryOverlay = new InventoryOverlay(this);
         pauseOverlay = new PauseOverlay(this);
-        atlasOverlay = new AtlasOverlay(this);
+        atlasOverlay = new AltarOverlay(this);
         altar = new Altar(13 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
 
     }

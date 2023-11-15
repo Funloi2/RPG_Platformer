@@ -13,9 +13,8 @@ public class InventorySlot extends Slot {
     // Equipment holder
     private Equipment equipment;
 
-    // Id
-    private static int cpt = 0;
-    private int id;
+
+
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public InventorySlot(int xPos, int yPos, int size, int itemType, InventoryOverlay inventoryOverlay) {
@@ -23,8 +22,7 @@ public class InventorySlot extends Slot {
 
         loadImage();
         initBounds();
-        id = cpt;
-        cpt++;
+
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -36,7 +34,7 @@ public class InventorySlot extends Slot {
         g.setColor(new Color(0, 0, 0, 100));
         g.fillRect(xPos, yPos, size, size);
         g.setColor(Color.WHITE);
-        g.drawString(String.valueOf(id), xPos + 5, yPos + 25);
+        g.drawString(String.valueOf(1), xPos + 5, yPos + 25);
         drawBounds(g);
     }
 

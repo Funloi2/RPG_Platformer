@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class AtlasOverlay {
+public class AltarOverlay {
 
     // Access to playing method
     private final Playing playing;
@@ -22,7 +22,7 @@ public class AtlasOverlay {
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    public AtlasOverlay(Playing playing) {
+    public AltarOverlay(Playing playing) {
         this.playing = playing;
 
 //        loadBackground();

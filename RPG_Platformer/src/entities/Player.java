@@ -60,8 +60,11 @@ public class Player extends Entity {
     private int flipX = 0;
     private int flipY = 1;
 
-    // Stats
+    // Potions
+    private int nbLifePotions = 0;
+    private int nbSTMPotions = 0;
 
+    // Stats
     private int argent = 0;
     private int xp = 0;
     private int level = 1;
@@ -559,5 +562,19 @@ public class Player extends Entity {
         this.attackDamage = attackDamage;
     }
 
+    public int getStamina() {
+        return stamina;
+    }
 
+    public int getSelfDefense() {
+        return selfDefense;
+    }
+
+    public int getNbLifePotions() {
+        return nbLifePotions;
+    }
+
+    public int getNbSTMPotions() {
+        return nbSTMPotions;
+    }
 }

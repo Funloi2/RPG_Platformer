@@ -125,5 +125,8 @@ public abstract class Entity {
         return defense;
     }
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 
 }

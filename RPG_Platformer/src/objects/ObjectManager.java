@@ -58,14 +58,21 @@ public class ObjectManager {
         for (Equipment equipment : equipments) {
             if (equipment.isActive()) {
                 if (hitBox.intersects(equipment.hitbox)) {
-                    equipment.setActive(false);
                     if (!pickUpItem(equipment)) {
+                        playing.setInventoryFull(true);
+                        playing.setInventoryFullClock(0);
                         System.out.println("Inventory full");
-                    }
+                    } else
+                        equipment.setActive(false);
+
 
                 }
             }
         }
+    }
+
+    private void inventoryFull() {
+
     }
 
     private boolean pickUpItem(Equipment equipment) {

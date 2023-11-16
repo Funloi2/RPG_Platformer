@@ -167,31 +167,6 @@ public class Slot {
                 }
             }
 
-
-//            for (InventorySlot inventoryItem : inventoryOverlay.getInventorySlots()) {
-//                if (inventoryOverlay.isIn(e, inventoryItem)) {
-//                    if (itemType == inventoryItem.itemType || inventoryItem.itemType == -1) {
-//                        switchPos(inventoryItem);
-//                        setSwitched(true);
-//                    }
-//                }
-//            }
-//            for (ArmorSlot armor : inventoryOverlay.getArmorSlots()) {
-//                if (inventoryOverlay.isIn(e, armor)) {
-//                    if (itemType == armor.itemType) {
-//                        switchPos(armor);
-//                        setSwitched(true);
-//                    }
-//                }
-//            }
-//
-//            if (inventoryOverlay.isIn(e, inventoryOverlay.getWeaponSlot())) {
-//                if (itemType == inventoryOverlay.getWeaponSlot().itemType) {
-//                    switchPos(inventoryOverlay.getWeaponSlot());
-//                    setSwitched(true);
-//                }
-//            }
-
             if (!isSwitched())
                 resetPos();
             switched = false;

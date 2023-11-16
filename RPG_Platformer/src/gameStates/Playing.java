@@ -53,6 +53,11 @@ public class Playing extends State implements StateMethods {
     private boolean paused = false;
     private boolean useAtlas = false;
 
+    //
+    private boolean inventoryFull = false;
+    private int inventoryFullClock = 241;
+    private boolean drawInventoryFull;
+
     // Background
     private BufferedImage backgroundImage, spawnBgImage;
 
@@ -172,6 +177,13 @@ public class Playing extends State implements StateMethods {
             objectManager.update();
             player.update();
             checkCloseBorder();
+
+            if (inventoryFullClock < 240) {
+                inventoryFullClock++;
+                drawInventoryFull = true;
+            } else {
+                drawInventoryFull = false;
+            }
         }
     }
 
@@ -181,11 +193,15 @@ public class Playing extends State implements StateMethods {
         g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
 
 
-        levelManager.draw(g, xLvlOffset, yLvlOffset);
+        levelManager.draw(g, xLvlOffset, yLvlOffset)    ;
         player.render(g, xLvlOffset, yLvlOffset);
         enemyManager.draw(g, xLvlOffset, yLvlOffset);
         objectManager.draw(g, xLvlOffset, yLvlOffset);
         altar.draw(g, xLvlOffset, yLvlOffset);
+
+        if (drawInventoryFull)
+            g.drawString("INVENTORY FULL", (int) (player.getHitBox().x - xLvlOffset), (int) (player.getHitBox().y - yLvlOffset));
+
 
         if (inventory || paused || useAtlas) {
             g.setColor(new Color(0, 0, 0, 150));
@@ -197,6 +213,8 @@ public class Playing extends State implements StateMethods {
             else if (useAtlas)
                 atlasOverlay.draw(g);
         }
+
+
     }
 
     @Override
@@ -268,5 +286,17 @@ public class Playing extends State implements StateMethods {
 
     public InventoryOverlay getInventoryOverlay() {
         return inventoryOverlay;
+    }
+
+    public boolean isInventoryFull() {
+        return inventoryFull;
+    }
+
+    public void setInventoryFull(boolean inventoryFull) {
+        this.inventoryFull = inventoryFull;
+    }
+
+    public void setInventoryFullClock(int inventoryFullClock) {
+        this.inventoryFullClock = inventoryFullClock;
     }
 }

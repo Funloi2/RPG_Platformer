@@ -69,6 +69,7 @@ public class Player extends Entity {
     private int attackDamage;
     private int selfDefense;
     private int stamina;
+    private int baseHp;
 
     // Effet de sets
     private boolean S1, S2, S3, S4;
@@ -90,6 +91,7 @@ public class Player extends Entity {
         this.playing = playing;
         state = IDLE;
         maxHealth = 100;
+        baseHp = maxHealth;
         currentHealth = maxHealth;
         attack = 100;
         defense = 2;
@@ -349,7 +351,9 @@ public class Player extends Entity {
             maxXp = round(maxXp * 1.5f);
             attack += 5;
             defense += 2;
-            maxHealth += 10;
+            baseHp += 10;
+            maxHealth = baseHp;
+            updateArmor();
             currentHealth = maxHealth;
 
         }
@@ -435,6 +439,10 @@ public class Player extends Entity {
             attackDamage += sword.getDamage();
         } catch (Exception e) {
         }
+    }
+
+    public void updateGold(int amount) {
+        argent += amount;
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
@@ -558,6 +566,7 @@ public class Player extends Entity {
         updateAttackDamage();
         this.attackDamage = attackDamage;
     }
+
 
 
 }

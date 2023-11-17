@@ -4,7 +4,10 @@ import gameStates.Playing;
 import main.Game;
 
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
+import static java.lang.Math.random;
+import static java.lang.Math.round;
 import static utilz.Constants.*;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Direction.*;
@@ -21,6 +24,10 @@ public class Enemy extends Entity {
     protected boolean active = true;
     protected boolean attackChecked;
     private Playing playing;
+    private int enemyLevel = 1;
+    private int enemyDropRate = 1;
+    private int enemyDropRateLevel = 1;
+    private Random random = new Random();
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -154,8 +161,40 @@ public class Enemy extends Entity {
 
     public void enemyDeath() {
         newState(DEATH);
-        playing.getPlayer().updateXp(20);
+        playing.getPlayer().updateXp((int) round(20 + enemyLevel * 1.5));
+        playing.getPlayer().updateGold((int) round(10 + enemyLevel * 1.5));
+        drop();
+    }
 
+    private void drop(){
+        double drop = random();
+        if (drop >= 0.70){
+            System.out.println("drop");
+            drop = random();
+            if ( drop >= 0.70){
+                System.out.println("armor");
+            }else{
+                dropWeapon();
+            }
+        }
+    }
+
+    private void dropWeapon() {
+        double drop = random.nextDouble();
+        if (drop < 0.70) {
+            System.out.println("t1");
+        } else if (drop < 0.90) {
+            System.out.println("t2");
+        } else if (drop < 0.95) {
+            System.out.println("t3");
+        } else if (drop < 0.99) {
+            System.out.println("TerraPrisma");
+        } else {
+            double t5DropChance = 0.0000001 / 100;
+            if (drop < t5DropChance) {
+                System.out.println("God Slayer");
+            }
+        }
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///

@@ -1,21 +1,25 @@
-package objects;
+package objects.equipment;
 
-public class Helmet extends Armor{
-
+public abstract class Armor extends Equipment {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
+    protected int armor;
+    protected int setNumber;
+
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    public Helmet() {
-        super("Helmet", 10 , 0, -1);
-        armor = armor + level * 2;
+    protected Armor(String name, int armor, int armorType, int setNumber) {
+        super(name, 0, 0, armorType);
+        this.armor = armor;
+        this.setNumber = setNumber;
     }
+
     /// ------------------------------- METHOD ------------------------------- ///
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
     public int getArmor() {
         return armor;
     }
 
-    public int getArmorType() {
-        return armorType;
+    public int getSetNumber() {
+        return setNumber;
     }
 }

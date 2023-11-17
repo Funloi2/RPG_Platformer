@@ -1,6 +1,7 @@
 package objects;
 
 import main.Game;
+import objects.GameObject;
 
 public class Chest extends GameObject {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///

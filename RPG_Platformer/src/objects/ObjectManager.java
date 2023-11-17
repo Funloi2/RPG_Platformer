@@ -1,8 +1,9 @@
 package objects;
 
-import entities.Player;
 import gameStates.Playing;
 import level.Level;
+import objects.equipment.Equipment;
+import objects.equipment.Helmet;
 import utilz.LoadSave;
 
 import static utilz.Constants.ObjectConstants.*;
@@ -24,6 +25,7 @@ public class ObjectManager {
     // List of items
     private ArrayList<Chest> chests = new ArrayList<>();
     private ArrayList<Potion> potions = new ArrayList<>();
+    private ArrayList<Equipment> equipments = new ArrayList<>();
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -52,11 +54,38 @@ public class ObjectManager {
 //        }
 //    }
 
+    public void checkPickUpItem(Rectangle2D.Float hitBox) {
+        for (Equipment equipment : equipments) {
+            if (equipment.isActive()) {
+                if (hitBox.intersects(equipment.hitbox)) {
+                    if (!pickUpItem(equipment)) {
+                        playing.setInventoryFull(true);
+                        playing.setInventoryFullClock(0);
+                        System.out.println("Inventory full");
+                    } else
+                        equipment.setActive(false);
+
+
+                }
+            }
+        }
+    }
+
+    private void inventoryFull() {
+
+    }
+
+    private boolean pickUpItem(Equipment equipment) {
+        return playing.getInventoryOverlay().pickUpItem(equipment);
+    }
+
     public void checkObjectHit(Rectangle2D.Float attackbox) {
         for (Chest ch : chests) {
             if (ch.isActive() && !ch.doAnimation) {
                 if (ch.getHitbox().intersects(attackbox)) {
                     ch.objState = 1;
+                    for (int i = 0; i < 20; i++)
+                        equipments.add(new Helmet(ch.x, (int) (ch.getHitbox().y + ch.getHitbox().height - ARMOR_HEIGHT)));
 
 //                    potions.add(new Potion((int) (ch.getHitbox().x + ch.getHitbox().width / 2), type == 0 ? (int) (ch.getHitbox().y - ch.getHitbox().height / 2) : (int) (ch.getHitbox().y), type));
                     return;
@@ -108,6 +137,14 @@ public class ObjectManager {
     public void draw(Graphics g, int xLvlOffset, int yLvlOffset) {
         drawPotions(g, xLvlOffset, yLvlOffset);
         drawChests(g, xLvlOffset, yLvlOffset);
+        drawEquipment(g, xLvlOffset, yLvlOffset);
+    }
+
+    private void drawEquipment(Graphics g, int xLvlOffset, int yLvlOffset) {
+        for (Equipment equipment : equipments) {
+            if (equipment.isActive())
+                equipment.draw(g, xLvlOffset, yLvlOffset);
+        }
     }
 
     private void drawChests(Graphics g, int xLvlOffset, int yLvlOffset) {
@@ -156,6 +193,7 @@ public class ObjectManager {
             c.reset();
         }
     }
+
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 

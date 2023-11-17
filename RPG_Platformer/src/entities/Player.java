@@ -2,7 +2,7 @@ package entities;
 
 import gameStates.Playing;
 import main.Game;
-import objects.*;
+import objects.equipment.*;
 import utilz.LoadSave;
 
 import static java.lang.Math.round;
@@ -11,7 +11,6 @@ import static utilz.HelpMethod.*;
 import static utilz.Constants.*;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -60,8 +59,11 @@ public class Player extends Entity {
     private int flipX = 0;
     private int flipY = 1;
 
-    // Stats
+    // Potions
+    private int nbLifePotions = 0;
+    private int nbSTMPotions = 0;
 
+    // Stats
     private int argent = 0;
     private int xp = 0;
     private int level = 1;
@@ -144,6 +146,7 @@ public class Player extends Entity {
 
         if (action) {
             checkSpeakToAtlas();
+            playing.checkPickUpItem(hitBox);
         }
         if (attacking) {
             checkAttack();
@@ -350,6 +353,7 @@ public class Player extends Entity {
             xp = 0;
             maxXp = round(maxXp * 1.5f);
             attack += 5;
+            updateAttackDamage();
             defense += 2;
             baseHp += 10;
             maxHealth = baseHp;
@@ -518,8 +522,9 @@ public class Player extends Entity {
     }
 
     public void setHelmet(Helmet helmet) {
-        updateArmor();
         this.helmet = helmet;
+        System.out.println("helmet equiped");
+        updateArmor();
     }
 
     public Chestplate getChestplate() {
@@ -527,8 +532,8 @@ public class Player extends Entity {
     }
 
     public void setChestplate(Chestplate chestplate) {
-        updateArmor();
         this.chestplate = chestplate;
+        updateArmor();
     }
 
     public Pants getPants() {
@@ -536,8 +541,8 @@ public class Player extends Entity {
     }
 
     public void setPants(Pants pants) {
-        updateArmor();
         this.pants = pants;
+        updateArmor();
     }
 
     public Boots getBoots() {
@@ -545,8 +550,8 @@ public class Player extends Entity {
     }
 
     public void setBoots(Boots boots) {
-        updateArmor();
         this.boots = boots;
+        updateArmor();
     }
 
     public Sword getSword() {
@@ -554,8 +559,8 @@ public class Player extends Entity {
     }
 
     public void setSword(Sword sword) {
-        updateAttackDamage();
         this.sword = sword;
+        updateAttackDamage();
     }
 
     public int getAttackDamage() {
@@ -563,10 +568,23 @@ public class Player extends Entity {
     }
 
     public void setAttackDamage(int attackDamage) {
-        updateAttackDamage();
         this.attackDamage = attackDamage;
+        updateAttackDamage();
     }
 
+    public int getStamina() {
+        return stamina;
+    }
 
+    public int getSelfDefense() {
+        return selfDefense;
+    }
 
+    public int getNbLifePotions() {
+        return nbLifePotions;
+    }
+
+    public int getNbSTMPotions() {
+        return nbSTMPotions;
+    }
 }

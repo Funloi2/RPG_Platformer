@@ -1,11 +1,11 @@
-package objects;
+package objects.equipment;
 
-public class Pants extends Armor{
+public class Boots extends Armor {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    public Pants() {
-        super("Pants", 10 , 2, -1);
+    public Boots() {
+        super("Boots", 10 , 3, -1);
         armor = armor + level * 2;
     }
     /// ------------------------------- METHOD ------------------------------- ///
@@ -14,7 +14,5 @@ public class Pants extends Armor{
         return armor;
     }
 
-    public int getArmorType() {
-        return armorType;
-    }
+
 }

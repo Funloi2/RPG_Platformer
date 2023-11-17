@@ -6,7 +6,6 @@ import level.LevelManager;
 import main.Game;
 import objects.Altar;
 import objects.ObjectManager;
-import utilz.Constants;
 import utilz.LoadSave;
 import ui.overlay.*;
 
@@ -29,7 +28,7 @@ public class Playing extends State implements StateMethods {
     private ObjectManager objectManager;
     private InventoryOverlay inventoryOverlay;
     private PauseOverlay pauseOverlay;
-    private AtlasOverlay atlasOverlay;
+    private AltarOverlay atlasOverlay;
     private Altar altar;
 
     // Game border and level Offset var
@@ -53,6 +52,11 @@ public class Playing extends State implements StateMethods {
     private boolean inventory = false;
     private boolean paused = false;
     private boolean useAtlas = false;
+
+    //
+    private boolean inventoryFull = false;
+    private int inventoryFullClock = 241;
+    private boolean drawInventoryFull;
 
     // Background
     private BufferedImage backgroundImage, spawnBgImage;
@@ -88,7 +92,7 @@ public class Playing extends State implements StateMethods {
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         inventoryOverlay = new InventoryOverlay(this);
         pauseOverlay = new PauseOverlay(this);
-        atlasOverlay = new AtlasOverlay(this);
+        atlasOverlay = new AltarOverlay(this);
         altar = new Altar(13 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
 
     }
@@ -131,11 +135,30 @@ public class Playing extends State implements StateMethods {
         }
 
     }
+//    private int handleLvlOffset(int diff, int startBorder, int endBorder, int offset, int maxOffset) {
+//        if (diff > endBorder) {
+//            return offset + diff - endBorder;
+//        } else if (diff < startBorder) {
+//            return offset + diff - startBorder;
+//        }
+//
+//        if (offset > maxOffset) {
+//            return maxOffset;
+//        } else if (offset < 0) {
+//            return 0;
+//        }
+//        return offset;
+//    }
+
 
     public void checkSpeakToAtlas() {
         if (player.getHitBox().intersects(altar.getHitBox())) {
             useAtlas = true;
         }
+    }
+
+    public void checkPickUpItem(Rectangle2D.Float hitBox) {
+        objectManager.checkPickUpItem(hitBox);
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
@@ -146,20 +169,6 @@ public class Playing extends State implements StateMethods {
         objectManager.checkObjectHit(attackBox);
     }
 
-    private int handleLvlOffset(int diff, int startBorder, int endBorder, int offset, int maxOffset) {
-        if (diff > endBorder) {
-            return offset + diff - endBorder;
-        } else if (diff < startBorder) {
-            return offset + diff - startBorder;
-        }
-
-        if (offset > maxOffset) {
-            return maxOffset;
-        } else if (offset < 0) {
-            return 0;
-        }
-        return offset;
-    }
 
     @Override
     public void update() {
@@ -168,6 +177,13 @@ public class Playing extends State implements StateMethods {
             objectManager.update();
             player.update();
             checkCloseBorder();
+
+            if (inventoryFullClock < 240) {
+                inventoryFullClock++;
+                drawInventoryFull = true;
+            } else {
+                drawInventoryFull = false;
+            }
         }
     }
 
@@ -177,11 +193,15 @@ public class Playing extends State implements StateMethods {
         g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
 
 
-        levelManager.draw(g, xLvlOffset, yLvlOffset);
+        levelManager.draw(g, xLvlOffset, yLvlOffset)    ;
         player.render(g, xLvlOffset, yLvlOffset);
         enemyManager.draw(g, xLvlOffset, yLvlOffset);
         objectManager.draw(g, xLvlOffset, yLvlOffset);
         altar.draw(g, xLvlOffset, yLvlOffset);
+
+        if (drawInventoryFull)
+            g.drawString("INVENTORY FULL", (int) (player.getHitBox().x - xLvlOffset), (int) (player.getHitBox().y - yLvlOffset));
+
 
         if (inventory || paused || useAtlas) {
             g.setColor(new Color(0, 0, 0, 150));
@@ -193,6 +213,8 @@ public class Playing extends State implements StateMethods {
             else if (useAtlas)
                 atlasOverlay.draw(g);
         }
+
+
     }
 
     @Override
@@ -264,5 +286,17 @@ public class Playing extends State implements StateMethods {
 
     public InventoryOverlay getInventoryOverlay() {
         return inventoryOverlay;
+    }
+
+    public boolean isInventoryFull() {
+        return inventoryFull;
+    }
+
+    public void setInventoryFull(boolean inventoryFull) {
+        this.inventoryFull = inventoryFull;
+    }
+
+    public void setInventoryFullClock(int inventoryFullClock) {
+        this.inventoryFullClock = inventoryFullClock;
     }
 }

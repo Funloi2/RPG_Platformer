@@ -19,11 +19,11 @@ public class Constants {
         public static final int CHEST = 0;
         public static final int LIFE_POTION = 1;
         public static final int STM_POTION = 2;
-        public static final int WEAPON = 3;
-        public static final int HELMET = 4;
-        public static final int CHEST_PLATE = 5;
-        public static final int LEGS = 6;
-        public static final int SHOES = 7;
+        public static final int HELMET = 3;
+        public static final int CHEST_PLATE = 4;
+        public static final int LEGS = 5;
+        public static final int SHOES = 6;
+        public static final int WEAPON = 7;
 
 
         public static final int CHEST_DEFAULT_WIDTH = 48;
@@ -33,8 +33,16 @@ public class Constants {
 
         public static final int POTION_WIDTH_DEFAULT = 12;
         public static final int POTION_HEIGHT_DEFAULT = 16;
-        public static final int POTION_WIDTH = (int) (Game.SCALE * POTION_WIDTH_DEFAULT);
+        public static final int POTION_WIDTH = (int) (Game.SCALE * POTION_WIDTH_DEFAULT );
         public static final int POTION_HEIGHT = (int) (Game.SCALE * POTION_HEIGHT_DEFAULT);
+
+        public static final int ARMOR_WIDTH_DEFAULT = 32;
+        public static final int ARMOR_HEIGHT_DEFAULT = 32;
+        public static final int ARMOR_WIDTH = (int) (Game.SCALE * ARMOR_WIDTH_DEFAULT) / 3;
+        public static final int ARMOR_HEIGHT = (int) (Game.SCALE * ARMOR_HEIGHT_DEFAULT) / 3;
+
+
+
 
 
         public static int GetSpriteAmount(int object_type) {

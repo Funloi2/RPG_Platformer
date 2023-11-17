@@ -1,6 +1,6 @@
-package objects;
+package objects.equipment;
 
-public class Sword extends Weapon{
+public class Sword extends Weapon {
 
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///

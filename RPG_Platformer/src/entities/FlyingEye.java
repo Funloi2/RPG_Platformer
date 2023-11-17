@@ -47,7 +47,7 @@ public class FlyingEye extends Enemy {
         } else {
             switch (state) {
                 case IDLE -> {
-//                    newState(RUN);
+                    newState(RUN);
                 }
                 case RUN -> {
                     if (canSeePlayer(lvlData, player)) {

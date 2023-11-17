@@ -15,5 +15,3 @@ P
  src/ui/overlay/AtlasOverlay.java,2\b\2b7e27768f0ef704507b68f3932a01b5dfab9a0a
 S
 #src/ui/overlay/GameOverOverlay.java,3\2\328d41ab5096939cb904b8b9f8810528139f5a5b
-P
- src/ui/overlay/PauseOverlay.java,1\f\1f0863b2809b25f0853ceecb4be001071792a8e4

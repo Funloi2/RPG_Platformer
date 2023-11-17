@@ -15,11 +15,11 @@ public class Helmet extends Armor {
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    public Helmet(int x, int y) {
-        super("Helmet", 10, HELMET, -1);
+    public Helmet(int x, int y, int set, int level) {
+        super("Helmet", 10, HELMET, set);
         this.x = x;
         this.y = y;
-        level = x/10;
+        this.level = level;
         armor += level * 2;
 
 

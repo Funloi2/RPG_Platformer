@@ -2,6 +2,10 @@ package entities;
 
 import gameStates.Playing;
 import main.Game;
+import objects.equipment.Boots;
+import objects.equipment.Chestplate;
+import objects.equipment.Helmet;
+import objects.equipment.Pants;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
@@ -144,13 +148,13 @@ public class Enemy extends Entity {
 
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.getHitBox())) {
-            player.changeHealth(-(getEnemyDmg(enemyType))/player.getDefense());
+            player.changeHealth(-(getEnemyDmg(enemyType)) / player.getDefense());
         }
         attackChecked = true;
     }
 
     public void hurt(int amount) {
-        currentHealth -= (amount/defense);
+        currentHealth -= (amount / defense);
         if (currentHealth <= 0) {
             enemyDeath();
         } else {
@@ -166,14 +170,14 @@ public class Enemy extends Entity {
         drop();
     }
 
-    private void drop(){
+    private void drop() {
         double drop = random();
-        if (drop >= 0.70){
+        if (drop >= 0.70) {
             System.out.println("drop");
             drop = random();
-            if ( drop >= 0.70){
-                System.out.println("armor");
-            }else{
+            if (drop >= 0.70) {
+                dropArmor();
+            } else {
                 dropWeapon();
             }
         }
@@ -185,7 +189,7 @@ public class Enemy extends Entity {
             System.out.println("t1");
         } else if (drop < 0.90) {
             System.out.println("t2");
-        } else if (drop < 0.95) {
+        } else if (drop < 0.98) {
             System.out.println("t3");
         } else if (drop < 0.99) {
             System.out.println("TerraPrisma");
@@ -197,77 +201,39 @@ public class Enemy extends Entity {
         }
     }
 
-    private void dropArmor(){
-        double drop = random.nextDouble();
-        if (drop < .25){
-            dropArmorSet1();
-        } else if (drop < .50){
-            dropArmorSet2();
-        } else if (drop < .75){
-            dropArmorSet3();
-        } else {
-            dropArmorSet4();
-        }
+    private void dropArmor() {
+        double dropItemType = random.nextDouble();
+        if (dropItemType < .25)
+            dropArmorSet(0);
+        else if (dropItemType < .50)
+            dropArmorSet(1);
+        else if (dropItemType < .75)
+            dropArmorSet(2);
+        else
+            dropArmorSet(3);
+
     }
 
-    private void dropArmorSet1(){
-        double drop = random.nextDouble();
-        if (drop < .25){
-            System.out.println("helmet");
-        } else if (drop < .50){
-            System.out.println("chestplate");
-        } else if (drop < .75){
-            System.out.println("pants");
-        } else {
-            System.out.println("boots");
-        }
+    private void dropArmorSet(int set) {
+        double dropItemSet = random.nextDouble();
+        if (dropItemSet < .25)
+            playing.getObjectManager().dropItemFromMobs(new Helmet((int) (x), (int) (y), set, enemyLevel));
+        if (dropItemSet < .50)
+            playing.getObjectManager().dropItemFromMobs(new Chestplate((int) (x), (int) (y), set, enemyLevel));
+        if (dropItemSet < .75)
+            playing.getObjectManager().dropItemFromMobs(new Pants((int) (x), (int) (y), set, enemyLevel));
+        else
+            playing.getObjectManager().dropItemFromMobs(new Boots((int) (x), (int) (y), set, enemyLevel));
     }
 
-    private void dropArmorSet2(){
-        double drop = random.nextDouble();
-        if (drop < .25){
-            System.out.println("helmet");
-        } else if (drop < .50){
-            System.out.println("chestplate");
-        } else if (drop < .75){
-            System.out.println("pants");
-        } else {
-            System.out.println("boots");
-        }
-    }
 
-    private void dropArmorSet3(){
-        double drop = random.nextDouble();
-        if (drop < .25){
-            System.out.println("helmet");
-        } else if (drop < .50){
-            System.out.println("chestplate");
-        } else if (drop < .75){
-            System.out.println("pants");
-        } else {
-            System.out.println("boots");
-        }
-    }
-
-    private void dropArmorSet4(){
-        double drop = random.nextDouble();
-        if (drop < .25){
-            System.out.println("helmet");
-        } else if (drop < .50){
-            System.out.println("chestplate");
-        } else if (drop < .75){
-            System.out.println("pants");
-        } else {
-            System.out.println("boots");
-        }
-    }
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
     public boolean isActive() {
         return active;
     }
 
-    public void setPlaying(Playing playing){
+    public void setPlaying(Playing playing) {
         this.playing = playing;
     }
 }

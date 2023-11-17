@@ -197,6 +197,70 @@ public class Enemy extends Entity {
         }
     }
 
+    private void dropArmor(){
+        double drop = random.nextDouble();
+        if (drop < .25){
+            dropArmorSet1();
+        } else if (drop < .50){
+            dropArmorSet2();
+        } else if (drop < .75){
+            dropArmorSet3();
+        } else {
+            dropArmorSet4();
+        }
+    }
+
+    private void dropArmorSet1(){
+        double drop = random.nextDouble();
+        if (drop < .25){
+            System.out.println("helmet");
+        } else if (drop < .50){
+            System.out.println("chestplate");
+        } else if (drop < .75){
+            System.out.println("pants");
+        } else {
+            System.out.println("boots");
+        }
+    }
+
+    private void dropArmorSet2(){
+        double drop = random.nextDouble();
+        if (drop < .25){
+            System.out.println("helmet");
+        } else if (drop < .50){
+            System.out.println("chestplate");
+        } else if (drop < .75){
+            System.out.println("pants");
+        } else {
+            System.out.println("boots");
+        }
+    }
+
+    private void dropArmorSet3(){
+        double drop = random.nextDouble();
+        if (drop < .25){
+            System.out.println("helmet");
+        } else if (drop < .50){
+            System.out.println("chestplate");
+        } else if (drop < .75){
+            System.out.println("pants");
+        } else {
+            System.out.println("boots");
+        }
+    }
+
+    private void dropArmorSet4(){
+        double drop = random.nextDouble();
+        if (drop < .25){
+            System.out.println("helmet");
+        } else if (drop < .50){
+            System.out.println("chestplate");
+        } else if (drop < .75){
+            System.out.println("pants");
+        } else {
+            System.out.println("boots");
+        }
+    }
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
     public boolean isActive() {

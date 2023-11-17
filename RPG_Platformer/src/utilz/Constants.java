@@ -38,8 +38,8 @@ public class Constants {
 
         public static final int ARMOR_WIDTH_DEFAULT = 32;
         public static final int ARMOR_HEIGHT_DEFAULT = 32;
-        public static final int ARMOR_WIDTH = (int) (Game.SCALE * ARMOR_WIDTH_DEFAULT) / 3;
-        public static final int ARMOR_HEIGHT = (int) (Game.SCALE * ARMOR_HEIGHT_DEFAULT) / 3;
+        public static final int ARMOR_WIDTH = (int) (Game.SCALE * ARMOR_WIDTH_DEFAULT / 2.5);
+        public static final int ARMOR_HEIGHT = (int) (Game.SCALE * ARMOR_HEIGHT_DEFAULT / 2.5);
 
 
 

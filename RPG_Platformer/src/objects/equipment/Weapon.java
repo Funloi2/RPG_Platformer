@@ -20,8 +20,8 @@ public abstract class Weapon extends Equipment {
         this.attackType = attackType;
     }
 
-    protected Weapon(String name, int damage) {
-        super(name, 0, 0, 0);
+    protected Weapon(String name, int damage, int WeaponType) {
+        super(name, 0, 0, WeaponType);
         this.damage = damage;
     }
 

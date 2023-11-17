@@ -61,11 +61,10 @@ public class ObjectManager {
                     if (!pickUpItem(equipment)) {
                         playing.setInventoryFull(true);
                         playing.setInventoryFullClock(0);
-                        System.out.println("Inventory full");
-                    } else
+                    } else {
                         equipment.setActive(false);
-
-
+                    }
+                    break;
                 }
             }
         }
@@ -85,7 +84,7 @@ public class ObjectManager {
                 if (ch.getHitbox().intersects(attackbox)) {
                     ch.objState = 1;
                     for (int i = 0; i < 20; i++)
-                        equipments.add(new Helmet(ch.x, (int) (ch.getHitbox().y + ch.getHitbox().height - ARMOR_HEIGHT),0, ch.x /10));
+                        equipments.add(new Helmet(ch.x, (int) (ch.getHitbox().y + ch.getHitbox().height - ARMOR_HEIGHT), 0, ch.x / 10));
 
 //                    potions.add(new Potion((int) (ch.getHitbox().x + ch.getHitbox().width / 2), type == 0 ? (int) (ch.getHitbox().y - ch.getHitbox().height / 2) : (int) (ch.getHitbox().y), type));
                     return;
@@ -94,7 +93,7 @@ public class ObjectManager {
         }
     }
 
-    public void dropItemFromMobs(Equipment equipment) {
+    public void dropItem(Equipment equipment) {
         equipments.add(equipment);
     }
 

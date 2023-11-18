@@ -89,8 +89,8 @@ public class InventoryOverlay {
             slot.draw(g);
         }
 
-        g.setColor(Color.RED);
-        g.drawRect(bgX, bgY, bgWidth, bgHeight);
+//        g.setColor(Color.RED);
+//        g.drawRect(bgX, bgY, bgWidth, bgHeight);
 
         // Currency and potions amount
         g.setColor(Color.BLACK);

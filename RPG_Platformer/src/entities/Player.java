@@ -55,6 +55,21 @@ public class Player extends Entity {
 
     private int healthWidth = healthBarWidth;
 
+    private int staminaBarWidth = (int) (150 * Game.SCALE);
+    private int staminaBarHeight = (int) (4 * Game.SCALE);
+    private int staminaBarXStart = (int) (34 * Game.SCALE);
+    private int staminaBarYStart = (int) (24 * Game.SCALE);
+
+    private int staminaWidth = staminaBarWidth;
+
+    private int XPBarWidth = (int) (Game.GAME_WIDTH);
+    private int XPBarHeight = (int) (4 * Game.SCALE);
+    private int XPBarXStart = 0;
+    private int XPBarYStart = Game.GAME_HEIGHT - 4;
+
+    private int XPWidth = XPBarWidth;
+
+
     // Flip sprite
     private int flipX = 0;
     private int flipY = 1;
@@ -135,6 +150,8 @@ public class Player extends Entity {
 
     public void update() {
         updateHealthBar();
+//        updateStaminaBar();
+        updateXPBar();
 
         if (currentHealth <= 0) {
 //            playing.setGameOver(true);
@@ -177,6 +194,14 @@ public class Player extends Entity {
 
     private void updateHealthBar() {
         healthWidth = (int) ((currentHealth / (float) (maxHealth)) * healthBarWidth);
+    }
+
+//    private void updateStaminaBar() {
+//        staminaWidth = (int) ((currentStamina / (float) (maxStamina)) * staminaBarWidth);
+//    }
+
+    private void updateXPBar() {
+        XPWidth = (int) ((xp / (float) (maxXp)) * XPBarWidth);
     }
 
 
@@ -245,8 +270,20 @@ public class Player extends Entity {
 
     private void drawUI(Graphics g) {
 //        g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.BLACK);
+        g.drawRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthBarWidth, healthBarHeight);
+        g.drawRect(staminaBarXStart + statusBarX, staminaBarYStart + statusBarY, staminaBarWidth, staminaBarHeight);
+        g.drawRect(XPBarXStart, XPBarYStart, XPBarWidth, XPBarHeight);
+
         g.setColor(Color.RED);
         g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+
+        g.setColor(Color.ORANGE);
+        g.fillRect(staminaBarXStart + statusBarX, staminaBarYStart + statusBarY, staminaWidth, staminaBarHeight);
+
+        g.setColor(Color.YELLOW);
+        g.fillRect(XPBarXStart, XPBarYStart, XPWidth, XPBarHeight);
+
     }
 
     private void updatePos() {

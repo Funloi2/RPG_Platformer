@@ -5,6 +5,7 @@ import level.Level;
 import main.Game;
 import objects.equipment.Equipment;
 import objects.equipment.Helmet;
+import org.w3c.dom.css.Rect;
 import utilz.LoadSave;
 
 import static utilz.Constants.ObjectConstants.*;
@@ -72,6 +73,22 @@ public class ObjectManager {
             }
         }
     }
+
+    public void checkPickUpPotion(Rectangle2D.Float hitBox) {
+        for (Potion p : potions) {
+            if (p.isActive()) {
+                if (hitBox.intersects(p.getHitbox())) {
+                    p.setActive(false);
+                    if (p.getObjType() == LIFE_POTION) {
+                        playing.getPlayer().changeNbLifePotions(1);
+                    } else if (p.getObjType() == STM_POTION) {
+                        playing.getPlayer().changeNbStaminaPotions(1);
+                    }
+                }
+            }
+        }
+    }
+
 
     private void inventoryFull() {
 

@@ -17,6 +17,8 @@ import java.awt.image.BufferedImage;
 
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
+import static utilz.Constants.ObjectConstants.LIFE_POTION;
+import static utilz.Constants.ObjectConstants.STM_POTION;
 
 public class Playing extends State implements StateMethods {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
@@ -161,6 +163,10 @@ public class Playing extends State implements StateMethods {
         objectManager.checkPickUpItem(hitBox);
     }
 
+    public void checkPickUpPotion(Rectangle2D.Float hitBox) {
+        objectManager.checkPickUpPotion(hitBox);
+    }
+
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
     }
@@ -256,6 +262,9 @@ public class Playing extends State implements StateMethods {
                     useAtlas = false;
             }
             case KeyEvent.VK_SPACE -> player.setJump(true);
+
+            case KeyEvent.VK_1 -> player.usePotion(LIFE_POTION);
+            case KeyEvent.VK_2 -> player.usePotion(STM_POTION);
         }
 
     }
@@ -302,4 +311,6 @@ public class Playing extends State implements StateMethods {
     public ObjectManager getObjectManager() {
         return objectManager;
     }
+
+
 }

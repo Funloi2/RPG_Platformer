@@ -6,11 +6,14 @@ import objects.equipment.*;
 import utilz.LoadSave;
 
 import static java.lang.Math.round;
+import static utilz.Constants.ObjectConstants.LIFE_POTION;
+import static utilz.Constants.ObjectConstants.STM_POTION;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethod.*;
 import static utilz.Constants.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -85,7 +88,8 @@ public class Player extends Entity {
     private int maxXp = 100;
     private int attackDamage;
     private int selfDefense;
-    private int stamina;
+    private int maxStamina = 100;
+    private int stamina = maxStamina;
     private int baseHp;
 
     // Effet de sets
@@ -164,6 +168,7 @@ public class Player extends Entity {
         if (action) {
             playing.checkPickUpItem(hitBox);
             checkSpeakToAtlas();
+            checkPickUpPotion(hitBox);
         }
         if (attacking) {
             checkAttack();
@@ -254,6 +259,10 @@ public class Player extends Entity {
 
     private void checkSpeakToAtlas() {
         playing.checkSpeakToAtlas();
+    }
+
+    private void checkPickUpPotion(Rectangle2D.Float hitBox) {
+        playing.checkPickUpPotion(hitBox);
     }
 
     public void render(Graphics g, int xLvlOffset, int yLvlOffset) {
@@ -383,6 +392,16 @@ public class Player extends Entity {
         down = false;
     }
 
+    public void changeStamina(int value) {
+        stamina += value;
+
+        if (stamina <= 0) {
+            stamina = 0;
+        } else if (stamina >= maxStamina) {
+            stamina = maxStamina;
+        }
+    }
+
     public void updateXp(int amount) {
         xp += amount;
         if (xp >= maxXp) {
@@ -484,6 +503,30 @@ public class Player extends Entity {
 
     public void updateGold(int amount) {
         argent += amount;
+    }
+
+    public void changeNbLifePotions(int value) {
+        nbLifePotions += value;
+
+        if (nbLifePotions < 0) {
+            nbLifePotions = 0;
+        }
+    }
+
+    public void changeNbStaminaPotions(int value) {
+        nbSTMPotions += value;
+
+        if (nbSTMPotions < 0) {
+            nbSTMPotions = 0;
+        }
+    }
+
+    public void usePotion(int potion) {
+        if (potion == LIFE_POTION && nbLifePotions > 0) {
+            changeHealth(maxHealth / 2);
+        } else if (potion == STM_POTION && nbSTMPotions > 0) {
+            changeStamina(maxStamina / 2);
+        }
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
@@ -623,4 +666,10 @@ public class Player extends Entity {
     public int getNbSTMPotions() {
         return nbSTMPotions;
     }
+
+    public int getMaxStamina() {
+        return maxStamina;
+    }
+
+
 }

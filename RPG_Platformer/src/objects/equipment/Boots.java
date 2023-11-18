@@ -11,14 +11,11 @@ public class Boots extends Armor {
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Boots(int x, int y, int set, int level) {
-        super("Boots", 10, SHOES, set);
-        this.x = x;
-        this.y = y;
+        super("Boots", x, y, 10, SHOES, set);
         this.level = level;
         armor += level * 2;
 
         loadImage();
-        initHitBox(ARMOR_WIDTH, ARMOR_HEIGHT);
     }
 
     /// ------------------------------- METHOD ------------------------------- ///

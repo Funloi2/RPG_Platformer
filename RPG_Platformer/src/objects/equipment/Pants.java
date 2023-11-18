@@ -12,14 +12,11 @@ public class Pants extends Armor {
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Pants(int x, int y, int set, int level) {
-        super("Pants", 10, LEGS, set);
-        this.x = x;
-        this.y = y;
+        super("Pants", x, y, 10, LEGS, set);
         this.level = level;
         armor += level * 2;
 
         loadImage();
-        initHitBox(ARMOR_WIDTH, ARMOR_HEIGHT);
     }
 
     /// ------------------------------- METHOD ------------------------------- ///

@@ -11,14 +11,11 @@ public class Chestplate extends Armor {
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Chestplate(int x, int y, int set, int level) {
-        super("Chestplate", 10, CHEST_PLATE, set);
-        this.x = x;
-        this.y = y;
+        super("Chestplate", x, y, 10, CHEST_PLATE, set);
         this.level = level;
         armor += level * 2;
 
         loadImage();
-        initHitBox(ARMOR_WIDTH, ARMOR_HEIGHT);
     }
 
     /// ------------------------------- METHOD ------------------------------- ///

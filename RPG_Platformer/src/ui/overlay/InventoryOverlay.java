@@ -30,9 +30,7 @@ public class InventoryOverlay {
 
     // Hit boxes list
     private Slot[] slots;
-    private ArmorSlot[] armorSlots;
-    private WeaponSlot weaponSlot;
-    private InventorySlot[] inventorySlots;
+    private Rectangle2D.Float overlayHitbox;
 
     //
     private boolean mouseOver;
@@ -59,20 +57,8 @@ public class InventoryOverlay {
                 slots[i] = new Slot((int) (534 + ((i - 5) % 7) * 73.8), 279 + ((i - 5) / 7) * 61, 44, -1, this);
         }
 
+        overlayHitbox = new Rectangle2D.Float(bgX, bgY, bgWidth, bgHeight);
 
-//        armorSlots = new ArmorSlot[4];
-//
-//        for (int i = 0; i < armorSlots.length; i++) {
-//            armorSlots[i] = new ArmorSlot(195, 200 + i * 56, 44, i + 4, this);
-//        }
-//
-//        weaponSlot = new WeaponSlot(195, 200 + armorSlots.length * 56, 44, this);
-//
-//        inventorySlots = new InventorySlot[21];
-//
-//        for (int i = 0; i < inventorySlots.length; i++) {
-//            inventorySlots[i] = new InventorySlot((int) (534 + (i % 7) * 73.8), 279 + (i / 7) * 61, 44, -1, this);
-//        }
     }
 
     private void loadBackground() {
@@ -103,15 +89,8 @@ public class InventoryOverlay {
             slot.draw(g);
         }
 
-//        for (ArmorSlot armor : armorSlots) {
-//            armor.draw(g);
-//        }
-//
-//        weaponSlot.draw(g);
-//
-//        for (InventorySlot item : inventorySlots) {
-//            item.draw(g);
-//        }
+        g.setColor(Color.RED);
+        g.drawRect(bgX, bgY, bgWidth, bgHeight);
 
         // Currency and potions amount
         g.setColor(Color.BLACK);
@@ -152,8 +131,8 @@ public class InventoryOverlay {
 
     public boolean pickUpItem(Equipment equipment) {
         boolean pickedUp = false;
-        for (int i = 5; i < slots.length; i++) {
-            if (slots[i].itemType == -1) {
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].getItemType() == -1 && slots[i].getId() > 4) {
                 slots[i].setEquipment(equipment);
                 pickedUp = true;
                 break;
@@ -177,19 +156,6 @@ public class InventoryOverlay {
             }
         }
 
-//        for (InventorySlot item : inventorySlots) {
-//            if (item.isMousePressed()) {
-//                item.dragItem(e.getX(), e.getY());
-//            }
-//        }
-//        for (ArmorSlot armor : armorSlots) {
-//            if (armor.isMousePressed()) {
-//                armor.dragItem(e.getX(), e.getY());
-//            }
-//        }
-//        if (weaponSlot.isMousePressed()) {
-//            weaponSlot.dragItem(e.getX(), e.getY());
-//        }
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -204,35 +170,15 @@ public class InventoryOverlay {
             }
         }
 
-//        for (InventorySlot item : inventorySlots) {
-//            if (isIn(e, item)) {
-//                item.setMousePressed(true);
-//            }
-//        }
-//        for (ArmorSlot armor : armorSlots) {
-//            if (isIn(e, armor)) {
-//                armor.setMousePressed(true);
-//            }
-//        }
-//        if (isIn(e, weaponSlot)) {
-//            weaponSlot.setMousePressed(true);
-//        }
     }
 
     public void mouseReleased(MouseEvent e) {
 
         for (Slot item : slots) {
-            item.handleMouseReleased(e);
+            if (item.isMousePressed())
+                item.handleMouseReleased(e);
         }
 
-//        for (InventorySlot item : inventorySlots) {
-//            item.handleMouseReleased(e);
-//        }
-//
-//        for (ArmorSlot armor : armorSlots) {
-//            armor.handleMouseReleased(e);
-//        }
-//        weaponSlot.handleMouseReleased(e);
 
     }
 
@@ -262,17 +208,6 @@ public class InventoryOverlay {
         this.mouseOver = mouseOver;
     }
 
-    public ArmorSlot[] getArmorSlots() {
-        return armorSlots;
-    }
-
-    public InventorySlot[] getInventorySlots() {
-        return inventorySlots;
-    }
-
-    public WeaponSlot getWeaponSlot() {
-        return weaponSlot;
-    }
 
     public Slot[] getSlots() {
         return slots;
@@ -280,5 +215,9 @@ public class InventoryOverlay {
 
     public Playing getPlaying() {
         return playing;
+    }
+
+    public Rectangle2D.Float getOverlayHitbox() {
+        return overlayHitbox;
     }
 }

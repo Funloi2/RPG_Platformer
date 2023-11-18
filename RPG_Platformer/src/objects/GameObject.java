@@ -104,4 +104,20 @@ public class GameObject {
     public void setY(int y) {
         this.y = y;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setHitboxX(int x) {
+        hitbox.x = x;
+    }
+
+    public void setHitboxY(int y) {
+        hitbox.y = y;
+    }
 }

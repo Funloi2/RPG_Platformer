@@ -16,15 +16,13 @@ public class Helmet extends Armor {
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Helmet(int x, int y, int set, int level) {
-        super("Helmet", 10, HELMET, set);
-        this.x = x;
-        this.y = y;
+        super("Helmet", x, y, 10, HELMET, set);
         this.level = level;
         armor += level * 2;
 
 
         loadImage();
-        initHitBox(ARMOR_WIDTH, ARMOR_HEIGHT);
+
     }
 
     /// ------------------------------- METHOD ------------------------------- ///

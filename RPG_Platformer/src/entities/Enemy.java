@@ -13,6 +13,7 @@ import static utilz.Constants.*;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Direction.*;
 import static utilz.HelpMethod.*;
+import static utilz.Constants.ObjectConstants.ARMOR_HEIGHT;
 
 public class Enemy extends Entity {
 
@@ -184,21 +185,21 @@ public class Enemy extends Entity {
         double drop = random.nextDouble();
         if (drop < 0.70) {
             System.out.println("t1");
-            playing.getObjectManager().dropItem(new Sword((int) (x), (int) (y + hitBox.height), 0, enemyLevel));
+            playing.getObjectManager().dropItem(new Sword((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), 0, enemyLevel));
         } else if (drop < 0.90) {
             System.out.println("t2");
-            playing.getObjectManager().dropItem(new Sword((int) (x), (int) (y + hitBox.height), 1, enemyLevel));
+            playing.getObjectManager().dropItem(new Sword((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), 1, enemyLevel));
         } else if (drop < 0.98) {
             System.out.println("t3");
-            playing.getObjectManager().dropItem(new Sword((int) (x), (int) (y + hitBox.height), 2, enemyLevel));
+            playing.getObjectManager().dropItem(new Sword((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), 2, enemyLevel));
         } else if (drop < 0.99) {
             System.out.println("TerraPrisma");
-            playing.getObjectManager().dropItem(new Sword((int) (x), (int) (y + hitBox.height), 3, enemyLevel));
+            playing.getObjectManager().dropItem(new Sword((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), 3, enemyLevel));
         } else {
             double t5DropChance = 0.0000001 / 100;
             if (drop < t5DropChance) {
                 System.out.println("God Slayer");
-                playing.getObjectManager().dropItem(new Sword((int) (x), (int) (y + hitBox.height), 4, enemyLevel));
+                playing.getObjectManager().dropItem(new Sword((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), 4, enemyLevel));
             }
         }
     }
@@ -220,13 +221,13 @@ public class Enemy extends Entity {
     private void dropArmorSet(int set) {
         double dropItemSet = random.nextDouble();
         if (dropItemSet < .25)
-            playing.getObjectManager().dropItem(new Helmet((int) (x), (int) (y + hitBox.height), set, enemyLevel));
+            playing.getObjectManager().dropItem(new Helmet((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), set, enemyLevel));
         else if (dropItemSet < .50)
-            playing.getObjectManager().dropItem(new Chestplate((int) (x), (int) (y + hitBox.height), set, enemyLevel));
+            playing.getObjectManager().dropItem(new Chestplate((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), set, enemyLevel));
         else if (dropItemSet < .75)
-            playing.getObjectManager().dropItem(new Pants((int) (x), (int) (y + hitBox.height), set, enemyLevel));
+            playing.getObjectManager().dropItem(new Pants((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), set, enemyLevel));
         else
-            playing.getObjectManager().dropItem(new Boots((int) (x), (int) (y + hitBox.height), set, enemyLevel));
+            playing.getObjectManager().dropItem(new Boots((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), set, enemyLevel));
     }
 
 

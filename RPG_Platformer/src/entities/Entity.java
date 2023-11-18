@@ -129,4 +129,7 @@ public abstract class Entity {
         return maxHealth;
     }
 
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
 }

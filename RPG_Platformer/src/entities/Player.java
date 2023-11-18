@@ -95,7 +95,7 @@ public class Player extends Entity {
         maxHealth = 100;
         baseHp = maxHealth;
         currentHealth = maxHealth;
-        attack = 100;
+        attack = 10;
         defense = 2;
         stamina = 100;
 
@@ -145,8 +145,8 @@ public class Player extends Entity {
         updatePos();
 
         if (action) {
-            checkSpeakToAtlas();
             playing.checkPickUpItem(hitBox);
+            checkSpeakToAtlas();
         }
         if (attacking) {
             checkAttack();
@@ -523,7 +523,6 @@ public class Player extends Entity {
 
     public void setHelmet(Helmet helmet) {
         this.helmet = helmet;
-        System.out.println("helmet equiped");
         updateArmor();
     }
 

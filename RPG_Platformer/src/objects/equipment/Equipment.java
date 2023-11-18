@@ -1,5 +1,6 @@
 package objects.equipment;
 
+import main.Game;
 import objects.GameObject;
 
 import java.awt.*;
@@ -25,8 +26,8 @@ public abstract class Equipment extends GameObject {
     /// ------------------------------- METHOD ------------------------------- ///
 
     public void draw(Graphics g, int xLvlOffset, int yLvlOffset) {
-        g.drawImage(image, x - xLvlOffset, y - yLvlOffset, ARMOR_WIDTH, ARMOR_HEIGHT, null);
-        drawHitBox(g, xLvlOffset, yLvlOffset);
+        g.drawImage(image, x - xLvlOffset, y - yLvlOffset, (int) (ARMOR_WIDTH * Game.SCALE * 0.8), (int) (ARMOR_HEIGHT * Game.SCALE * 0.8), null);
+//        drawHitBox(g, xLvlOffset, yLvlOffset);
     }
 
 

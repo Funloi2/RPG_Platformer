@@ -299,4 +299,8 @@ public class Playing extends State implements StateMethods {
     public void setInventoryFullClock(int inventoryFullClock) {
         this.inventoryFullClock = inventoryFullClock;
     }
+
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
 }

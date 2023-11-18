@@ -1,5 +1,8 @@
 package objects.equipment;
 
+import static utilz.Constants.ObjectConstants.ARMOR_HEIGHT;
+import static utilz.Constants.ObjectConstants.ARMOR_WIDTH;
+
 public abstract class Armor extends Equipment {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
     protected int armor;
@@ -7,10 +10,12 @@ public abstract class Armor extends Equipment {
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    protected Armor(String name, int armor, int armorType, int setNumber) {
-        super(name, 0, 0, armorType);
+    protected Armor(String name, int x, int y, int armor, int armorType, int setNumber) {
+        super(name, x, y, armorType);
         this.armor = armor;
         this.setNumber = setNumber;
+
+        initHitBox((int) (ARMOR_WIDTH * 0.8), (int) (ARMOR_HEIGHT * 0.8));
     }
 
     /// ------------------------------- METHOD ------------------------------- ///

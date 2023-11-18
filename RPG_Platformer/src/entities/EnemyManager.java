@@ -36,7 +36,7 @@ public class EnemyManager {
 
     /// ------------------------------- METHOD ------------------------------- ///
 
-    public void setPlayingEnemy(){
+    public void setPlayingEnemy() {
         for (FlyingEye fe : flyingEyes) {
             fe.setPlaying(playing);
         }
@@ -50,6 +50,7 @@ public class EnemyManager {
             sk.setPlaying(playing);
         }
     }
+
     private void addEnemies() {
         flyingEyes = HelpMethod.GetFlyingEyes();
         goblins = HelpMethod.GetGoblins();
@@ -195,31 +196,35 @@ public class EnemyManager {
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         for (FlyingEye fe : flyingEyes) {
-            if (fe.isActive())
+            if (fe.isActive() && fe.getCurrentHealth() > 0)
                 if (attackBox.intersects(fe.getHitBox())) {
                     fe.hurt(playing.getPlayer().getAttack());
                     return;
                 }
         }
         for (Goblin gob : goblins) {
-            if (gob.isActive() && (attackBox.intersects(gob.getHitBox()))) {
-                gob.hurt(playing.getPlayer().getAttack());
-            }
-            for (Mushroom mush : mushrooms) {
-                if (mush.isActive())
-                    if (attackBox.intersects(mush.getHitBox())) {
-                        mush.hurt(playing.getPlayer().getAttack());
-                        return;
-                    }
-            }
-            for (Skeleton sk : skeletons) {
-                if (sk.isActive())
-                    if (attackBox.intersects(sk.getHitBox())) {
-                        sk.hurt(playing.getPlayer().getAttack());
-                        return;
-                    }
+            if (gob.isActive() && gob.getCurrentHealth() > 0) {
+                if ((attackBox.intersects(gob.getHitBox()))) {
+                    gob.hurt(playing.getPlayer().getAttack());
+                    return;
+                }
             }
         }
+        for (Mushroom mush : mushrooms) {
+            if (mush.isActive() && mush.getCurrentHealth() > 0)
+                if (attackBox.intersects(mush.getHitBox())) {
+                    mush.hurt(playing.getPlayer().getAttack());
+                    return;
+                }
+        }
+        for (Skeleton sk : skeletons) {
+            if (sk.isActive() && sk.getCurrentHealth() > 0)
+                if (attackBox.intersects(sk.getHitBox())) {
+                    sk.hurt(playing.getPlayer().getAttack());
+                    return;
+                }
+        }
+    }
 
 
 //    public void resetAllEnemies() {
@@ -227,5 +232,5 @@ public class EnemyManager {
 //            ten.resetEnemy();
 //        }
 //    }
-    }
 }
+

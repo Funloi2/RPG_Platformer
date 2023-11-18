@@ -2,6 +2,7 @@ package objects;
 
 import gameStates.Playing;
 import level.Level;
+import main.Game;
 import objects.equipment.Equipment;
 import objects.equipment.Helmet;
 import utilz.LoadSave;
@@ -61,10 +62,11 @@ public class ObjectManager {
                     if (!pickUpItem(equipment)) {
                         playing.setInventoryFull(true);
                         playing.setInventoryFullClock(0);
-                        System.out.println("Inventory full");
-                    } else
+                    } else {
                         equipment.setActive(false);
-
+                        playing.getPlayer().setAction(false);
+                        return;
+                    }
 
                 }
             }
@@ -85,13 +87,17 @@ public class ObjectManager {
                 if (ch.getHitbox().intersects(attackbox)) {
                     ch.objState = 1;
                     for (int i = 0; i < 20; i++)
-                        equipments.add(new Helmet(ch.x, (int) (ch.getHitbox().y + ch.getHitbox().height - ARMOR_HEIGHT)));
+                        equipments.add(new Helmet(ch.x, (int) (ch.getHitbox().y + ch.getHitbox().height - ARMOR_HEIGHT * Game.SCALE), 0, ch.x / 10));
 
 //                    potions.add(new Potion((int) (ch.getHitbox().x + ch.getHitbox().width / 2), type == 0 ? (int) (ch.getHitbox().y - ch.getHitbox().height / 2) : (int) (ch.getHitbox().y), type));
                     return;
                 }
             }
         }
+    }
+
+    public void dropItem(Equipment equipment) {
+        equipments.add(equipment);
     }
 
     public void loadObjects(Level level) {

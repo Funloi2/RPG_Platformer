@@ -6,6 +6,7 @@ import objects.GameObject;
 public class Chest extends GameObject {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
+    //
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public Chest(int x, int y, int objType) {
@@ -27,7 +28,6 @@ public class Chest extends GameObject {
     public void update() {
         updateAnimationTick();
     }
-
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 

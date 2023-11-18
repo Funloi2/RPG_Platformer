@@ -15,16 +15,14 @@ public class Helmet extends Armor {
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
-    public Helmet(int x, int y) {
-        super("Helmet", 10, HELMET, -1);
-        this.x = x;
-        this.y = y;
-        level = x/10;
+    public Helmet(int x, int y, int set, int level) {
+        super("Helmet", x, y, 10, HELMET, set);
+        this.level = level;
         armor += level * 2;
 
 
         loadImage();
-        initHitBox(ARMOR_WIDTH, ARMOR_HEIGHT);
+
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -33,8 +31,12 @@ public class Helmet extends Armor {
     public void loadImage() {
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.ARMOR_ATLAS);
 
-        image = temp.getSubimage(0, 32, ARMOR_WIDTH_DEFAULT, ARMOR_HEIGHT_DEFAULT);
-
+        switch (setNumber) {
+            case 0 -> image = temp.getSubimage(0, 0, ARMOR_WIDTH_DEFAULT, ARMOR_HEIGHT_DEFAULT);
+            case 1 -> image = temp.getSubimage(0, 3 * 32, ARMOR_WIDTH_DEFAULT, ARMOR_HEIGHT_DEFAULT);
+            case 2 -> image = temp.getSubimage(0, 6 * 32, ARMOR_WIDTH_DEFAULT, ARMOR_HEIGHT_DEFAULT);
+            default -> image = temp.getSubimage(0, 7 * 32, ARMOR_WIDTH_DEFAULT, ARMOR_HEIGHT_DEFAULT);
+        }
     }
 
 

@@ -1,10 +1,13 @@
 package ui.overlay;
 
 import gameStates.Playing;
+import main.Game;
+import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class AltarOverlay {
 
@@ -18,14 +21,18 @@ public class AltarOverlay {
     private int bgHeight;
 
     // Background sprite
-//    private BufferedImage background;
+    private BufferedImage background;
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public AltarOverlay(Playing playing) {
         this.playing = playing;
+        background = LoadSave.GetSpriteAtlas(LoadSave.ALTAR_UI);
 
-//        loadBackground();
+        bgX = Game.GAME_WIDTH / 2 - background.getWidth() / 2;
+        bgY = Game.GAME_HEIGHT / 2 - background.getHeight() / 2;
+        bgWidth = background.getWidth();
+        bgHeight = background.getHeight();
     }
 
     /// ------------------------------- METHOD ------------------------------- ///
@@ -35,10 +42,10 @@ public class AltarOverlay {
 
     public void draw(Graphics g) {
         // Background
-//        g.drawImage(background, bgX, bgY, bgWidth, bgHeight, null);
+        g.drawImage(background, bgX, bgY, bgWidth, bgHeight, null);
 
         g.setColor(new Color(0, 0, 0, 100));
-        g.fillRect(113, 61, 1020, 550);
+        g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 
     }
 

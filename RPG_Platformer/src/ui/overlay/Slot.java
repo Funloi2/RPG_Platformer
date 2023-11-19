@@ -23,7 +23,6 @@ public class Slot {
     private int itemType;
     private Equipment equipment;
 
-
     // Hit box
     private Rectangle bounds;
 
@@ -92,6 +91,12 @@ public class Slot {
 //        drawBounds(g);
 
         g.drawImage(image, (int) (xPos + (size - size * 0.7) / 2) + 2, yPos + (int) ((size - size * 0.7) / 2) + 2, (int) (size * 0.7), (int) (size * 0.7), null);
+
+        if (isMouseOver() && equipment != null) {
+            ItemCard itemCard = new ItemCard(xPos, yPos, equipment);
+            itemCard.draw(g);
+        }
+
     }
 
     protected void drawBounds(Graphics g) {

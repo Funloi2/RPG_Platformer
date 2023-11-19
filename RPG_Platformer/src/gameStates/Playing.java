@@ -17,6 +17,8 @@ import java.awt.image.BufferedImage;
 
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
+import static utilz.Constants.ObjectConstants.LIFE_POTION;
+import static utilz.Constants.ObjectConstants.STM_POTION;
 
 public class Playing extends State implements StateMethods {
     /// ------------------------------- ATTRIBUTES ------------------------------- ///
@@ -161,6 +163,10 @@ public class Playing extends State implements StateMethods {
         objectManager.checkPickUpItem(hitBox);
     }
 
+    public void checkPickUpPotion(Rectangle2D.Float hitBox) {
+        objectManager.checkPickUpPotion(hitBox);
+    }
+
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
     }
@@ -192,12 +198,11 @@ public class Playing extends State implements StateMethods {
         g.drawImage(backgroundImage, 0 - xLvlOffset, 0 - yLvlOffset, (int) (GAME_WIDTH * 2.4), (int) (GAME_HEIGHT * 1.8), null);
         g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
 
-
-        levelManager.draw(g, xLvlOffset, yLvlOffset)    ;
-        player.render(g, xLvlOffset, yLvlOffset);
+        levelManager.draw(g, xLvlOffset, yLvlOffset);
         enemyManager.draw(g, xLvlOffset, yLvlOffset);
         objectManager.draw(g, xLvlOffset, yLvlOffset);
         altar.draw(g, xLvlOffset, yLvlOffset);
+        player.render(g, xLvlOffset, yLvlOffset);
 
         if (drawInventoryFull)
             g.drawString("INVENTORY FULL", (int) (player.getHitBox().x - xLvlOffset), (int) (player.getHitBox().y - yLvlOffset));
@@ -257,6 +262,9 @@ public class Playing extends State implements StateMethods {
                     useAtlas = false;
             }
             case KeyEvent.VK_SPACE -> player.setJump(true);
+
+            case KeyEvent.VK_1 -> player.usePotion(LIFE_POTION);
+            case KeyEvent.VK_2 -> player.usePotion(STM_POTION);
         }
 
     }
@@ -303,4 +311,6 @@ public class Playing extends State implements StateMethods {
     public ObjectManager getObjectManager() {
         return objectManager;
     }
+
+
 }

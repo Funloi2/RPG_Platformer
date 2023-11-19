@@ -6,11 +6,14 @@ import objects.equipment.*;
 import utilz.LoadSave;
 
 import static java.lang.Math.round;
+import static utilz.Constants.ObjectConstants.LIFE_POTION;
+import static utilz.Constants.ObjectConstants.STM_POTION;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethod.*;
 import static utilz.Constants.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -55,6 +58,21 @@ public class Player extends Entity {
 
     private int healthWidth = healthBarWidth;
 
+    private int staminaBarWidth = (int) (150 * Game.SCALE);
+    private int staminaBarHeight = (int) (4 * Game.SCALE);
+    private int staminaBarXStart = (int) (34 * Game.SCALE);
+    private int staminaBarYStart = (int) (24 * Game.SCALE);
+
+    private int staminaWidth = staminaBarWidth;
+
+    private int XPBarWidth = (int) (Game.GAME_WIDTH);
+    private int XPBarHeight = (int) (4 * Game.SCALE);
+    private int XPBarXStart = 0;
+    private int XPBarYStart = Game.GAME_HEIGHT - 4;
+
+    private int XPWidth = XPBarWidth;
+
+
     // Flip sprite
     private int flipX = 0;
     private int flipY = 1;
@@ -70,7 +88,8 @@ public class Player extends Entity {
     private int maxXp = 100;
     private int attackDamage;
     private int selfDefense;
-    private int stamina;
+    private int maxStamina = 100;
+    private int stamina = maxStamina;
     private int baseHp;
 
     // Effet de sets
@@ -135,6 +154,8 @@ public class Player extends Entity {
 
     public void update() {
         updateHealthBar();
+//        updateStaminaBar();
+        updateXPBar();
 
         if (currentHealth <= 0) {
 //            playing.setGameOver(true);
@@ -147,6 +168,7 @@ public class Player extends Entity {
         if (action) {
             playing.checkPickUpItem(hitBox);
             checkSpeakToAtlas();
+            checkPickUpPotion(hitBox);
         }
         if (attacking) {
             checkAttack();
@@ -177,6 +199,14 @@ public class Player extends Entity {
 
     private void updateHealthBar() {
         healthWidth = (int) ((currentHealth / (float) (maxHealth)) * healthBarWidth);
+    }
+
+//    private void updateStaminaBar() {
+//        staminaWidth = (int) ((currentStamina / (float) (maxStamina)) * staminaBarWidth);
+//    }
+
+    private void updateXPBar() {
+        XPWidth = (int) ((xp / (float) (maxXp)) * XPBarWidth);
     }
 
 
@@ -231,6 +261,10 @@ public class Player extends Entity {
         playing.checkSpeakToAtlas();
     }
 
+    private void checkPickUpPotion(Rectangle2D.Float hitBox) {
+        playing.checkPickUpPotion(hitBox);
+    }
+
     public void render(Graphics g, int xLvlOffset, int yLvlOffset) {
 
 //        drawHitBox(g, xLvlOffset, yLvlOffset);
@@ -245,8 +279,20 @@ public class Player extends Entity {
 
     private void drawUI(Graphics g) {
 //        g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.BLACK);
+        g.drawRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthBarWidth, healthBarHeight);
+        g.drawRect(staminaBarXStart + statusBarX, staminaBarYStart + statusBarY, staminaBarWidth, staminaBarHeight);
+        g.drawRect(XPBarXStart, XPBarYStart, XPBarWidth, XPBarHeight);
+
         g.setColor(Color.RED);
         g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+
+        g.setColor(Color.ORANGE);
+        g.fillRect(staminaBarXStart + statusBarX, staminaBarYStart + statusBarY, staminaWidth, staminaBarHeight);
+
+        g.setColor(Color.YELLOW);
+        g.fillRect(XPBarXStart, XPBarYStart, XPWidth, XPBarHeight);
+
     }
 
     private void updatePos() {
@@ -344,6 +390,16 @@ public class Player extends Entity {
         right = false;
         up = false;
         down = false;
+    }
+
+    public void changeStamina(int value) {
+        stamina += value;
+
+        if (stamina <= 0) {
+            stamina = 0;
+        } else if (stamina >= maxStamina) {
+            stamina = maxStamina;
+        }
     }
 
     public void updateXp(int amount) {
@@ -447,6 +503,30 @@ public class Player extends Entity {
 
     public void updateGold(int amount) {
         argent += amount;
+    }
+
+    public void changeNbLifePotions(int value) {
+        nbLifePotions += value;
+
+        if (nbLifePotions < 0) {
+            nbLifePotions = 0;
+        }
+    }
+
+    public void changeNbStaminaPotions(int value) {
+        nbSTMPotions += value;
+
+        if (nbSTMPotions < 0) {
+            nbSTMPotions = 0;
+        }
+    }
+
+    public void usePotion(int potion) {
+        if (potion == LIFE_POTION && nbLifePotions > 0) {
+            changeHealth(maxHealth / 2);
+        } else if (potion == STM_POTION && nbSTMPotions > 0) {
+            changeStamina(maxStamina / 2);
+        }
     }
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
@@ -586,4 +666,10 @@ public class Player extends Entity {
     public int getNbSTMPotions() {
         return nbSTMPotions;
     }
+
+    public int getMaxStamina() {
+        return maxStamina;
+    }
+
+
 }

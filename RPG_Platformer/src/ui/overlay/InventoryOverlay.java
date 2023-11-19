@@ -32,9 +32,6 @@ public class InventoryOverlay {
     private Slot[] slots;
     private Rectangle2D.Float overlayHitbox;
 
-    //
-    private boolean mouseOver;
-
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public InventoryOverlay(Playing playing) {
@@ -89,8 +86,8 @@ public class InventoryOverlay {
             slot.draw(g);
         }
 
-        g.setColor(Color.RED);
-        g.drawRect(bgX, bgY, bgWidth, bgHeight);
+//        g.setColor(Color.RED);
+//        g.drawRect(bgX, bgY, bgWidth, bgHeight);
 
         // Currency and potions amount
         g.setColor(Color.BLACK);
@@ -183,13 +180,13 @@ public class InventoryOverlay {
     }
 
     public void mouseMoved(MouseEvent e) {
-//        setMouseOver(false);
-//
-//        for (InventorySlot item : inventorySlots) {
-//            if (isIn(e, item)) {
-//                setMouseOver(true);
-//            }
-//        }
+
+        for (Slot item : slots) {
+            item.setMouseOver(false);
+            if (isIn(e, item)) {
+                item.setMouseOver(true);
+            }
+        }
     }
 
     public void keyPressed(KeyEvent e) {
@@ -202,11 +199,6 @@ public class InventoryOverlay {
 
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
-
-
-    public void setMouseOver(boolean mouseOver) {
-        this.mouseOver = mouseOver;
-    }
 
 
     public Slot[] getSlots() {

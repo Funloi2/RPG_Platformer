@@ -74,6 +74,7 @@ public abstract class Entity {
         }
     }
 
+
     public void changeDefense(int defense) {
         this.defense += defense;
     }

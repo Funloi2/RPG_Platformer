@@ -95,7 +95,7 @@ public class Playing extends State implements StateMethods {
         inventoryOverlay = new InventoryOverlay(this);
         pauseOverlay = new PauseOverlay(this);
         atlasOverlay = new AltarOverlay(this);
-        altar = new Altar(13 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
+        altar = new Altar(10 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
 
     }
 
@@ -183,6 +183,7 @@ public class Playing extends State implements StateMethods {
             objectManager.update();
             player.update();
             checkCloseBorder();
+            altar.update();
 
             if (inventoryFullClock < 240) {
                 inventoryFullClock++;

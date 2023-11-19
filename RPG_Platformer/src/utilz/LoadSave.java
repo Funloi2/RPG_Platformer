@@ -19,6 +19,7 @@ public class LoadSave {
     public static final String ARMOR_ATLAS = "/objects/equipment/Armor/armor_4x.png";
     public static final String WEAPON_ATLAS = "/objects/equipment/Items/items_4x.png";
     public static final String ITEM_CARD = "/ui/item_card.png";
+    public static final String ALTAR_SPRITE = "/objects/FlyingObelisk_no_lightnings_no_letter.png";
 
 
     public static BufferedImage GetSpriteAtlas(String path) {

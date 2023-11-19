@@ -92,11 +92,14 @@ public class Slot {
 
         g.drawImage(image, (int) (xPos + (size - size * 0.7) / 2) + 2, yPos + (int) ((size - size * 0.7) / 2) + 2, (int) (size * 0.7), (int) (size * 0.7), null);
 
+
+    }
+
+    public void drawCard(Graphics g) {
         if (isMouseOver() && equipment != null) {
             ItemCard itemCard = new ItemCard(xPos, yPos, equipment);
             itemCard.draw(g);
         }
-
     }
 
     protected void drawBounds(Graphics g) {

@@ -43,4 +43,7 @@ public abstract class Weapon extends Equipment {
         return attackType;
     }
 
+    public int getTier() {
+        return tier;
+    }
 }

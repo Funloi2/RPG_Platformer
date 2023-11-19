@@ -70,6 +70,12 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        switch (GameState.state) {
+            case PLAYING -> {
+                if (gamePanel.getGame().getPlaying().isInventory()) {
+                    gamePanel.getGame().getPlaying().getInventoryOverlay().mouseMoved(e);
+                }
+            }
+        }
     }
 }

@@ -32,6 +32,7 @@ public class Playing extends State implements StateMethods {
     private PauseOverlay pauseOverlay;
     private AltarOverlay atlasOverlay;
     private Altar altar;
+    private GameOverOverlay gameOverOverlay;
 
     // Game border and level Offset var
     private int xLvlOffset;
@@ -96,6 +97,7 @@ public class Playing extends State implements StateMethods {
         pauseOverlay = new PauseOverlay(this);
         atlasOverlay = new AltarOverlay(this);
         altar = new Altar(10 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
+        gameOverOverlay = new GameOverOverlay(this);
 
     }
 
@@ -209,7 +211,7 @@ public class Playing extends State implements StateMethods {
             g.drawString("INVENTORY FULL", (int) (player.getHitBox().x - xLvlOffset), (int) (player.getHitBox().y - yLvlOffset));
 
 
-        if (inventory || paused || useAtlas) {
+        if (inventory || paused || useAtlas || player.isDeadBody()) {
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
             if (inventory)
@@ -218,6 +220,8 @@ public class Playing extends State implements StateMethods {
                 pauseOverlay.draw(g);
             else if (useAtlas)
                 atlasOverlay.draw(g);
+            else if (player.isDeadBody())
+                gameOverOverlay.draw(g);
         }
 
 
@@ -314,4 +318,7 @@ public class Playing extends State implements StateMethods {
     }
 
 
+    public GameOverOverlay getGameOverOverlay() {
+        return gameOverOverlay;
+    }
 }

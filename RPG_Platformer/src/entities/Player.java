@@ -31,6 +31,8 @@ public class Player extends Entity {
     private boolean down;
     private boolean jump;
     private boolean action;
+    private boolean dead = false;
+    private boolean deadBody = false;
 
     // Lvl gestion
     private int[][] lvlData;
@@ -158,7 +160,11 @@ public class Player extends Entity {
         updateXPBar();
 
         if (currentHealth <= 0) {
-//            playing.setGameOver(true);
+            dead = true;
+            if (!deadBody) {
+                updateAnimationTick();
+                setAnimation();
+            }
             return;
         }
         updateAttackBox();
@@ -234,8 +240,29 @@ public class Player extends Entity {
             }
         }
 
+        if (dead) {
+            state = DEATH;
+            if (startAni != DEATH) {
+                aniIndex = 0;
+                aniTick = 0;
+                return;
+            }
+        }
+
         if (startAni != state) {
             resetAniTick();
+        }
+    }
+
+    public void changeHealth(int value) {
+        currentHealth += value;
+
+        if (currentHealth <= 0) {
+            currentHealth = 0;
+            dead = true;
+            System.out.println("you died");
+        } else if (currentHealth >= maxHealth) {
+            currentHealth = maxHealth;
         }
     }
 
@@ -250,9 +277,14 @@ public class Player extends Entity {
             aniTick = 0;
             aniIndex++;
             if (aniIndex >= GetSpriteAmount(state)) {
+                if (dead) {
+                    deadBody = true;
+                }
                 aniIndex = 0;
                 attacking = false;
                 attackChecked = false;
+
+
             }
         }
     }
@@ -270,10 +302,17 @@ public class Player extends Entity {
 //        drawHitBox(g, xLvlOffset, yLvlOffset);
 //        drawAttackBox(g, xLvlOffset, yLvlOffset);
 
-        g.drawImage(animation[state][aniIndex],
-                (int) (hitBox.x - xLvlOffset - xDrawOffset + flipX),
-                (int) (hitBox.y - yLvlOffset - yDrawOffset),
-                (int) (120 * flipY * Game.SCALE), (int) (80 * Game.SCALE), null);
+        if (deadBody) {
+            g.drawImage(animation[DEATH][9], (int) (hitBox.x - xLvlOffset - xDrawOffset + flipX),
+                    (int) (hitBox.y - yLvlOffset - yDrawOffset),
+                    (int) (120 * flipY * Game.SCALE), (int) (80 * Game.SCALE), null);
+        } else
+            g.drawImage(animation[state][aniIndex],
+                    (int) (hitBox.x - xLvlOffset - xDrawOffset + flipX),
+                    (int) (hitBox.y - yLvlOffset - yDrawOffset),
+                    (int) (120 * flipY * Game.SCALE), (int) (80 * Game.SCALE), null);
+
+
         drawUI(g);
     }
 
@@ -671,5 +710,7 @@ public class Player extends Entity {
         return maxStamina;
     }
 
-
+    public boolean isDeadBody() {
+        return deadBody;
+    }
 }

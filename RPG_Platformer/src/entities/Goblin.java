@@ -51,7 +51,7 @@ public class Goblin extends Enemy {
                     if (canSeePlayer(lvlData, player)) {
                         turnTowardsPlayer(player);
 
-                        if (isPlayerCloseForAttack(player)) {
+                        if (isPlayerCloseForAttack(player) && player.getCurrentHealth() > 0) {
                             newState(ATTACK);
                         }
                     }

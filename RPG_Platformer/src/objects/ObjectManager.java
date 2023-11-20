@@ -141,7 +141,6 @@ public class ObjectManager {
                 chestImages[j][i] = chestSprite.getSubimage(i * CHEST_DEFAULT_WIDTH, j * CHEST_DEFAULT_HEIGHT, CHEST_DEFAULT_WIDTH, CHEST_DEFAULT_HEIGHT);
             }
         }
-
     }
 
     public void update() {
@@ -182,8 +181,6 @@ public class ObjectManager {
 //                c.drawHitBox(g, xLvlOffset, yLvlOffset);
             }
         }
-
-
     }
 
     private void drawPotions(Graphics g, int xLvlOffset, int yLvlOffset) {

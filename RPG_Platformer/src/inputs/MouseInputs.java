@@ -31,6 +31,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
             case PLAYING -> {
                 if (gamePanel.getGame().getPlaying().isInventory()) {
                     gamePanel.getGame().getPlaying().getInventoryOverlay().mousePressed(e);
+                } else if (gamePanel.getGame().getPlaying().isAltar()) {
+                    gamePanel.getGame().getPlaying().getAltarOverlay().mousePressed(e);
                 }
             }
         }
@@ -42,6 +44,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
             case PLAYING -> {
                 if (gamePanel.getGame().getPlaying().isInventory()) {
                     gamePanel.getGame().getPlaying().getInventoryOverlay().mouseReleased(e);
+                } else if (gamePanel.getGame().getPlaying().isAltar()) {
+                    gamePanel.getGame().getPlaying().getAltarOverlay().mouseReleased(e);
                 }
             }
         }

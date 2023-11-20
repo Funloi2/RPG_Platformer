@@ -227,10 +227,23 @@ public class EnemyManager {
     }
 
 
-//    public void resetAllEnemies() {
-//        for (Tengu ten : tengus) {
-//            ten.resetEnemy();
-//        }
-//    }
+    public void resetAllEnemies() {
+
+        for (FlyingEye fe : flyingEyes) {
+            fe.resetEnemy();
+        }
+
+        for (Goblin gob : goblins) {
+            gob.resetEnemy();
+        }
+
+        for (Mushroom mush : mushrooms) {
+            mush.resetEnemy();
+        }
+
+        for (Skeleton sk : skeletons) {
+            sk.resetEnemy();
+        }
+    }
 }
 

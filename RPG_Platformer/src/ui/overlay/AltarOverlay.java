@@ -1,5 +1,6 @@
 package ui.overlay;
 
+import entities.Enemy;
 import gameStates.Playing;
 import main.Game;
 import utilz.LoadSave;
@@ -19,11 +20,18 @@ public class AltarOverlay {
     private int bgY;
     private int bgWidth;
     private int bgHeight;
-
+    private Rectangle hitbox1;
     // Background sprite
     private BufferedImage background;
 
+    private boolean isRespawnPressed = false;
+    private boolean isRespawnReleased = false;
 
+    private boolean isDropPressed = false;
+    private boolean isDropReleased = false;
+
+    private boolean isGoldPressed = false;
+    private boolean isGoldReleased = false;
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public AltarOverlay(Playing playing) {
         this.playing = playing;
@@ -43,11 +51,13 @@ public class AltarOverlay {
     public void draw(Graphics g) {
         // Background
         g.drawImage(background, bgX, bgY, bgWidth, bgHeight, null);
-
         g.setColor(new Color(0, 0, 0, 100));
         g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
-
+        g.setColor(Color.RED);
+        hitbox1 = new Rectangle(450, 125, 350, 50);
+        g.drawRect( 450 , 125, 350, 50);
     }
+
 
 
     //////////// Event handlers ////////////
@@ -57,10 +67,27 @@ public class AltarOverlay {
     }
 
     public void mousePressed(MouseEvent e) {
+        if (hitbox1.contains(e.getX(), e.getY())) {
+            isRespawnPressed = true;
+        }
 
     }
 
     public void mouseReleased(MouseEvent e) {
+        if (hitbox1.contains(e.getX(), e.getY()) && isRespawnPressed) {
+            System.out.println("Released");
+            isRespawnReleased = true;
+            playing.resetAll();
+
+            isRespawnReleased = false;
+            isRespawnPressed = false;
+        }
+
+//        if(isRespawnReleased) {
+//            playing.getObjectManager().resetObjects();
+//            isRespawnReleased = false;
+//            isRespawnPressed = false;
+//        }
 
     }
 

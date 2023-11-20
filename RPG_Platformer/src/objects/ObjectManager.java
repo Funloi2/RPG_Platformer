@@ -207,11 +207,9 @@ public class ObjectManager {
 
 
     public void resetObjects() {
+        equipments = new ArrayList<>();
         loadObjects(playing.getLevelManager().getCurrentLevel());
 
-        for (Potion p : potions) {
-            p.reset();
-        }
         for (Chest c : chests) {
             c.reset();
         }

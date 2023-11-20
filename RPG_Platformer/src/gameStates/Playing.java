@@ -227,6 +227,12 @@ public class Playing extends State implements StateMethods {
 
     }
 
+    public void resetAll(){
+        getObjectManager().resetObjects();
+        getEnemyManager().resetAllEnemies();
+    }
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
 //        if (!gameOver)
@@ -284,10 +290,6 @@ public class Playing extends State implements StateMethods {
         }
     }
 
-    public void resetAll(){
-        getObjectManager().resetObjects();
-        getEnemyManager().resetAllEnemies();
-    }
 
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///

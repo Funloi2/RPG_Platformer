@@ -226,6 +226,78 @@ public class EnemyManager {
         }
     }
 
+    public void changeEnemiesLevel() {
+        for (FlyingEye fe : flyingEyes) {
+            fe.changeEnemyLevel();
+        }
+
+        for (Goblin gob : goblins) {
+            gob.changeEnemyLevel();
+        }
+
+        for (Mushroom mush : mushrooms) {
+            mush.changeEnemyLevel();
+        }
+
+        for (Skeleton sk : skeletons) {
+            sk.changeEnemyLevel();
+        }
+    }
+
+    public void changeEnemiesDropRate() {
+        for (FlyingEye fe : flyingEyes) {
+            fe.changeEnemyDropRate();
+        }
+
+        for (Goblin gob : goblins) {
+            gob.changeEnemyDropRate();
+        }
+
+        for (Mushroom mush : mushrooms) {
+            mush.changeEnemyDropRate();
+        }
+
+        for (Skeleton sk : skeletons) {
+            sk.changeEnemyDropRate();
+        }
+    }
+
+    public void changeEnemiesGoldRate() {
+        for (FlyingEye fe : flyingEyes) {
+            fe.changeEnemyGoldRate();
+        }
+
+        for (Goblin gob : goblins) {
+            gob.changeEnemyGoldRate();
+        }
+
+        for (Mushroom mush : mushrooms) {
+            mush.changeEnemyGoldRate();
+        }
+
+        for (Skeleton sk : skeletons) {
+            sk.changeEnemyGoldRate();
+        }
+    }
+
+    public void changeEnemiesXPRate() {
+        for (FlyingEye fe : flyingEyes) {
+            fe.changeEnemyXPRate();
+        }
+
+        for (Goblin gob : goblins) {
+            gob.changeEnemyXPRate();
+        }
+
+        for (Mushroom mush : mushrooms) {
+            mush.changeEnemyXPRate();
+        }
+
+        for (Skeleton sk : skeletons) {
+            sk.changeEnemyXPRate();
+        }
+    }
+
 
     public void resetAllEnemies() {
 

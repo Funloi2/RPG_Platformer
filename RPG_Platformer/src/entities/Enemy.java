@@ -32,6 +32,7 @@ public class Enemy extends Entity {
 
     private float enemyGoldRate = 1;
     private float enemyGoldRateLevel = 1;
+    private float enemyDropRateXpLevel = 1;
     private Random random = new Random();
 
 
@@ -171,8 +172,8 @@ public class Enemy extends Entity {
 
     public void enemyDeath() {
         newState(DEATH);
-        playing.getPlayer().updateXp((int) round(20 + enemyLevel * 1.5* enemyDropRateXp) );
-        playing.getPlayer().updateGold((int) round(10 + enemyLevel * 1.5* enemyGoldRate));
+        playing.getPlayer().updateXp((int) round(20 + enemyLevel * 1.5 * enemyDropRateXp));
+        playing.getPlayer().updateGold((int) round(10 + enemyLevel * 1.5 * enemyGoldRate));
         drop();
     }
 
@@ -246,18 +247,24 @@ public class Enemy extends Entity {
 
     public void changeEnemyLevel() {
         enemyLevel++;
-        enemyDropRate = enemyDropRateLevel;
-        enemyGoldRate = enemyGoldRateLevel;
+//        enemyDropRate = enemyDropRateLevel;
+//        enemyGoldRate = enemyGoldRateLevel;
     }
 
     public void changeEnemyDropRate() {
         enemyDropRate = (float) (1.5 * enemyDropRateLevel);
-        enemyDropRateLevel ++;
+        enemyDropRateLevel++;
     }
 
     public void changeEnemyGoldRate() {
         enemyGoldRate = (float) (1.5 * enemyGoldRateLevel);
-        enemyGoldRateLevel ++;}
+        enemyGoldRateLevel++;
+    }
+
+    public void changeEnemyXPRate() {
+        enemyDropRateXp = (float) (1.5 * enemyDropRateXpLevel);
+        enemyDropRateXpLevel++;
+    }
 
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///

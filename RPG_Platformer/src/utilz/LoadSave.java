@@ -23,6 +23,9 @@ public class LoadSave {
     public static final String ALTAR_UI = "/ui/altar_ui_bg.png";
     public static final String GAME_OVER_BG = "/ui/death_screen.png";
     public static final String RESPAWN_BUTTON_ATLAS = "/ui/respawn_button.png";
+    public static final String UPGRADE_BUTTON_ATLAS = "/ui/upgrade_button.png";
+    public static final String UPGRADE_LABEL_ATLAS = "/ui/upgrade_label.png";
+    public static final String RELOAD_BUTTON_ATLAS = "/ui/reload_button.png";
 
 
     public static BufferedImage GetSpriteAtlas(String path) {

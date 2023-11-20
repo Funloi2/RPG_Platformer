@@ -146,7 +146,12 @@ public class Enemy extends Entity {
 
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.getHitBox())) {
-            player.changeHealth(-(getEnemyDmg(enemyType)) / player.getDefense());
+            if (getEnemyDmg(enemyType) / player.getSelfDefense() == 0){
+                player.changeHealth(-1);
+            } else {
+                player.changeHealth(-(getEnemyDmg(enemyType) / player.getSelfDefense()));
+            }
+
         }
         attackChecked = true;
     }
@@ -228,6 +233,12 @@ public class Enemy extends Entity {
             playing.getObjectManager().dropItem(new Pants((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), set, enemyLevel));
         else
             playing.getObjectManager().dropItem(new Boots((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), set, enemyLevel));
+    }
+
+    protected void resetEnemy(){
+        currentHealth = maxHealth;
+        active = true;
+        newState(IDLE);
     }
 
 

@@ -30,7 +30,7 @@ public class Playing extends State implements StateMethods {
     private ObjectManager objectManager;
     private InventoryOverlay inventoryOverlay;
     private PauseOverlay pauseOverlay;
-    private AltarOverlay atlasOverlay;
+    private AltarOverlay altarOverlay;
     private Altar altar;
     private GameOverOverlay gameOverOverlay;
 
@@ -54,7 +54,7 @@ public class Playing extends State implements StateMethods {
     // Overlay boolean
     private boolean inventory = false;
     private boolean paused = false;
-    private boolean useAtlas = false;
+    private boolean isAltar = false;
 
     //
     private boolean inventoryFull = false;
@@ -95,7 +95,7 @@ public class Playing extends State implements StateMethods {
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         inventoryOverlay = new InventoryOverlay(this);
         pauseOverlay = new PauseOverlay(this);
-        atlasOverlay = new AltarOverlay(this);
+        altarOverlay = new AltarOverlay(this);
         altar = new Altar(10 * Game.TILES_SIZE, 33 * Game.TILES_SIZE);
         gameOverOverlay = new GameOverOverlay(this);
 
@@ -157,7 +157,7 @@ public class Playing extends State implements StateMethods {
 
     public void checkSpeakToAtlas() {
         if (player.getHitBox().intersects(altar.getHitBox())) {
-            useAtlas = true;
+            isAltar = true;
         }
     }
 
@@ -180,7 +180,7 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void update() {
-        if (!inventory && !paused && !useAtlas) {
+        if (!inventory && !paused && !isAltar) {
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(), player);
             objectManager.update();
             player.update();
@@ -211,15 +211,15 @@ public class Playing extends State implements StateMethods {
             g.drawString("INVENTORY FULL", (int) (player.getHitBox().x - xLvlOffset), (int) (player.getHitBox().y - yLvlOffset));
 
 
-        if (inventory || paused || useAtlas || player.isDeadBody()) {
+        if (inventory || paused || isAltar || player.isDeadBody()) {
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
             if (inventory)
                 inventoryOverlay.draw(g);
             else if (paused)
                 pauseOverlay.draw(g);
-            else if (useAtlas)
-                atlasOverlay.draw(g);
+            else if (isAltar)
+                altarOverlay.draw(g);
             else if (player.isDeadBody())
                 gameOverOverlay.draw(g);
         }
@@ -257,14 +257,14 @@ public class Playing extends State implements StateMethods {
             case KeyEvent.VK_D -> player.setRight(true);
             case KeyEvent.VK_F -> player.setAction(true);
             case KeyEvent.VK_I -> {
-                if (!paused && !useAtlas)
+                if (!paused && !isAltar)
                     inventory = !inventory;
             }
             case KeyEvent.VK_ESCAPE -> {
-                if (!inventory && !useAtlas)
+                if (!inventory && !isAltar)
                     paused = !paused;
-                if (useAtlas)
-                    useAtlas = false;
+                if (isAltar)
+                    isAltar = false;
             }
             case KeyEvent.VK_SPACE -> player.setJump(true);
 
@@ -283,6 +283,13 @@ public class Playing extends State implements StateMethods {
             case KeyEvent.VK_SPACE -> player.setJump(false);
         }
     }
+
+    public void resetAll(){
+        getObjectManager().resetObjects();
+        getEnemyManager().resetAllEnemies();
+    }
+
+
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
     public Player getPlayer() {
@@ -317,8 +324,26 @@ public class Playing extends State implements StateMethods {
         return objectManager;
     }
 
+    public boolean isPaused() {
+        return paused;
+    }
 
     public GameOverOverlay getGameOverOverlay() {
         return gameOverOverlay;
+    }
+    public boolean isAltar() {
+        return isAltar;
+    }
+
+    public AltarOverlay getAltarOverlay() {
+       return altarOverlay;
+    }
+
+    public void setAltar(boolean altar) {
+        isAltar = altar;
+    }
+
+    public EnemyManager getEnemyManager(){
+        return enemyManager;
     }
 }

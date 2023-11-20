@@ -33,6 +33,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                     gamePanel.getGame().getPlaying().getInventoryOverlay().mousePressed(e);
                 } else if (gamePanel.getGame().getPlaying().getPlayer().isDeadBody()) {
                     gamePanel.getGame().getPlaying().getGameOverOverlay().mousePressed(e);
+                } else if (gamePanel.getGame().getPlaying().isAltar()) {
+                    gamePanel.getGame().getPlaying().getAltarOverlay().mousePressed(e);
                 }
             }
         }
@@ -46,6 +48,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                     gamePanel.getGame().getPlaying().getInventoryOverlay().mouseReleased(e);
                 } else if (gamePanel.getGame().getPlaying().getPlayer().isDeadBody()) {
                     gamePanel.getGame().getPlaying().getGameOverOverlay().mouseReleased(e);
+                } else if (gamePanel.getGame().getPlaying().isAltar()) {
+                    gamePanel.getGame().getPlaying().getAltarOverlay().mouseReleased(e);
                 }
             }
         }

@@ -58,6 +58,7 @@ public class GameObject {
     }
 
     public void reset() {
+        objState = 0;
         aniIndex = 0;
         aniTick = 0;
         active = true;

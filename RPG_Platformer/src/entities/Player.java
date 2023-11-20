@@ -523,7 +523,7 @@ public class Player extends Entity {
         if (S1) {
             maxHealth += 5;
         } else if (S2) {
-            stamina += 5;
+            stamina += 50;
         } else if (S3) {
             attackDamage += 5;
         } else if (S4) {

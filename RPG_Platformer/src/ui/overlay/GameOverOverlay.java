@@ -48,6 +48,8 @@ public class GameOverOverlay {
         respawnButton.setMouseReleased(false);
         if (respawnButton.isMousePressed()) {
             respawnButton.setMouseReleased(true);
+//            playing.resetAll();
+            playing.getPlayer().respawn();
         }
 
         respawnButton.setMousePressed(false);

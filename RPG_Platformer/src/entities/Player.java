@@ -568,6 +568,20 @@ public class Player extends Entity {
         }
     }
 
+    public void respawn() {
+        dead = false;
+        deadBody = false;
+        argent *= 0.5;
+        currentHealth = maxHealth;
+        xp = 0;
+        x = 8 * Game.TILES_SIZE;
+        y = 34 * Game.TILES_SIZE;
+        initHitBox(width, height);
+        state = IDLE;
+        inAir = true;
+
+    }
+
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
 

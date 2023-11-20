@@ -80,11 +80,6 @@ public class InventoryOverlay {
         // Player splash art
         g.drawImage(playerArt, 265, 187, (int) (playerArt.getWidth() / 2.8), (int) (playerArt.getHeight() / 2.8), null);
 
-        // Hit boxes
-
-        for (Slot slot : slots) {
-            slot.draw(g);
-        }
 
 //        g.setColor(Color.RED);
 //        g.drawRect(bgX, bgY, bgWidth, bgHeight);
@@ -123,6 +118,16 @@ public class InventoryOverlay {
             g.drawString(String.valueOf(playing.getPlayer().getSelfDefense()), 388, 458);
         else
             g.drawString(String.valueOf(playing.getPlayer().getSelfDefense()), 385, 458);
+
+
+        // Hit boxes
+
+        for (Slot slot : slots) {
+            slot.draw(g);
+        }
+        for (Slot slot : slots) {
+            slot.drawCard(g);
+        }
 
     }
 

@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static utilz.Constants.Direction.*;
 import static utilz.Constants.EnemyConstants.*;
@@ -130,7 +131,9 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == FLYING_EYE) {
-                    list.add(new FlyingEye(i * Game.TILES_SIZE - (FLYING_EYE_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2));
+                    FlyingEye flyingEye = new FlyingEye(i * Game.TILES_SIZE - (FLYING_EYE_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    list.add(flyingEye);
+                    setLevelEnemy(i, j, flyingEye);
                 }
             }
         }
@@ -146,7 +149,9 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == GOBLIN) {
-                    list.add(new Goblin(i * Game.TILES_SIZE - (GOBLIN_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2));
+                    Goblin goblin = new Goblin(i * Game.TILES_SIZE - (GOBLIN_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    list.add(goblin);
+                    setLevelEnemy(i, j, goblin);
                 }
             }
         }
@@ -162,7 +167,9 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == MUSHROOM) {
-                    list.add(new Mushroom(i * Game.TILES_SIZE - (MUSHROOM - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2));
+                    Mushroom mushroom = new Mushroom(i * Game.TILES_SIZE - (MUSHROOM - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    list.add(mushroom);
+                    setLevelEnemy(i, j, mushroom);
                 }
             }
         }
@@ -178,11 +185,30 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == SKELETON) {
-                    list.add(new Skeleton(i * Game.TILES_SIZE - (SKELETON_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2));
+                    Skeleton skeleton = new Skeleton(i * Game.TILES_SIZE - (SKELETON_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    list.add(skeleton);
+                    setLevelEnemy(i, j, skeleton);
                 }
             }
         }
         return list;
+    }
+
+    private static void setLevelEnemy(int i, int j, Enemy enemy) {
+        Random random = new Random();
+        int level;
+        if (i < 106) {
+            if (j < 65) {
+                level = random.nextInt(5) + 1;
+                enemy.setEnemyLevel(level);
+            } else if (j > 65) {
+                level = random.nextInt(5) + 6;
+                enemy.setEnemyLevel(level);
+            }
+        } else {
+            level = random.nextInt(5) + 11;
+            enemy.setEnemyLevel(level);
+        }
     }
 
     public static ArrayList<Chest> GetChests(BufferedImage img) {

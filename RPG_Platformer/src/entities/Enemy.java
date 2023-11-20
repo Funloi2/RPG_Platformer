@@ -7,8 +7,7 @@ import objects.equipment.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
-import static java.lang.Math.random;
-import static java.lang.Math.round;
+import static java.lang.Math.*;
 import static utilz.Constants.*;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Direction.*;
@@ -146,7 +145,7 @@ public class Enemy extends Entity {
 
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.getHitBox())) {
-            if (getEnemyDmg(enemyType) / player.getSelfDefense() == 0){
+            if (getEnemyDmg(enemyType) / player.getSelfDefense() == 0) {
                 player.changeHealth(-1);
             } else {
                 player.changeHealth(-(getEnemyDmg(enemyType) / player.getSelfDefense()));
@@ -235,7 +234,7 @@ public class Enemy extends Entity {
             playing.getObjectManager().dropItem(new Boots((int) (hitBox.x), (int) (hitBox.y + hitBox.height - ARMOR_HEIGHT * Game.SCALE), set, enemyLevel));
     }
 
-    protected void resetEnemy(){
+    protected void resetEnemy() {
         currentHealth = maxHealth;
         active = true;
         newState(IDLE);
@@ -250,5 +249,13 @@ public class Enemy extends Entity {
 
     public void setPlaying(Playing playing) {
         this.playing = playing;
+    }
+
+    public void setEnemyLevel(int enemyLevel) {
+        this.enemyLevel = enemyLevel;
+        defense *= 1.2;
+        attack *= 1.2;
+        maxHealth *= 1.2;
+        currentHealth = maxHealth;
     }
 }

@@ -190,9 +190,10 @@ public class EnemyManager {
         listEnemy[SKELETON] = "Skeleton";
         listEnemy[NECROMANCER] = "Necromancer";
 
-
+        temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
         for (int j = 0; j < returnArr.length; j++) {
-            temp = LoadSave.GetSpriteAtlas("/ennemies/" + listEnemy[enemyType] + listPath[j]);
+            if (enemyType != NECROMANCER)
+                temp = LoadSave.GetSpriteAtlas("/ennemies/" + listEnemy[enemyType] + listPath[j]);
             for (int i = 0; i < returnArr[j].length; i++)
                 switch (enemyType) {
                     case FLYING_EYE -> {
@@ -212,9 +213,9 @@ public class EnemyManager {
                             skeletonArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
                     }
                     case NECROMANCER -> {
-                        temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
+
                         if (i < GetSpriteAmount(NECROMANCER, j))
-                            necromancerArr[j][i] = temp.getSubimage(i * 128, 128 *j, 128, 128);
+                            necromancerArr[j][i] = temp.getSubimage(i * 160, 128 * j, 160, 128);
                     }
                     default -> {
                     }

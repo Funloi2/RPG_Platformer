@@ -33,16 +33,13 @@ public class Constants {
 
         public static final int POTION_WIDTH_DEFAULT = 12;
         public static final int POTION_HEIGHT_DEFAULT = 16;
-        public static final int POTION_WIDTH = (int) (Game.SCALE * POTION_WIDTH_DEFAULT );
+        public static final int POTION_WIDTH = (int) (Game.SCALE * POTION_WIDTH_DEFAULT);
         public static final int POTION_HEIGHT = (int) (Game.SCALE * POTION_HEIGHT_DEFAULT);
 
         public static final int ARMOR_WIDTH_DEFAULT = 32;
         public static final int ARMOR_HEIGHT_DEFAULT = 32;
         public static final int ARMOR_WIDTH = (int) (Game.SCALE * ARMOR_WIDTH_DEFAULT / 2.5);
         public static final int ARMOR_HEIGHT = (int) (Game.SCALE * ARMOR_HEIGHT_DEFAULT / 2.5);
-
-
-
 
 
         public static int GetSpriteAmount(int object_type) {
@@ -66,13 +63,13 @@ public class Constants {
         public static final int NECROMANCER = 4;
         public static final int NIGHTWARRIOR = 5;
 
-        public static final int ATTACK = 0;
-        public static final int ATTACK_2 = 1;
-        public static final int ATTACK_3 = 2;
-        public static final int DEATH = 3;
-        public static final int IDLE = 4;
-        public static final int RUN = 5;
-        public static final int HURT = 6;
+        public static final int IDLE = 0;
+        public static final int RUN = 1;
+        public static final int ATTACK = 2;
+        public static final int ATTACK_2 = 3;
+        public static final int ATTACK_3 = 4;
+        public static final int HURT = 5;
+        public static final int DEATH = 6;
 
 
         public static final int ENEMIES_WIDTH_DEFAULT = 150;
@@ -102,8 +99,8 @@ public class Constants {
         public static final int SKELETON_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
         public static final int SKELETON_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
 
-        public static final int NECROMANCER_WIDTH = (int) (ENEMIES_WIDTH_DEFAULT * Game.SCALE * 0.8);
-        public static final int NECROMANCER_HEIGHT = (int) (ENEMIES_HEIGHT_DEFAULT * Game.SCALE * 0.8);
+        public static final int NECROMANCER_WIDTH = (int) (128 * Game.SCALE * 0.8);
+        public static final int NECROMANCER_HEIGHT = (int) (128 * Game.SCALE * 0.8);
 
         public static final int NECROMANCER_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
         public static final int NECROMANCER_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);

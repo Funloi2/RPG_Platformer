@@ -19,10 +19,13 @@ public class EnemyManager {
     private BufferedImage[][] goblinArr;
     private BufferedImage[][] mushroomArr;
     private BufferedImage[][] skeletonArr;
+
+    private BufferedImage[][] necromancerArr;
     private List<FlyingEye> flyingEyes = new ArrayList<>();
     private List<Goblin> goblins = new ArrayList<>();
     private List<Mushroom> mushrooms = new ArrayList<>();
     private List<Skeleton> skeletons = new ArrayList<>();
+    private List<Necromancer> necromancer = new ArrayList<>();
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public EnemyManager(Playing playing) {
@@ -49,6 +52,9 @@ public class EnemyManager {
         for (Skeleton sk : skeletons) {
             sk.setPlaying(playing);
         }
+        for (Necromancer nec : necromancer) {
+            nec.setPlaying(playing);
+        }
     }
 
     private void addEnemies() {
@@ -56,6 +62,7 @@ public class EnemyManager {
         goblins = HelpMethod.GetGoblins();
         mushrooms = HelpMethod.GetMushrooms();
         skeletons = HelpMethod.GetSkeletons();
+        necromancer = HelpMethod.GetNecromancers();
     }
 
     public void update(int[][] lvlData, Player player) {
@@ -78,6 +85,11 @@ public class EnemyManager {
             if (sk.isActive())
                 if (sk.isActive())
                     sk.update(lvlData, player);
+        }
+        for (Necromancer nec : necromancer) {
+            if (nec.isActive())
+                if (nec.isActive())
+                    nec.update(lvlData, player);
         }
     }
 
@@ -126,6 +138,14 @@ public class EnemyManager {
 //                sk.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
         }
+        for (Necromancer nec : necromancer) {
+            if (nec.isActive()) {
+                g.drawImage(necromancerArr[nec.getState()][nec.getAniIndex()],
+                        (int) (nec.getHitBox().x - xLvlOffset - NECROMANCER_DRAWOFFSET_X) + nec.flipX(),
+                        (int) (nec.getHitBox().y - yLvlOffset - NECROMANCER_DRAWOFFSET_Y)
+                        , NECROMANCER_WIDTH * nec.flipY(), NECROMANCER_HEIGHT, null);
+            }
+        }
     }
 
     private void loadEnemyImgs() {
@@ -133,11 +153,13 @@ public class EnemyManager {
         goblinArr = new BufferedImage[7][12];
         mushroomArr = new BufferedImage[7][11];
         skeletonArr = new BufferedImage[7][8];
+        necromancerArr = new BufferedImage[7][17];
 
         fillEnemiesList(FLYING_EYE);
         fillEnemiesList(GOBLIN);
         fillEnemiesList(MUSHROOM);
         fillEnemiesList(SKELETON);
+        fillEnemiesList(NECROMANCER);
     }
 
     private void fillEnemiesList(int enemyType) {
@@ -146,6 +168,7 @@ public class EnemyManager {
             case FLYING_EYE, SKELETON -> returnArr = new BufferedImage[7][8];
             case GOBLIN -> returnArr = new BufferedImage[7][12];
             case MUSHROOM -> returnArr = new BufferedImage[7][11];
+            case NECROMANCER -> returnArr = new BufferedImage[7][17];
             default -> returnArr = new BufferedImage[0][0];
         }
 
@@ -160,11 +183,12 @@ public class EnemyManager {
         listPath[RUN] = "/Run.png";
         listPath[HURT] = "/Take_Hit.png";
 
-        String[] listEnemy = new String[4];
+        String[] listEnemy = new String[5];
         listEnemy[FLYING_EYE] = "Flying_eye";
         listEnemy[GOBLIN] = "Goblin";
         listEnemy[MUSHROOM] = "Mushroom";
         listEnemy[SKELETON] = "Skeleton";
+        listEnemy[NECROMANCER] = "Necromancer";
 
 
         for (int j = 0; j < returnArr.length; j++) {
@@ -186,6 +210,11 @@ public class EnemyManager {
                     case SKELETON -> {
                         if (i < GetSpriteAmount(SKELETON, j))
                             skeletonArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
+                    }
+                    case NECROMANCER -> {
+                        temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
+                        if (i < GetSpriteAmount(NECROMANCER, j))
+                            necromancerArr[j][i] = temp.getSubimage(i * 128, 128 *j, 128, 128);
                     }
                     default -> {
                     }
@@ -221,6 +250,13 @@ public class EnemyManager {
             if (sk.isActive() && sk.getCurrentHealth() > 0)
                 if (attackBox.intersects(sk.getHitBox())) {
                     sk.hurt(playing.getPlayer().getAttack());
+                    return;
+                }
+        }
+        for (Necromancer nec : necromancer) {
+            if (nec.isActive() && nec.getCurrentHealth() > 0)
+                if (attackBox.intersects(nec.getHitBox())) {
+                    nec.hurt(playing.getPlayer().getAttack());
                     return;
                 }
         }

@@ -63,6 +63,8 @@ public class Constants {
         public static final int GOBLIN = 1;
         public static final int MUSHROOM = 2;
         public static final int SKELETON = 3;
+        public static final int NECROMANCER = 4;
+        public static final int NIGHTWARRIOR = 5;
 
         public static final int ATTACK = 0;
         public static final int ATTACK_2 = 1;
@@ -99,6 +101,12 @@ public class Constants {
 
         public static final int SKELETON_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
         public static final int SKELETON_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
+
+        public static final int NECROMANCER_WIDTH = (int) (ENEMIES_WIDTH_DEFAULT * Game.SCALE * 0.8);
+        public static final int NECROMANCER_HEIGHT = (int) (ENEMIES_HEIGHT_DEFAULT * Game.SCALE * 0.8);
+
+        public static final int NECROMANCER_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
+        public static final int NECROMANCER_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
 
         public static int GetSpriteAmount(int enemy_type, int enemy_state) {
             switch (enemy_type) {
@@ -166,6 +174,22 @@ public class Constants {
                         }
                     }
                 }
+                case NECROMANCER -> {
+                    switch (enemy_state) {
+                        case ATTACK, ATTACK_2, RUN -> {
+                            return 8;
+                        }
+                        case ATTACK_3 -> {
+                            return 6;
+                        }
+                        case DEATH, HURT, IDLE -> {
+                            return 4;
+                        }
+                        default -> {
+                            return 1;
+                        }
+                    }
+                }
                 default -> {
                     return -1;
                 }
@@ -196,6 +220,9 @@ public class Constants {
                 }
                 case SKELETON -> {
                     return 25;
+                }
+                case NECROMANCER -> {
+                    return 100;
                 }
                 default -> {
                     return 0;

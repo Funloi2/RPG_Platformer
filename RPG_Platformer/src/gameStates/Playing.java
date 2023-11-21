@@ -12,6 +12,7 @@ import ui.overlay.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -62,7 +63,7 @@ public class Playing extends State implements StateMethods {
     private boolean drawInventoryFull;
 
     // Background
-    private BufferedImage backgroundImage, spawnBgImage;
+    private BufferedImage backgroundImage, spawnBgImage, corridorImage, bossRoomImage;
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -85,6 +86,8 @@ public class Playing extends State implements StateMethods {
     private void loadBackground() {
         backgroundImage = LoadSave.GetSpriteAtlas(LoadSave.BG_LEVEL);
         spawnBgImage = LoadSave.GetSpriteAtlas(LoadSave.SPAWN_BG);
+        corridorImage = LoadSave.GetSpriteAtlas(LoadSave.CORRIDOR_BG);
+        bossRoomImage = LoadSave.GetSpriteAtlas(LoadSave.BOSS_ROOM_BG);
     }
 
     private void initClass() {
@@ -193,13 +196,26 @@ public class Playing extends State implements StateMethods {
             } else {
                 drawInventoryFull = false;
             }
+
+            checkBossRoom();
+        }
+    }
+
+    private void checkBossRoom() {
+        if (player.getHitBox().intersects(levelManager.getCurrentLevel().getBossRoomHitBoxBottom())) {
+            downBorder = (int) (GAME_HEIGHT - 2 * Game.TILES_SIZE);
+            leftBorder = 0;
+
+        }
+        if (player.getHitBox().intersects(levelManager.getCurrentLevel().getBossRoomHitBoxCenter())) {
+            rightBorder = GAME_WIDTH;
         }
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImage, 0 - xLvlOffset, 0 - yLvlOffset, (int) (GAME_WIDTH * 2.4), (int) (GAME_HEIGHT * 1.8), null);
-        g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
+        drawBackgrounds(g);
+
 
         levelManager.draw(g, xLvlOffset, yLvlOffset);
         enemyManager.draw(g, xLvlOffset, yLvlOffset);
@@ -225,9 +241,26 @@ public class Playing extends State implements StateMethods {
         }
 
 
+        // debug boss room hitbox
+        Rectangle2D.Float hitbox = levelManager.getCurrentLevel().getBossRoomHitBoxBottom();
+        g.setColor(Color.red);
+        g.drawRect((int) (hitbox.x) - xLvlOffset, (int) (hitbox.y) - yLvlOffset, (int) (hitbox.width), (int) (hitbox.height));
+        hitbox = levelManager.getCurrentLevel().getBossRoomHitBoxCenter();
+        g.drawRect((int) (hitbox.x) - xLvlOffset, (int) (hitbox.y) - yLvlOffset, (int) (hitbox.width), (int) (hitbox.height));
+
     }
 
-    public void resetAll(){
+    public void drawBackgrounds(Graphics g) {
+        g.fillRect((48 * Game.TILES_SIZE - xLvlOffset), (int) (24.5 * Game.TILES_SIZE - yLvlOffset), (int) (GAME_WIDTH + 1.5 * Game.TILES_SIZE), (int) (GAME_HEIGHT + 0.5 * Game.TILES_SIZE));
+        g.drawImage(bossRoomImage, (48 * Game.TILES_SIZE - xLvlOffset), (int) (24.5 * Game.TILES_SIZE - yLvlOffset), (int) (GAME_WIDTH + 1.5 * Game.TILES_SIZE), (int) (GAME_HEIGHT + 0.5 * Game.TILES_SIZE), null);
+
+        g.drawImage(backgroundImage, 0 - xLvlOffset, 0 - yLvlOffset, (int) (GAME_WIDTH * 2.4), (int) (GAME_HEIGHT * 1.8), null);
+        g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
+        g.drawImage(corridorImage, (24 * Game.TILES_SIZE - xLvlOffset), 24 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH, GAME_HEIGHT - 1 * Game.TILES_SIZE, null);
+
+    }
+
+    public void resetAll() {
         getObjectManager().resetObjects();
         getEnemyManager().resetAllEnemies();
     }
@@ -291,7 +324,6 @@ public class Playing extends State implements StateMethods {
     }
 
 
-
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
     public Player getPlayer() {
@@ -333,19 +365,21 @@ public class Playing extends State implements StateMethods {
     public GameOverOverlay getGameOverOverlay() {
         return gameOverOverlay;
     }
+
     public boolean isAltar() {
         return isAltar;
     }
 
     public AltarOverlay getAltarOverlay() {
-       return altarOverlay;
+        return altarOverlay;
     }
 
     public void setAltar(boolean altar) {
         isAltar = altar;
     }
 
-    public EnemyManager getEnemyManager(){
+    public EnemyManager getEnemyManager() {
         return enemyManager;
     }
+
 }

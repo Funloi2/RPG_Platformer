@@ -194,6 +194,24 @@ public class HelpMethod {
         return list;
     }
 
+    public static List<Necromancer> GetNecromancers(){
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
+        ArrayList<Necromancer> list = new ArrayList<>();
+
+        for (int j = 0; j < image.getHeight(); j++) {
+            for (int i = 0; i < image.getWidth(); i++) {
+                Color color = new Color(image.getRGB(i, j));
+                int value = color.getGreen();
+                if (value == NECROMANCER) {
+                    Necromancer necromancer = new Necromancer(i * Game.TILES_SIZE - (NECROMANCER_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    list.add(necromancer);
+                    setLevelEnemy(i, j, necromancer);
+                }
+            }
+        }
+        return list;
+    }
+
     private static void setLevelEnemy(int i, int j, Enemy enemy) {
         Random random = new Random();
         int level;

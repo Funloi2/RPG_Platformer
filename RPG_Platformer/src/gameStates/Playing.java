@@ -16,8 +16,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import static main.Game.GAME_HEIGHT;
-import static main.Game.GAME_WIDTH;
+import static main.Game.*;
 import static utilz.Constants.ObjectConstants.LIFE_POTION;
 import static utilz.Constants.ObjectConstants.STM_POTION;
 
@@ -63,7 +62,7 @@ public class Playing extends State implements StateMethods {
     private boolean drawInventoryFull;
 
     // Background
-    private BufferedImage backgroundImage, spawnBgImage, corridorImage, bossRoomImage;
+    private BufferedImage backgroundImageZone1, backgroundImageZone2, backgroundImageZone3, spawnBgImage, corridorImage, bossRoomImage;
 
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
@@ -84,7 +83,9 @@ public class Playing extends State implements StateMethods {
     }
 
     private void loadBackground() {
-        backgroundImage = LoadSave.GetSpriteAtlas(LoadSave.BG_LEVEL);
+        backgroundImageZone1 = LoadSave.GetSpriteAtlas(LoadSave.BG_LEVEL_1);
+        backgroundImageZone2 = LoadSave.GetSpriteAtlas(LoadSave.BG_LEVEL_2);
+        backgroundImageZone3 = LoadSave.GetSpriteAtlas(LoadSave.BG_LEVEL_3);
         spawnBgImage = LoadSave.GetSpriteAtlas(LoadSave.SPAWN_BG);
         corridorImage = LoadSave.GetSpriteAtlas(LoadSave.CORRIDOR_BG);
         bossRoomImage = LoadSave.GetSpriteAtlas(LoadSave.BOSS_ROOM_BG);
@@ -251,10 +252,15 @@ public class Playing extends State implements StateMethods {
     }
 
     public void drawBackgrounds(Graphics g) {
+        g.fillRect(0, 0, 106 * TILES_SIZE, 65 * TILES_SIZE);
+
+        g.drawImage(backgroundImageZone3, TILES_SIZE * 62 - xLvlOffset, TILES_SIZE - yLvlOffset, TILES_SIZE * 44, TILES_SIZE * 64, null);
+        g.drawImage(backgroundImageZone1, -xLvlOffset, 36 * Game.TILES_SIZE - yLvlOffset, TILES_SIZE * 64, TILES_SIZE * 28, null);
         g.fillRect((48 * Game.TILES_SIZE - xLvlOffset), (int) (24.5 * Game.TILES_SIZE - yLvlOffset), (int) (GAME_WIDTH + 1.5 * Game.TILES_SIZE), (int) (GAME_HEIGHT + 0.5 * Game.TILES_SIZE));
         g.drawImage(bossRoomImage, (48 * Game.TILES_SIZE - xLvlOffset), (int) (24.5 * Game.TILES_SIZE - yLvlOffset), (int) (GAME_WIDTH + 1.5 * Game.TILES_SIZE), (int) (GAME_HEIGHT + 0.5 * Game.TILES_SIZE), null);
+        g.drawImage(backgroundImageZone2, -xLvlOffset, TILES_SIZE - yLvlOffset, TILES_SIZE * 62, TILES_SIZE * 25, null);
 
-        g.drawImage(backgroundImage, 0 - xLvlOffset, 0 - yLvlOffset, (int) (GAME_WIDTH * 2.4), (int) (GAME_HEIGHT * 1.8), null);
+
         g.drawImage(spawnBgImage, (int) (0.3 * Game.TILES_SIZE - xLvlOffset), 27 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH - 2 * Game.TILES_SIZE, GAME_HEIGHT - 4 * Game.TILES_SIZE, null);
         g.drawImage(corridorImage, (24 * Game.TILES_SIZE - xLvlOffset), 24 * Game.TILES_SIZE - yLvlOffset, GAME_WIDTH, GAME_HEIGHT - 1 * Game.TILES_SIZE, null);
 

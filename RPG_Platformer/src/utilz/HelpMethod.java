@@ -194,7 +194,7 @@ public class HelpMethod {
         return list;
     }
 
-    public static List<Necromancer> GetNecromancers(){
+    public static List<Necromancer> GetNecromancers() {
         BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
         ArrayList<Necromancer> list = new ArrayList<>();
 
@@ -203,7 +203,7 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == NECROMANCER) {
-                    Necromancer necromancer = new Necromancer(i * Game.TILES_SIZE - (NECROMANCER_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    Necromancer necromancer = new Necromancer(i * Game.TILES_SIZE - (NECROMANCER_WIDTH - Game.TILES_SIZE) / 2, (j-1) * Game.TILES_SIZE - 25);
                     list.add(necromancer);
                     setLevelEnemy(i, j, necromancer);
                 }

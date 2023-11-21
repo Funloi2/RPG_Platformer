@@ -4,15 +4,17 @@ import main.Game;
 
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Direction.*;
+import static utilz.HelpMethod.IsSightClear;
 
-public class Necromancer extends Enemy{
+public class Necromancer extends Enemy {
     public Necromancer(float x, float y) {
-        super(x, y, GOBLIN_WIDTH, GOBLIN_HEIGHT, GOBLIN);
-        initHitBox(20, 39);
-        initAttackBox(90, 35);
+        super(x, y, NECROMANCER_WIDTH, NECROMANCER_HEIGHT, NECROMANCER);
+        initHitBox(38, 80);
+        initAttackBox(80, 35);
         defense = 50;
         maxHealth = 500;
         currentHealth = maxHealth;
+        walkDir = LEFT;
     }
 
     public void update(int[][] lvlData, Player player) {
@@ -61,16 +63,28 @@ public class Necromancer extends Enemy{
                 }
             }
         }
-
-
     }
+
+    @Override
+    protected boolean canSeePlayer(int[][] lvlData, Player player) {
+        int playerTileY = (int) (player.getHitBox().y / Game.TILES_SIZE);
+        if (playerTileY == tileY) {
+            if (isPlayerInRange(player)) {
+                if (IsSightClear(lvlData, hitBox, player.getHitBox(), tileY)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public int flipX() {
         if (walkDir == RIGHT) {
 
             return 0;
         } else {
 
-            return width;
+            return (int) (NECROMANCER_WIDTH + NECROMANCER_DRAWOFFSET_X + 20 * Game.SCALE);
         }
     }
 

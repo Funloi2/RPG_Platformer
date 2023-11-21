@@ -4,6 +4,7 @@ import gameStates.Playing;
 import main.Game;
 import objects.equipment.*;
 
+import javax.swing.text.Style;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 

@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 
+import static main.Game.GAME_HEIGHT;
+
 public class GameOverOverlay {
     /// ------------------------------- ATTRIBUTE ------------------------------- ///
 
@@ -50,6 +52,9 @@ public class GameOverOverlay {
             respawnButton.setMouseReleased(true);
 //            playing.resetAll();
             playing.getPlayer().respawn();
+            playing.setRightBorder((int) (0.50 * Game.GAME_WIDTH));
+            playing.setDownBorder((int) (0.70 * GAME_HEIGHT));
+            playing.setLeftBorder((int) (0.50 * Game.GAME_WIDTH));
         }
 
         respawnButton.setMousePressed(false);

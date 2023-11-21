@@ -382,4 +382,15 @@ public class Playing extends State implements StateMethods {
         return enemyManager;
     }
 
+    public void setDownBorder(int downBorder) {
+        this.downBorder = downBorder;
+    }
+
+    public void setRightBorder(int rightBorder) {
+        this.rightBorder = rightBorder;
+    }
+
+    public void setLeftBorder(int leftBorder) {
+        this.leftBorder = leftBorder;
+    }
 }

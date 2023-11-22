@@ -15,6 +15,16 @@ public class Constants {
         public static final int DOWN = 3;
     }
 
+    public static class Projectiles{
+        public static final int VFX1_WIDTH = (int) (Game.SCALE * 32);
+        public static final int VFX1_HEIGHT = (int) (Game.SCALE * 40);
+
+        public static final int VFX2_WIDTH = (int) (Game.SCALE * 32);
+        public static final int VFX2_HEIGHT = (int) (Game.SCALE * 40);
+
+        public static final float SPEED = 0.5f * Game.SCALE;
+    }
+
     public static class ObjectConstants {
         public static final int CHEST = 0;
         public static final int LIFE_POTION = 1;
@@ -61,14 +71,15 @@ public class Constants {
         public static final int MUSHROOM = 2;
         public static final int SKELETON = 3;
         public static final int NECROMANCER = 4;
-        public static final int NIGHTWARRIOR = 5;
+        public static final int NIGHTBORNE = 5;
 
         public static final int IDLE = 0;
         public static final int RUN = 1;
         public static final int ATTACK = 2;
         public static final int ATTACK_2 = 3;
-        public static final int ATTACK_3 = 4;
-        public static final int HURT = 5;
+        public static final int HURT = 4;
+        public static final int ATTACK_3 = 5;
+
         public static final int DEATH = 6;
 
 
@@ -104,6 +115,12 @@ public class Constants {
 
         public static final int NECROMANCER_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
         public static final int NECROMANCER_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
+
+        public static final int NIGHTBORNE_WIDTH = (int) (80 * Game.SCALE * 0.8);
+        public static final int NIGHTBORNE_HEIGHT = (int) (80 * Game.SCALE * 0.8);
+
+        public static final int NIGHTBORNE_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
+        public static final int NIGHTBORNE_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
 
         public static int GetSpriteAmount(int enemy_type, int enemy_state) {
             switch (enemy_type) {
@@ -187,6 +204,28 @@ public class Constants {
                         }
                     }
                 }
+                case NIGHTBORNE -> {
+                    switch (enemy_state) {
+                        case ATTACK -> {
+                            return 12;
+                        }
+                        case RUN -> {
+                            return 6;
+                        }
+                        case HURT-> {
+                            return 5;
+                        }
+                        case DEATH -> {
+                            return 23;
+                        }
+                        case IDLE -> {
+                            return 9;
+                        }
+                        default -> {
+                            return 1;
+                        }
+                    }
+                }
                 default -> {
                     return -1;
                 }
@@ -197,6 +236,9 @@ public class Constants {
             switch (enemyType) {
                 case FLYING_EYE, GOBLIN, MUSHROOM, SKELETON -> {
                     return 10;
+                }
+                case NECROMANCER, NIGHTBORNE -> {
+                    return 100;
                 }
                 default -> {
                     return 1;
@@ -220,6 +262,9 @@ public class Constants {
                 }
                 case NECROMANCER -> {
                     return 100;
+                }
+                case NIGHTBORNE -> {
+                    return 50;
                 }
                 default -> {
                     return 0;

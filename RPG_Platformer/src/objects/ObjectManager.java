@@ -1,5 +1,6 @@
 package objects;
 
+import entities.Player;
 import gameStates.Playing;
 import level.Level;
 import main.Game;
@@ -23,12 +24,13 @@ public class ObjectManager {
     // Spites
     private BufferedImage[][] chestImages;
     private BufferedImage[][] potionImages;
+    private BufferedImage necromancerVfx1;
 
     // List of items
     private ArrayList<Chest> chests = new ArrayList<>();
     private ArrayList<Potion> potions = new ArrayList<>();
     private ArrayList<Equipment> equipments = new ArrayList<>();
-
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public ObjectManager(Playing playing) {
@@ -120,6 +122,7 @@ public class ObjectManager {
     public void loadObjects(Level level) {
         potions = new ArrayList<>(level.getPotions());
         chests = new ArrayList<>(level.getChests());
+        projectiles.clear();
     }
 
 
@@ -141,6 +144,10 @@ public class ObjectManager {
                 chestImages[j][i] = chestSprite.getSubimage(i * CHEST_DEFAULT_WIDTH, j * CHEST_DEFAULT_HEIGHT, CHEST_DEFAULT_WIDTH, CHEST_DEFAULT_HEIGHT);
             }
         }
+
+        necromancerVfx1 = LoadSave.GetSpriteAtlas(LoadSave.BOSS_EFFECTS1);
+
+
     }
 
     public void update() {
@@ -152,6 +159,19 @@ public class ObjectManager {
         for (Chest ch : chests) {
             if (ch.isActive()) {
                 ch.update();
+            }
+        }
+
+    }
+
+    public void update( int[][]  lvlData, Player player){
+        updateProjectiles(lvlData, player);
+    }
+
+    public void updateProjectiles(int[][] lvlData, Player player){
+        for (Projectile p : projectiles) {
+            if (p.isActive()) {
+                p.update();
             }
         }
     }

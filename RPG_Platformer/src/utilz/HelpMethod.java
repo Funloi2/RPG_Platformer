@@ -212,6 +212,24 @@ public class HelpMethod {
         return list;
     }
 
+    public static List<NightBorne> GetNightBornes(){
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
+        ArrayList<NightBorne> list = new ArrayList<>();
+
+        for (int j = 0; j < image.getHeight(); j++) {
+            for (int i = 0; i < image.getWidth(); i++) {
+                Color color = new Color(image.getRGB(i, j));
+                int value = color.getGreen();
+                if (value == NIGHTBORNE) {
+                    NightBorne nightBorne = new NightBorne(i * Game.TILES_SIZE - (NECROMANCER_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    list.add(nightBorne);
+                    setLevelEnemy(i, j, nightBorne);
+                }
+            }
+        }
+        return list;
+    }
+
     private static void setLevelEnemy(int i, int j, Enemy enemy) {
         Random random = new Random();
         int level;

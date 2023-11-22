@@ -21,11 +21,13 @@ public class EnemyManager {
     private BufferedImage[][] skeletonArr;
 
     private BufferedImage[][] necromancerArr;
+    private BufferedImage[][] nightBorneArr;
     private List<FlyingEye> flyingEyes = new ArrayList<>();
     private List<Goblin> goblins = new ArrayList<>();
     private List<Mushroom> mushrooms = new ArrayList<>();
     private List<Skeleton> skeletons = new ArrayList<>();
     private List<Necromancer> necromancer = new ArrayList<>();
+    private List<NightBorne> nightBorne = new ArrayList<>();
 
     /// ------------------------------- CONSTRUCTOR ------------------------------- ///
     public EnemyManager(Playing playing) {
@@ -55,6 +57,9 @@ public class EnemyManager {
         for (Necromancer nec : necromancer) {
             nec.setPlaying(playing);
         }
+        for (NightBorne nb : nightBorne) {
+            nb.setPlaying(playing);
+        }
     }
 
     private void addEnemies() {
@@ -63,6 +68,7 @@ public class EnemyManager {
         mushrooms = HelpMethod.GetMushrooms();
         skeletons = HelpMethod.GetSkeletons();
         necromancer = HelpMethod.GetNecromancers();
+        nightBorne = HelpMethod.GetNightBornes();
     }
 
     public void update(int[][] lvlData, Player player) {
@@ -90,6 +96,11 @@ public class EnemyManager {
             if (nec.isActive())
                 if (nec.isActive())
                     nec.update(lvlData, player);
+        }
+        for (NightBorne nb : nightBorne) {
+            if (nb.isActive())
+                if (nb.isActive())
+                    nb.update(lvlData, player);
         }
     }
 
@@ -146,6 +157,15 @@ public class EnemyManager {
                         , NECROMANCER_WIDTH * nec.flipY(), NECROMANCER_HEIGHT, null);
             }
         }
+        for (NightBorne nb : nightBorne) {
+            if (nb.isActive()) {
+                g.drawImage(nightBorneArr[nb.getState()][nb.getAniIndex()],
+                        (int) (nb.getHitBox().x - xLvlOffset - NIGHTBORNE_DRAWOFFSET_X) + nb.flipX(),
+                        (int) (nb.getHitBox().y - yLvlOffset - NIGHTBORNE_DRAWOFFSET_Y)
+                        , 80 * nb.flipY(), 80, null);
+            }
+            nb.drawHitBox(g, xLvlOffset, yLvlOffset);
+        }
     }
 
     private void loadEnemyImgs() {
@@ -154,12 +174,14 @@ public class EnemyManager {
         mushroomArr = new BufferedImage[7][11];
         skeletonArr = new BufferedImage[7][8];
         necromancerArr = new BufferedImage[7][17];
+        nightBorneArr = new BufferedImage[5][23];
 
         fillEnemiesList(FLYING_EYE);
         fillEnemiesList(GOBLIN);
         fillEnemiesList(MUSHROOM);
         fillEnemiesList(SKELETON);
         fillEnemiesList(NECROMANCER);
+        fillEnemiesList(NIGHTBORNE);
     }
 
     private void fillEnemiesList(int enemyType) {
@@ -169,6 +191,7 @@ public class EnemyManager {
             case GOBLIN -> returnArr = new BufferedImage[7][12];
             case MUSHROOM -> returnArr = new BufferedImage[7][11];
             case NECROMANCER -> returnArr = new BufferedImage[7][17];
+            case NIGHTBORNE -> returnArr = new BufferedImage[5][23];
             default -> returnArr = new BufferedImage[0][0];
         }
 
@@ -183,16 +206,18 @@ public class EnemyManager {
         listPath[RUN] = "/Run.png";
         listPath[HURT] = "/Take_Hit.png";
 
-        String[] listEnemy = new String[5];
+        String[] listEnemy = new String[6];
         listEnemy[FLYING_EYE] = "Flying_eye";
         listEnemy[GOBLIN] = "Goblin";
         listEnemy[MUSHROOM] = "Mushroom";
         listEnemy[SKELETON] = "Skeleton";
         listEnemy[NECROMANCER] = "Necromancer";
+        listEnemy[NIGHTBORNE] = "NightBorne";
 
         temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
+        BufferedImage temp2 = LoadSave.GetSpriteAtlas("/ennemies/NightBorne/NightBorne.png");
         for (int j = 0; j < returnArr.length; j++) {
-            if (enemyType != NECROMANCER)
+            if (enemyType != NECROMANCER && enemyType != NIGHTBORNE)
                 temp = LoadSave.GetSpriteAtlas("/ennemies/" + listEnemy[enemyType] + listPath[j]);
             for (int i = 0; i < returnArr[j].length; i++)
                 switch (enemyType) {
@@ -216,6 +241,10 @@ public class EnemyManager {
 
                         if (i < GetSpriteAmount(NECROMANCER, j))
                             necromancerArr[j][i] = temp.getSubimage(i * 160, 128 * j, 160, 128);
+                    }
+                    case NIGHTBORNE -> {
+                        if (i < GetSpriteAmount(NIGHTBORNE, j))
+                            nightBorneArr[j][i] = temp2.getSubimage(i * 80, 80 * j, 80, 80);
                     }
                     default -> {
                     }
@@ -258,6 +287,13 @@ public class EnemyManager {
             if (nec.isActive() && nec.getCurrentHealth() > 0)
                 if (attackBox.intersects(nec.getHitBox())) {
                     nec.hurt(playing.getPlayer().getAttack());
+                    return;
+                }
+        }
+        for (NightBorne nb : nightBorne) {
+            if (nb.isActive() && nb.getCurrentHealth() > 0)
+                if (attackBox.intersects(nb.getHitBox())) {
+                    nb.hurt(playing.getPlayer().getAttack());
                     return;
                 }
         }

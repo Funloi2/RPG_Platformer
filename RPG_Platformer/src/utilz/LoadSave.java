@@ -42,6 +42,10 @@ public class LoadSave {
     public static final String UPGRADE_LABEL_ATLAS = "/ui/upgrade_label.png";
     public static final String RELOAD_BUTTON_ATLAS = "/ui/reload_button.png";
 
+    //Boss Effects
+    public static final String BOSS_EFFECTS1 = "/ennemies/DarkVFX/DarkVFX1.png";
+    public static final String BOSS_EFFECTS2 = "/ennemies/DarkVFX/DarkVFX2.png";
+
 
     public static BufferedImage GetSpriteAtlas(String path) {
         BufferedImage image = null;

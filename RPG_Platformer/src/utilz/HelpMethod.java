@@ -105,7 +105,7 @@ public class HelpMethod {
         }
     }
 
-    public static boolean  IsSightClear(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitBox, int yTile) {
+    public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitBox, int yTile) {
         int firstXTile = (int) (firstHitbox.x / Game.TILES_SIZE);
         int secondXTile = (int) (secondHitBox.x / Game.TILES_SIZE);
 
@@ -131,7 +131,7 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == FLYING_EYE) {
-                    FlyingEye flyingEye = new FlyingEye(i * Game.TILES_SIZE , j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    FlyingEye flyingEye = new FlyingEye(i * Game.TILES_SIZE, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
                     list.add(flyingEye);
                     setLevelEnemy(i, j, flyingEye);
                 }
@@ -167,7 +167,7 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == MUSHROOM) {
-                    Mushroom mushroom = new Mushroom(i * Game.TILES_SIZE , j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    Mushroom mushroom = new Mushroom(i * Game.TILES_SIZE, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
                     list.add(mushroom);
                     setLevelEnemy(i, j, mushroom);
                 }
@@ -203,7 +203,7 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == NECROMANCER) {
-                    Necromancer necromancer = new Necromancer(i * Game.TILES_SIZE - (NECROMANCER_WIDTH - Game.TILES_SIZE) / 2, (j-1) * Game.TILES_SIZE - 25);
+                    Necromancer necromancer = new Necromancer(i * Game.TILES_SIZE, (j - 1) * Game.TILES_SIZE - 25);
                     list.add(necromancer);
                     setLevelEnemy(i, j, necromancer);
                 }
@@ -212,7 +212,7 @@ public class HelpMethod {
         return list;
     }
 
-    public static List<NightBorne> GetNightBornes(){
+    public static List<NightBorne> GetNightBornes() {
         BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_MAP);
         ArrayList<NightBorne> list = new ArrayList<>();
 
@@ -221,7 +221,7 @@ public class HelpMethod {
                 Color color = new Color(image.getRGB(i, j));
                 int value = color.getGreen();
                 if (value == NIGHTBORNE) {
-                    NightBorne nightBorne = new NightBorne(i * Game.TILES_SIZE - (NECROMANCER_WIDTH - Game.TILES_SIZE) / 2, j * Game.TILES_SIZE - Game.TILES_SIZE / 2);
+                    NightBorne nightBorne = new NightBorne(i * Game.TILES_SIZE, (j - 1) * Game.TILES_SIZE - 25);
                     list.add(nightBorne);
                     setLevelEnemy(i, j, nightBorne);
                 }

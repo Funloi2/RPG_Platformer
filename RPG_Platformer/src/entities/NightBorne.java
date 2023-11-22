@@ -2,6 +2,7 @@ package entities;
 
 import main.Game;
 
+import static main.Game.GAME_HEIGHT;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Direction.*;
 
@@ -9,11 +10,14 @@ public class NightBorne extends Enemy {
 
     public NightBorne(float x, float y) {
         super(x, y, 80, 80, NIGHTBORNE);
-        initHitBox(20, 39);
+        initHitBox(60, 80);
         initAttackBox(90, 35);
         defense = 50;
         maxHealth = 500;
         currentHealth = maxHealth;
+        walkDir = LEFT;
+        walkSpeed = 1.9f;
+        attackDistance = (int) (1.5 * Game.TILES_SIZE);
     }
 
     public void update(int[][] lvlData, Player player) {
@@ -40,14 +44,16 @@ public class NightBorne extends Enemy {
         } else {
             switch (state) {
                 case IDLE -> {
-                    newState(RUN);
+//                    newState(RUN);
                 }
                 case RUN -> {
-                    if (canSeePlayer(lvlData, player)) {
-                        turnTowardsPlayer(player);
+                    if (player.getCurrentHealth() > 0) {
+                        if (canSeePlayer(lvlData, player)) {
+                            turnTowardsPlayer(player);
 
-                        if (isPlayerCloseForAttack(player) && player.getCurrentHealth() > 0) {
-                            newState(ATTACK);
+                            if (isPlayerCloseForAttack(player)) {
+                                newState(ATTACK);
+                            }
                         }
                     }
                     move(lvlData);
@@ -64,13 +70,22 @@ public class NightBorne extends Enemy {
         }
     }
 
+    @Override
+    protected boolean canSeePlayer(int[][] lvlData, Player player) {
+        if (playing.getDownBorder() == GAME_HEIGHT - 2 * Game.TILES_SIZE) {
+            return true;
+        }
+
+        return false;
+    }
+
     public int flipX() {
         if (walkDir == RIGHT) {
 
             return 0;
         } else {
 
-            return width;
+            return (int) (NIGHTBORNE_WIDTH + 5 * Game.SCALE);
         }
     }
 

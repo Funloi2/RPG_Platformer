@@ -154,7 +154,7 @@ public class EnemyManager {
                 g.drawImage(necromancerArr[nec.getState()][nec.getAniIndex()],
                         (int) (nec.getHitBox().x - xLvlOffset - NECROMANCER_DRAWOFFSET_X) + nec.flipX(),
                         (int) (nec.getHitBox().y - yLvlOffset - NECROMANCER_DRAWOFFSET_Y)
-                        , NECROMANCER_WIDTH * 2 * nec.flipY(), NECROMANCER_HEIGHT * 2, null);
+                        , NECROMANCER_WIDTH * nec.flipY(), NECROMANCER_HEIGHT, null);
                 nec.drawHitBox(g, xLvlOffset, yLvlOffset);
                 nec.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
@@ -164,7 +164,7 @@ public class EnemyManager {
                 g.drawImage(nightBorneArr[nb.getState()][nb.getAniIndex()],
                         (int) (nb.getHitBox().x - xLvlOffset - NIGHTBORNE_DRAWOFFSET_X) + nb.flipX(),
                         (int) (nb.getHitBox().y - yLvlOffset - NIGHTBORNE_DRAWOFFSET_Y)
-                        , 80 * nb.flipY(), 80, null);
+                        , NIGHTBORNE_WIDTH * nb.flipY(), NIGHTBORNE_HEIGHT, null);
             }
             nb.drawHitBox(g, xLvlOffset, yLvlOffset);
         }
@@ -199,60 +199,80 @@ public class EnemyManager {
 
         BufferedImage temp = null;
 
-        String[] listPath = new String[7];
-        listPath[ATTACK] = "/Attack.png";
-        listPath[ATTACK_2] = "/Attack2.png";
-        listPath[ATTACK_3] = "/Attack3.png";
-        listPath[DEATH] = "/Death.png";
-        listPath[IDLE] = "/Idle.png";
-        listPath[RUN] = "/Run.png";
-        listPath[HURT] = "/Take_Hit.png";
+        if (enemyType == NECROMANCER) {
+            temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
 
-        String[] listEnemy = new String[4];
-        listEnemy[FLYING_EYE] = "Flying_eye";
-        listEnemy[GOBLIN] = "Goblin";
-        listEnemy[MUSHROOM] = "Mushroom";
-        listEnemy[SKELETON] = "Skeleton";
+            for (int j = 0; j < returnArr.length; j++) {
+                for (int i = 0; i < returnArr[j].length; i++) {
+                    if (i < GetSpriteAmount(NECROMANCER, j))
+                        returnArr[j][i] = temp.getSubimage(i * NECROMANCER_WIDTH_DEFAULT, NECROMANCER_HEIGHT_DEFAULT * j, NECROMANCER_WIDTH_DEFAULT, NECROMANCER_HEIGHT_DEFAULT);
+                }
+            }
+            System.arraycopy(returnArr[0], 0, necromancerArr[0], 0, returnArr[0].length);
+            System.arraycopy(returnArr[1], 0, necromancerArr[1], 0, returnArr[1].length);
+            System.arraycopy(returnArr[2], 0, necromancerArr[2], 0, returnArr[2].length);
+            System.arraycopy(returnArr[3], 0, necromancerArr[5], 0, returnArr[3].length);
+            System.arraycopy(returnArr[4], 0, necromancerArr[6], 0, returnArr[4].length);
+            System.arraycopy(returnArr[5], 0, necromancerArr[3], 0, returnArr[5].length);
+            System.arraycopy(returnArr[6], 0, necromancerArr[4], 0, returnArr[6].length);
+
 
 
         if (enemyType == NECROMANCER)
             temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
-        else if (enemyType == NIGHTBORNE)
+        } else if (enemyType == NIGHTBORNE) {
+
             temp = LoadSave.GetSpriteAtlas("/ennemies/NightBorne/NightBorne.png");
 
-        for (int j = 0; j < returnArr.length; j++) {
-            if (enemyType != NECROMANCER && enemyType != NIGHTBORNE)
+            for (int j = 0; j < returnArr.length; j++) {
+                for (int i = 0; i < returnArr[j].length; i++) {
+                    if (i < GetSpriteAmount(NIGHTBORNE, j))
+                        nightBorneArr[j][i] = temp.getSubimage(i * NIGHTBORNE_WIDTH_DEFAULT, NIGHTBORNE_HEIGHT_DEFAULT * j, NIGHTBORNE_WIDTH_DEFAULT, NIGHTBORNE_HEIGHT_DEFAULT);
+                }
+            }
+
+        } else {
+            String[] listPath = new String[7];
+            listPath[ATTACK] = "/Attack.png";
+            listPath[ATTACK_2] = "/Attack2.png";
+            listPath[ATTACK_3] = "/Attack3.png";
+            listPath[DEATH] = "/Death.png";
+            listPath[IDLE] = "/Idle.png";
+            listPath[RUN] = "/Run.png";
+            listPath[HURT] = "/Take_Hit.png";
+
+            String[] listEnemy = new String[4];
+            listEnemy[FLYING_EYE] = "Flying_eye";
+            listEnemy[GOBLIN] = "Goblin";
+            listEnemy[MUSHROOM] = "Mushroom";
+            listEnemy[SKELETON] = "Skeleton";
+
+            for (int j = 0; j < returnArr.length; j++) {
                 temp = LoadSave.GetSpriteAtlas("/ennemies/" + listEnemy[enemyType] + listPath[j]);
-            for (int i = 0; i < returnArr[j].length; i++)
-                switch (enemyType) {
-                    case FLYING_EYE -> {
-                        if (i < GetSpriteAmount(FLYING_EYE, j))
-                            flyingEyeArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
-                    }
-                    case GOBLIN -> {
-                        if (i < GetSpriteAmount(GOBLIN, j))
-                            goblinArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
-                    }
-                    case MUSHROOM -> {
-                        if (i < GetSpriteAmount(MUSHROOM, j))
-                            mushroomArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
-                    }
-                    case SKELETON -> {
-                        if (i < GetSpriteAmount(SKELETON, j))
-                            skeletonArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
-                    }
-                    case NECROMANCER -> {
-                        if (i < GetSpriteAmount(NECROMANCER, j))
-                            necromancerArr[j][i] = temp.getSubimage(i * 160, 128 * j, 160, 128);
-                    }
-                    case NIGHTBORNE -> {
-                        if (i < GetSpriteAmount(NIGHTBORNE, j))
-                            nightBorneArr[j][i] = temp.getSubimage(i * 80, 80 * j, 80, 80);
-                    }
+                for (int i = 0; i < returnArr[j].length; i++)
+                    switch (enemyType) {
+                        case FLYING_EYE -> {
+                            if (i < GetSpriteAmount(FLYING_EYE, j))
+                                flyingEyeArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
+                        }
+                        case GOBLIN -> {
+                            if (i < GetSpriteAmount(GOBLIN, j))
+                                goblinArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
+                        }
+                        case MUSHROOM -> {
+                            if (i < GetSpriteAmount(MUSHROOM, j))
+                                mushroomArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
+                        }
+                        case SKELETON -> {
+                            if (i < GetSpriteAmount(SKELETON, j))
+                                skeletonArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
+                        }
                     default -> {
                     }
                 }
+            }
         }
+
     }
 
 

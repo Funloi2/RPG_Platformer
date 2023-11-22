@@ -15,7 +15,7 @@ public class Constants {
         public static final int DOWN = 3;
     }
 
-    public static class Projectiles{
+    public static class Projectiles {
         public static final int VFX1_WIDTH = (int) (Game.SCALE * 32);
         public static final int VFX1_HEIGHT = (int) (Game.SCALE * 40);
 
@@ -76,11 +76,10 @@ public class Constants {
         public static final int IDLE = 0;
         public static final int RUN = 1;
         public static final int ATTACK = 2;
-        public static final int ATTACK_2 = 3;
-        public static final int HURT = 4;
-        public static final int ATTACK_3 = 5;
-
-        public static final int DEATH = 6;
+        public static final int HURT = 3;
+        public static final int DEATH = 4;
+        public static final int ATTACK_2 = 5;
+        public static final int ATTACK_3 = 6;
 
 
         public static final int ENEMIES_WIDTH_DEFAULT = 150;
@@ -88,39 +87,38 @@ public class Constants {
 
         public static final int FLYING_EYE_WIDTH = (int) (ENEMIES_WIDTH_DEFAULT * Game.SCALE * 0.8);
         public static final int FLYING_EYE_HEIGHT = (int) (ENEMIES_HEIGHT_DEFAULT * Game.SCALE * 0.8);
-
         public static final int FLYING_EYE_DRAWOFFSET_X = (int) (57 * Game.SCALE * 0.8);
         public static final int FLYING_EYE_DRAWOFFSET_Y = (int) (61 * Game.SCALE * 0.8);
 
         public static final int GOBLIN_WIDTH = (int) (ENEMIES_WIDTH_DEFAULT * Game.SCALE);
         public static final int GOBLIN_HEIGHT = (int) (ENEMIES_HEIGHT_DEFAULT * Game.SCALE);
-
         public static final int GOBLIN_DRAWOFFSET_X = (int) (65 * Game.SCALE);
         public static final int GOBLIN_DRAWOFFSET_Y = (int) (61 * Game.SCALE);
 
         public static final int MUSHROOM_WIDTH = (int) (ENEMIES_WIDTH_DEFAULT * Game.SCALE * 0.8);
         public static final int MUSHROOM_HEIGHT = (int) (ENEMIES_HEIGHT_DEFAULT * Game.SCALE * 0.8);
-
         public static final int MUSHROOM_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
         public static final int MUSHROOM_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
 
         public static final int SKELETON_WIDTH = (int) (ENEMIES_WIDTH_DEFAULT * Game.SCALE * 0.8);
         public static final int SKELETON_HEIGHT = (int) (ENEMIES_HEIGHT_DEFAULT * Game.SCALE * 0.8);
-
         public static final int SKELETON_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
         public static final int SKELETON_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
 
-        public static final int NECROMANCER_WIDTH = (int) (160 * Game.SCALE * 0.8);
-        public static final int NECROMANCER_HEIGHT = (int) (128 * Game.SCALE * 0.8);
+        public static final int NECROMANCER_WIDTH_DEFAULT = 160;
+        public static final int NECROMANCER_HEIGHT_DEFAULT = 128;
+        public static final int NECROMANCER_WIDTH = (int) (NECROMANCER_WIDTH_DEFAULT * Game.SCALE * 1.8);
+        public static final int NECROMANCER_HEIGHT = (int) (NECROMANCER_HEIGHT_DEFAULT * Game.SCALE * 1.8);
+        public static final int NECROMANCER_DRAWOFFSET_X = (int) (125 * Game.SCALE);
+        public static final int NECROMANCER_DRAWOFFSET_Y = (int) (130 * Game.SCALE);
 
-        public static final int NECROMANCER_DRAWOFFSET_X = (int) (110 * Game.SCALE);
-        public static final int NECROMANCER_DRAWOFFSET_Y = (int) (110 * Game.SCALE);
 
-        public static final int NIGHTBORNE_WIDTH = (int) (80 * Game.SCALE * 0.8);
-        public static final int NIGHTBORNE_HEIGHT = (int) (80 * Game.SCALE * 0.8);
-
-        public static final int NIGHTBORNE_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
-        public static final int NIGHTBORNE_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
+        public static final int NIGHTBORNE_WIDTH_DEFAULT = 80;
+        public static final int NIGHTBORNE_HEIGHT_DEFAULT = 80;
+        public static final int NIGHTBORNE_WIDTH = (int) (NIGHTBORNE_WIDTH_DEFAULT * Game.SCALE * 2.5);
+        public static final int NIGHTBORNE_HEIGHT = (int) (NIGHTBORNE_HEIGHT_DEFAULT * Game.SCALE * 2.5);
+        public static final int NIGHTBORNE_DRAWOFFSET_X = (int) (73 * Game.SCALE);
+        public static final int NIGHTBORNE_DRAWOFFSET_Y = (int) (75 * Game.SCALE);
 
         public static int GetSpriteAmount(int enemy_type, int enemy_state) {
             switch (enemy_type) {
@@ -212,7 +210,7 @@ public class Constants {
                         case RUN -> {
                             return 6;
                         }
-                        case HURT-> {
+                        case HURT -> {
                             return 5;
                         }
                         case DEATH -> {

@@ -123,8 +123,15 @@ public class Enemy extends Entity {
     }
 
     protected boolean isPlayerCloseForAttack(Player player) {
-        int absValue = (int) Math.abs(player.hitBox.x - hitBox.x);
-        return absValue <= attackDistance;
+        int value;
+        if (walkDir == RIGHT)
+            value = (int) (player.hitBox.x - (hitBox.x + hitBox.width));
+        else
+            value = (int) (hitBox.x - (player.hitBox.x + player.hitBox.width));
+
+
+        return value <= attackDistance;
+
     }
 
     protected void newState(int enemyState) {

@@ -14,7 +14,7 @@ public class Necromancer extends Enemy {
     public Necromancer(float x, float y) {
         super(x, y, NECROMANCER_WIDTH, NECROMANCER_HEIGHT, NECROMANCER);
         initHitBox(38, 80);
-        initAttackBox(80, 35);
+        initAttackBox(85, 35);
         defense = 50;
         maxHealth = 500;
         currentHealth = maxHealth;
@@ -46,7 +46,7 @@ public class Necromancer extends Enemy {
         } else {
             switch (state) {
                 case IDLE -> {
-                    newState(RUN);
+//                    newState(RUN);
                 }
                 case RUN -> {
                     if (player.getCurrentHealth() > 0) {
@@ -92,7 +92,7 @@ public class Necromancer extends Enemy {
             return 0;
         } else {
 
-            return (int) (NECROMANCER_WIDTH + NECROMANCER_DRAWOFFSET_X + 20 * Game.SCALE);
+            return (NECROMANCER_WIDTH);
         }
     }
 

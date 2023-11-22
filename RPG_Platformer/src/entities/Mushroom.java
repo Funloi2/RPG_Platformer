@@ -50,11 +50,13 @@ public class Mushroom extends Enemy {
                     newState(RUN);
                 }
                 case RUN -> {
-                    if (canSeePlayer(lvlData, player)) {
-                        turnTowardsPlayer(player);
+                    if (player.getCurrentHealth() > 0) {
+                        if (canSeePlayer(lvlData, player)) {
+                            turnTowardsPlayer(player);
 
-                        if (isPlayerCloseForAttack(player) && player.getCurrentHealth() > 0) {
-                            newState(ATTACK_2);
+                            if (isPlayerCloseForAttack(player)) {
+                                newState(ATTACK_2);
+                            }
                         }
                     }
                     move(lvlData);

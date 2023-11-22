@@ -49,10 +49,6 @@ K
 src/inputs/MouseInputs.java,6\0\608e3f15975d4142c6a84eae908e9f44d3841202
 J
 src/entities/Skeleton.java,5\b\5b9015e14c19e15528be44e47d4f10dca1d57873
-J
-src/entities/Mushroom.java,c\4\c494cb431e2ef01511b22cf3fd813d8388e3a870
-K
-src/entities/FlyingEye.java,c\8\c82e69b101629f19143f003e988b554766fb6f12
 H
 src/entities/Entity.java,7\7\77408e3b0917e084a14145fce18d7cd2f7eccc2d
 P

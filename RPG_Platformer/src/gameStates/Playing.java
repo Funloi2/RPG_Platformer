@@ -204,7 +204,7 @@ public class Playing extends State implements StateMethods {
 
     private void checkBossRoom() {
         if (player.getHitBox().intersects(levelManager.getCurrentLevel().getBossRoomHitBoxBottom())) {
-            downBorder = (int) (GAME_HEIGHT - 2 * Game.TILES_SIZE);
+            downBorder = GAME_HEIGHT - 2 * Game.TILES_SIZE;
             leftBorder = 0;
 
         }
@@ -398,5 +398,9 @@ public class Playing extends State implements StateMethods {
 
     public void setLeftBorder(int leftBorder) {
         this.leftBorder = leftBorder;
+    }
+
+    public int getDownBorder() {
+        return downBorder;
     }
 }

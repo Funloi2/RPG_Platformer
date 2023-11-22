@@ -1,12 +1,15 @@
 package entities;
 
+import gameStates.Playing;
 import main.Game;
 
+import static main.Game.GAME_HEIGHT;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.Direction.*;
 import static utilz.HelpMethod.IsSightClear;
 
 public class Necromancer extends Enemy {
+
     public Necromancer(float x, float y) {
         super(x, y, NECROMANCER_WIDTH, NECROMANCER_HEIGHT, NECROMANCER);
         initHitBox(38, 80);
@@ -45,11 +48,13 @@ public class Necromancer extends Enemy {
                     newState(RUN);
                 }
                 case RUN -> {
-                    if (canSeePlayer(lvlData, player)) {
-                        turnTowardsPlayer(player);
+                    if (player.getCurrentHealth() > 0) {
+                        if (canSeePlayer(lvlData, player)) {
+                            turnTowardsPlayer(player);
 
-                        if (isPlayerCloseForAttack(player) && player.getCurrentHealth() > 0) {
-                            newState(ATTACK);
+                            if (isPlayerCloseForAttack(player)) {
+                                newState(ATTACK);
+                            }
                         }
                     }
                     move(lvlData);
@@ -68,7 +73,7 @@ public class Necromancer extends Enemy {
 
     @Override
     protected boolean canSeePlayer(int[][] lvlData, Player player) {
-        if (isPlayerInRange(player)) {
+        if (playing.getDownBorder() == GAME_HEIGHT - 2 * Game.TILES_SIZE) {
             return true;
         }
 
@@ -92,4 +97,6 @@ public class Necromancer extends Enemy {
             return -1;
         }
     }
+
+
 }

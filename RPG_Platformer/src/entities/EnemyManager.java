@@ -215,10 +215,11 @@ public class EnemyManager {
         listEnemy[SKELETON] = "Skeleton";
 
 
-        if (enemyType == NECROMANCER)
-            temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
-        else if (enemyType == NIGHTWARRIOR)
-            temp = LoadSave.GetSpriteAtlas("/ennemies/NightBorne/NightBorne.png");
+        BufferedImage tempNecro = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
+
+        BufferedImage tempNight = LoadSave.GetSpriteAtlas("/ennemies/NightBorne/NightBorne.png");
+
+        temp = LoadSave.GetSpriteAtlas("/ennemies/Skeleton/Idle.png");
 
         for (int j = 0; j < returnArr.length; j++) {
             if (enemyType != NECROMANCER && enemyType != NIGHTBORNE)
@@ -243,11 +244,11 @@ public class EnemyManager {
                     }
                     case NECROMANCER -> {
                         if (i < GetSpriteAmount(NECROMANCER, j))
-                            necromancerArr[j][i] = temp.getSubimage(i * 160, 128 * j, 160, 128);
+                            necromancerArr[j][i] = tempNecro.getSubimage(i * 160, 128 * j, 160, 128);
                     }
                     case NIGHTBORNE -> {
                         if (i < GetSpriteAmount(NIGHTBORNE, j))
-                            nightBorneArr[j][i] = temp2.getSubimage(i * 80, 80 * j, 80, 80);
+                            nightBorneArr[j][i] = tempNight.getSubimage(i * 80, 80 * j, 80, 80);
                     }
                     default -> {
                     }

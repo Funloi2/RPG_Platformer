@@ -4,6 +4,7 @@ import gameStates.Playing;
 import main.Game;
 import objects.equipment.*;
 
+import javax.swing.text.Style;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
@@ -24,7 +25,7 @@ public class Enemy extends Entity {
     protected float attackDistance = Game.TILES_SIZE;
     protected boolean active = true;
     protected boolean attackChecked;
-    private Playing playing;
+    protected Playing playing;
     private int enemyLevel = 1;
     private float enemyDropRate = 1;
     private float enemyDropRateXp = 1;
@@ -141,7 +142,7 @@ public class Enemy extends Entity {
                 aniIndex = 0;
 
                 switch (state) {
-                    case ATTACK, HURT -> state = IDLE;
+                    case ATTACK, ATTACK_2, HURT -> state = IDLE;
                     case DEATH -> active = false;
                 }
             }

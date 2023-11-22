@@ -48,11 +48,13 @@ public class Goblin extends Enemy {
                     newState(RUN);
                 }
                 case RUN -> {
-                    if (canSeePlayer(lvlData, player)) {
-                        turnTowardsPlayer(player);
+                    if (player.getCurrentHealth() > 0) {
+                        if (canSeePlayer(lvlData, player)) {
+                            turnTowardsPlayer(player);
 
-                        if (isPlayerCloseForAttack(player) && player.getCurrentHealth() > 0) {
-                            newState(ATTACK);
+                            if (isPlayerCloseForAttack(player)) {
+                                newState(ATTACK);
+                            }
                         }
                     }
                     move(lvlData);

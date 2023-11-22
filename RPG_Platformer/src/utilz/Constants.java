@@ -110,11 +110,11 @@ public class Constants {
         public static final int SKELETON_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
         public static final int SKELETON_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
 
-        public static final int NECROMANCER_WIDTH = (int) (128 * Game.SCALE * 0.8);
+        public static final int NECROMANCER_WIDTH = (int) (160 * Game.SCALE * 0.8);
         public static final int NECROMANCER_HEIGHT = (int) (128 * Game.SCALE * 0.8);
 
-        public static final int NECROMANCER_DRAWOFFSET_X = (int) (65 * Game.SCALE * 0.8);
-        public static final int NECROMANCER_DRAWOFFSET_Y = (int) (50 * Game.SCALE * 0.8);
+        public static final int NECROMANCER_DRAWOFFSET_X = (int) (110 * Game.SCALE);
+        public static final int NECROMANCER_DRAWOFFSET_Y = (int) (110 * Game.SCALE);
 
         public static final int NIGHTBORNE_WIDTH = (int) (80 * Game.SCALE * 0.8);
         public static final int NIGHTBORNE_HEIGHT = (int) (80 * Game.SCALE * 0.8);

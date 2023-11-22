@@ -9,5 +9,55 @@ I
 src/gameStates/State.java,7\9\79dfbe04647154e0fcb1dfc959cd15367388dc44
 H
 src/gameStates/Menu.java,e\d\edf4a794397c56baca273c0e45d22a711a00a088
+H
+src/main/GameWindow.java,3\3\333b3886769183cddacf16136b8b0f5d6913ac5f
+M
+src/gameStates/GameState.java,a\b\ab33758711a3f43f43143ec96b37208150470595
+F
+src/objects/Chest.java,7\3\73694557aa84b590eb7b2bdfa304574803e2eee1
+F
+src/objects/Altar.java,a\4\a428cccf8e8bba0453ed2b5cff9832273cef8b5d
+G
+src/objects/Potion.java,8\a\8a7461cd29376e1a5becdcd94cdd4e31dcddaabb
+G
+src/main/GamePanel.java,1\3\13f35e19e9b4030437bb683f84c6bf77cae0f07e
+K
+src/objects/GameObject.java,2\e\2ef40ac2497a320191cbe37825cc66c477e044f3
 P
- src/ui/overlay/AtlasOverlay.java,2\b\2b7e27768f0ef704507b68f3932a01b5dfab9a0a
+ src/objects/equipment/Armor.java,3\8\38d27c031ccf962f5cfb83c1afe9e9977234c134
+T
+$src/objects/equipment/Equipment.java,e\8\e87074866c3ddc6f50764c5f39c6a64b16def5fe
+P
+ src/objects/equipment/Boots.java,a\4\a4ea981d7ea181eedb65b58840aab71a718b575c
+P
+ src/objects/equipment/Pants.java,6\5\65c10764dcd6698ee533b6d97df8771e9f0db531
+U
+%src/objects/equipment/Chestplate.java,8\9\891ef1f7920b9421debfd9402df97d5c4274c084
+Q
+!src/objects/equipment/Helmet.java,5\b\5bfa2e2e71d30ab958f56a1fe8217749c88ab54a
+H
+src/ui/overlay/Slot.java,b\a\ba247f57e5deb4fc7ed6961277da779cef8c0dfd
+N
+src/objects/ObjectManager.java,a\1\a16583f8566c4a08a7baf3c5d140c326921ec28e
+T
+$src/ui/overlay/InventoryOverlay.java,d\5\d532d4462210b52d3436b0accc989881602965d9
+P
+ src/ui/overlay/PauseOverlay.java,1\f\1f0863b2809b25f0853ceecb4be001071792a8e4
+N
+src/inputs/KeyboardInputs.java,d\3\d3cfb204bda8e81d6cf6b22333001f1459ae70e3
+K
+src/inputs/MouseInputs.java,6\0\608e3f15975d4142c6a84eae908e9f44d3841202
+J
+src/entities/Skeleton.java,5\b\5b9015e14c19e15528be44e47d4f10dca1d57873
+H
+src/entities/Entity.java,7\7\77408e3b0917e084a14145fce18d7cd2f7eccc2d
+P
+ src/ui/button/RespawnButton.java,d\b\dba03de38a16d121fb9f9b8d6046d7b132aef155
+B
+src/main/Game.java,2\8\28c27f5f04037c4af9f0b33aeabd8b3851f24b20
+P
+ src/ui/overlay/AltarOverlay.java,2\9\29f4b00a07f9c122b5083582524f006f28d75e0e
+P
+ src/ui/button/UpgradeButton.java,9\0\90873de408aa10d5a6e04c07c8476e9afbf559bb
+O
+src/ui/button/UpgradeLabel.java,7\2\726effb21406b6e922c5dc7538bbba8bbd7ab8cf

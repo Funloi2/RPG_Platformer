@@ -154,7 +154,9 @@ public class EnemyManager {
                 g.drawImage(necromancerArr[nec.getState()][nec.getAniIndex()],
                         (int) (nec.getHitBox().x - xLvlOffset - NECROMANCER_DRAWOFFSET_X) + nec.flipX(),
                         (int) (nec.getHitBox().y - yLvlOffset - NECROMANCER_DRAWOFFSET_Y)
-                        , NECROMANCER_WIDTH * nec.flipY(), NECROMANCER_HEIGHT, null);
+                        , NECROMANCER_WIDTH * 2 * nec.flipY(), NECROMANCER_HEIGHT * 2, null);
+                nec.drawHitBox(g, xLvlOffset, yLvlOffset);
+                nec.drawAttackBox(g, xLvlOffset, yLvlOffset);
             }
         }
         for (NightBorne nb : nightBorne) {
@@ -206,16 +208,18 @@ public class EnemyManager {
         listPath[RUN] = "/Run.png";
         listPath[HURT] = "/Take_Hit.png";
 
-        String[] listEnemy = new String[6];
+        String[] listEnemy = new String[4];
         listEnemy[FLYING_EYE] = "Flying_eye";
         listEnemy[GOBLIN] = "Goblin";
         listEnemy[MUSHROOM] = "Mushroom";
         listEnemy[SKELETON] = "Skeleton";
-        listEnemy[NECROMANCER] = "Necromancer";
-        listEnemy[NIGHTBORNE] = "NightBorne";
 
-        temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
-        BufferedImage temp2 = LoadSave.GetSpriteAtlas("/ennemies/NightBorne/NightBorne.png");
+
+        if (enemyType == NECROMANCER)
+            temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
+        else if (enemyType == NIGHTWARRIOR)
+            temp = LoadSave.GetSpriteAtlas("/ennemies/NightBorne/NightBorne.png");
+
         for (int j = 0; j < returnArr.length; j++) {
             if (enemyType != NECROMANCER && enemyType != NIGHTBORNE)
                 temp = LoadSave.GetSpriteAtlas("/ennemies/" + listEnemy[enemyType] + listPath[j]);
@@ -238,7 +242,6 @@ public class EnemyManager {
                             skeletonArr[j][i] = temp.getSubimage(i * ENEMIES_WIDTH_DEFAULT, 0, ENEMIES_WIDTH_DEFAULT, ENEMIES_HEIGHT_DEFAULT);
                     }
                     case NECROMANCER -> {
-
                         if (i < GetSpriteAmount(NECROMANCER, j))
                             necromancerArr[j][i] = temp.getSubimage(i * 160, 128 * j, 160, 128);
                     }

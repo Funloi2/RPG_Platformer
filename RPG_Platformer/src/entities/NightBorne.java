@@ -44,7 +44,7 @@ public class NightBorne extends Enemy {
         } else {
             switch (state) {
                 case IDLE -> {
-//                    newState(RUN);
+                    newState(RUN);
                 }
                 case RUN -> {
                     if (player.getCurrentHealth() > 0) {

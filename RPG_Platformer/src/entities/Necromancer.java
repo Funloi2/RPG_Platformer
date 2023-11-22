@@ -15,6 +15,7 @@ public class Necromancer extends Enemy {
         maxHealth = 500;
         currentHealth = maxHealth;
         walkDir = LEFT;
+        attackDistance = Game.TILES_SIZE * 5;
     }
 
     public void update(int[][] lvlData, Player player) {
@@ -67,14 +68,10 @@ public class Necromancer extends Enemy {
 
     @Override
     protected boolean canSeePlayer(int[][] lvlData, Player player) {
-        int playerTileY = (int) (player.getHitBox().y / Game.TILES_SIZE);
-        if (playerTileY == tileY) {
-            if (isPlayerInRange(player)) {
-                if (IsSightClear(lvlData, hitBox, player.getHitBox(), tileY)) {
-                    return true;
-                }
-            }
+        if (isPlayerInRange(player)) {
+            return true;
         }
+
         return false;
     }
 

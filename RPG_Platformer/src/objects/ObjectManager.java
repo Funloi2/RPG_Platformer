@@ -10,6 +10,8 @@ import org.w3c.dom.css.Rect;
 import utilz.LoadSave;
 
 import static utilz.Constants.ObjectConstants.*;
+import static utilz.Constants.Projectiles.VFX1_HEIGHT;
+import static utilz.Constants.Projectiles.VFX1_WIDTH;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -145,7 +147,7 @@ public class ObjectManager {
             }
         }
 
-        necromancerVfx1 = LoadSave.GetSpriteAtlas(LoadSave.BOSS_EFFECTS1);
+        necromancerVfx1 = LoadSave.GetSpriteAtlas(LoadSave.BOSS_EFFECTS3);
 
 
     }
@@ -166,12 +168,17 @@ public class ObjectManager {
 
     public void update( int[][]  lvlData, Player player){
         updateProjectiles(lvlData, player);
+
     }
 
     public void updateProjectiles(int[][] lvlData, Player player){
         for (Projectile p : projectiles) {
             if (p.isActive()) {
                 p.update();
+//                if (p.getHitbox().intersects(player.getHitBox())) {
+//                    player.changeHealth(-10);
+//                    p.setActive(false);
+//                }
             }
         }
     }
@@ -180,8 +187,21 @@ public class ObjectManager {
         drawPotions(g, xLvlOffset, yLvlOffset);
         drawChests(g, xLvlOffset, yLvlOffset);
         drawEquipment(g, xLvlOffset, yLvlOffset);
+        drawProjectiles(g, xLvlOffset, yLvlOffset);
     }
 
+    public void drawProjectiles(Graphics g, int xLvlOffset, int yLvlOffset){
+        for (Projectile p : projectiles) {
+            if (p.isActive()) {
+                g.drawImage(necromancerVfx1,
+                        (int) (p.getHitbox().x - xLvlOffset),
+                        (int) (p.getHitbox().y - yLvlOffset),
+                        (int) (VFX1_WIDTH * Game.SCALE),
+                        (int) (VFX1_HEIGHT * Game.SCALE),
+                        null);
+            }
+        }
+    }
     private void drawEquipment(Graphics g, int xLvlOffset, int yLvlOffset) {
         for (Equipment equipment : equipments) {
             if (equipment.isActive())
@@ -235,4 +255,7 @@ public class ObjectManager {
 
     /// ------------------------------- GETTER AND SETTER ------------------------------- ///
 
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
+    }
 }

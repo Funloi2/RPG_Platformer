@@ -187,6 +187,7 @@ public class Playing extends State implements StateMethods {
         if (!inventory && !paused && !isAltar) {
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(), player);
             objectManager.update();
+            objectManager.update(levelManager.getCurrentLevel().getLvlData(), player);
             player.update();
             checkCloseBorder();
             altar.update();

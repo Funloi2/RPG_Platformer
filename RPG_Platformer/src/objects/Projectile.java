@@ -36,4 +36,5 @@ public class Projectile {
     public void setActive(boolean active) {
         this.active = active;
     }
+
 }

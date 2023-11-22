@@ -2,6 +2,7 @@ package entities;
 
 import gameStates.Playing;
 import main.Game;
+import objects.Projectile;
 
 import static main.Game.GAME_HEIGHT;
 import static utilz.Constants.EnemyConstants.*;
@@ -63,9 +64,14 @@ public class Necromancer extends Enemy {
                     if (aniIndex == 0) {
                         attackChecked = false;
                     }
-                    if (aniIndex == 6 && !attackChecked) {
-                        checkEnemyHit(attackBox, player);
+                    int dir = 1;
+                    if (walkDir == LEFT) {
+                        dir = -1;
                     }
+                    if (aniIndex == 6 && !attackChecked) {
+                        playing.getObjectManager().getProjectiles().add(new Projectile((int)getHitBox().x, (int)getHitBox().y, dir));
+                    }
+
                 }
             }
         }

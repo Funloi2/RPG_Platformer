@@ -197,7 +197,7 @@ public class EnemyManager {
             default -> returnArr = new BufferedImage[0][0];
         }
 
-        BufferedImage temp;
+        BufferedImage temp = null;
 
         String[] listPath = new String[7];
         listPath[ATTACK] = "/Attack.png";
@@ -217,7 +217,7 @@ public class EnemyManager {
 
         if (enemyType == NECROMANCER)
             temp = LoadSave.GetSpriteAtlas("/ennemies/Necromancer/Necromancer.png");
-        else if (enemyType == NIGHTWARRIOR)
+        else if (enemyType == NIGHTBORNE)
             temp = LoadSave.GetSpriteAtlas("/ennemies/NightBorne/NightBorne.png");
 
         for (int j = 0; j < returnArr.length; j++) {
@@ -247,7 +247,7 @@ public class EnemyManager {
                     }
                     case NIGHTBORNE -> {
                         if (i < GetSpriteAmount(NIGHTBORNE, j))
-                            nightBorneArr[j][i] = temp2.getSubimage(i * 80, 80 * j, 80, 80);
+                            nightBorneArr[j][i] = temp.getSubimage(i * 80, 80 * j, 80, 80);
                     }
                     default -> {
                     }

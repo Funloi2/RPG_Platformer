@@ -45,6 +45,7 @@ public class LoadSave {
     //Boss Effects
     public static final String BOSS_EFFECTS1 = "/ennemies/DarkVFX/DarkVFX1.png";
     public static final String BOSS_EFFECTS2 = "/ennemies/DarkVFX/DarkVFX2.png";
+    public static final String BOSS_EFFECTS3 = "/ennemies/DarkVFX/VFX11.png";
 
 
     public static BufferedImage GetSpriteAtlas(String path) {

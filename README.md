@@ -4,13 +4,13 @@ Welcome to the Java Platformer RPG project! This 2D game is designed with a Die 
 
 ## Table of Contents
 
-1. [Introduction](https://github.com/BlindCapt/RPG_Platformer#introduction)
-2. [Features](https://github.com/BlindCapt/RPG_Platformer#features)
-3. [Installation](https://github.com/BlindCapt/RPG_Platformer#installation)
-4. [How to Play](https://github.com/BlindCapt/RPG_Platformerf#how-to-play)
-5. [Game Mechanics](https://github.com/BlindCapt/RPG_Platformer#game-mechanics)
-6. [Contributing](https://github.com/BlindCapt/RPG_Platformer#contributing)
-7. [License](https://github.com/BlindCapt/RPG_Platformer#license)
+1. [Introduction](https://github.com/Funloi2/RPG_Platformer#introduction)
+2. [Features](https://github.com/Funloi2/RPG_Platformer#features)
+3. [Installation](https://github.com/Funloi2/RPG_Platformer#installation)
+4. [How to Play](https://github.com/Funloi2/RPG_Platformerf#how-to-play)
+5. [Game Mechanics](https://github.com/Funloi2/RPG_Platformer#game-mechanics)
+6. [Contributing](https://github.com/Funloi2/RPG_Platformer#contributing)
+7. [License](https://github.com/Funloi2/RPG_Platformer#license)
 
 ## Introduction
 
@@ -27,7 +27,7 @@ This Java-based platformer RPG invites players to navigate through a dynamic and
 
 1. Clone the repository to your local machine.
 
-   <code class="!whitespace-pre hljs language-bash">git clone https://github.com/BlindCapt/PlatformerGame.git</code>
+   <code class="!whitespace-pre hljs language-bash">git clone https://github.com/Funloi2/PlatformerGame.git</code>
    </code></div></div></pre>
 2. Open the project in your favorite Java IDE.
 3. Build and run the game.

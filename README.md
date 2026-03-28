@@ -31,6 +31,7 @@ This Java-based platformer RPG invites players to navigate through a dynamic and
    </code></div></div></pre>
 2. Open the project in your favorite Java IDE.
 3. Build and run the game.
+4. You can also download the .jar file here https://drive.google.com/file/d/1WHZXI6WYPdwv27lxpZM_tIZny3FsH54f/view?usp=sharing
 
 ## How to Play
 
@@ -65,3 +66,4 @@ Contributions are welcome! Whether you're a Java expert, game designer, or have 
 This project is licensed under the [MIT License](https://en.wikipedia.org/wiki/MIT_License), which means you are free to use, modify, and distribute the code.
 
 Happy gaming! 🎮
+
